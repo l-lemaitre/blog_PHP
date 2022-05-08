@@ -6,8 +6,8 @@
 # https://github.com/sequelpro/sequelpro
 #
 # Host: 127.0.0.1 (MySQL 5.7.37-0ubuntu0.18.04.1-log)
-# Database: blog_llemaitre
-# Generation Time: 2022-05-01 16:00:47 +0000
+# Database: blog_php
+# Generation Time: 2022-05-08 15:05:08 +0000
 # ************************************************************
 
 
@@ -70,16 +70,17 @@ DROP TABLE IF EXISTS `comment`;
 
 CREATE TABLE `comment` (
   `id_comment` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
   `article_id` int(11) NOT NULL,
-  `email_author` varchar(255) NOT NULL,
-  `is_admin` tinyint(1) NOT NULL,
   `contents` text NOT NULL,
   `approved` tinyint(1) NOT NULL,
   `date_add` datetime NOT NULL,
   `date_updated` datetime NOT NULL,
   PRIMARY KEY (`id_comment`),
   KEY `article_id` (`article_id`),
-  CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`article_id`) REFERENCES `article` (`id_article`)
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`article_id`) REFERENCES `article` (`id_article`),
+  CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id_user`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
@@ -96,6 +97,7 @@ CREATE TABLE `user` (
   `password` varchar(255) DEFAULT '',
   `lastname` varchar(255) NOT NULL,
   `firstname` varchar(255) NOT NULL,
+  `is_admin` tinyint(1) NOT NULL,
   `registration_date` datetime NOT NULL,
   PRIMARY KEY (`id_user`),
   UNIQUE KEY `email` (`email`)
