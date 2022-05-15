@@ -1,0 +1,675 @@
+@charset "UTF-8";
+/* CSS GLOBAL Document */
+
+/* La règle @ @font-face permet de définir la police d'écriture "Montserrat-Regular" à utiliser 
+pour afficher le texte des pages web */
+@font-face {
+   font-family: "Montserrat-Regular";
+   src: url("/blog_php/public/webfonts/Montserrat-Regular/Montserrat-Regular.eot");
+   src: url("/blog_php/public/webfonts/Montserrat-Regular/Montserrat-Regular.eot?#iefix") format("embedded-opentype"),
+      url("/blog_php/public/webfonts/Montserrat-Regular/Montserrat-Regular.otf") format("opentype"),
+      url("/blog_php/public/webfonts/Montserrat-Regular/Montserrat-Regular.svg") format("svg"),
+      url("/blog_php/public/webfonts/Montserrat-Regular/Montserrat-Regular.ttf") format("truetype"),
+      url("/blog_php/public/webfonts/Montserrat-Regular/Montserrat-Regular.woff") format("woff"),
+      url("/blog_php/public/webfonts/Montserrat-Regular/Montserrat-Regular.woff2") format("woff2");
+   font-weight: normal;
+   font-style: normal;
+}
+
+@font-face {
+   font-family: "Russo One";
+   src: url("/blog_php/public/webfonts/RussoOne-Regular/RussoOne-Regular.eot");
+   src: url("/blog_php/public/webfonts/RussoOne-Regular/RussoOne-Regular.eot?#iefix") format("embedded-opentype"),
+      url("/blog_php/public/webfonts/RussoOne-Regular/RussoOne-Regular.otf") format("opentype"),
+      url("/blog_php/public/webfonts/RussoOne-Regular/RussoOne-Regular.svg") format("svg"),
+      url("/blog_php/public/webfonts/RussoOne-Regular/RussoOne-Regular.ttf") format("truetype"),
+      url("/blog_php/public/webfonts/RussoOne-Regular/RussoOne-Regular.woff") format("woff"),
+      url("/blog_php/public/webfonts/RussoOne-Regular/RussoOne-Regular.woff2") format("woff2");
+   font-weight: normal;
+   font-style: normal;
+}
+
+@font-face {
+   font-family: "Wallpoet";
+   src: url("/blog_php/public/webfonts/Wallpoet-Regular/Wallpoet-Regular.eot");
+   src: url("/blog_php/public/webfonts/Wallpoet-Regular/Wallpoet-Regular.eot?#iefix") format("embedded-opentype"),
+      url("/blog_php/public/webfonts/Wallpoet-Regular/Wallpoet-Regular.otf") format("opentype"),
+      url("/blog_php/public/webfonts/Wallpoet-Regular/Wallpoet-Regular.svg") format("svg"),
+      url("/blog_php/public/webfonts/Wallpoet-Regular/Wallpoet-Regular.ttf") format("truetype"),
+      url("/blog_php/public/webfonts/Wallpoet-Regular/Wallpoet-Regular.woff") format("woff"),
+      url("/blog_php/public/webfonts/Wallpoet-Regular/Wallpoet-Regular.woff2") format("woff2");
+   font-weight: normal;
+   font-style: normal;
+}
+
+@font-face {
+   font-family: "Roboto";
+   src: url("/blog_php/public/webfonts/Roboto-Regular/Roboto-Regular.eot");
+   src: url("/blog_php/public/webfonts/Roboto-Regular/Roboto-Regular.eot?#iefix") format("embedded-opentype"),
+      url("/blog_php/public/webfonts/Roboto-Regular/Roboto-Regular.otf") format("opentype"),
+      url("/blog_php/public/webfonts/Roboto-Regular/Roboto-Regular.svg") format("svg"),
+      url("/blog_php/public/webfonts/Roboto-Regular/Roboto-Regular.ttf") format("truetype"),
+      url("/blog_php/public/webfonts/Roboto-Regular/Roboto-Regular.woff") format("woff"),
+      url("/blog_php/public/webfonts/Roboto-Regular/Roboto-Regular.woff2") format("woff2");
+   font-weight: normal;
+   font-style: normal;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+   /* Position */
+   /* Affichage */
+   margin: 0 auto;
+   line-height: 1.15;
+   /* Texte */
+   font-family: sans-serif;
+   font-size: 62.5%;
+   /* Décoration */
+}
+
+body {
+	position: relative;
+
+   font-family: "Montserrat-Regular", sans-serif;
+   font-size: 1.4rem;
+   font-weight: 500;
+   text-align: left;
+}
+
+/* Navmenu */
+.navbar {
+	font-family: "Russo One", sans-serif;
+
+   background-color: indigo !important;
+
+   .logoTitle {
+      text-decoration: none;
+
+      .logo {
+         display: none;
+      }
+
+      .title {
+         margin: 0 0.5rem 0 1rem;
+         line-height: 3.5rem;
+
+         font-family: "Roboto", sans-serif;
+         font-size: 1.5em;
+         font-weight: 500;
+
+         color: rgb(255, 255, 255) !important;
+      }
+   }
+
+	.navbar-toggler {
+	   margin-left: -0.5rem;
+	}
+
+	.navbar-toggler-icon {
+	   height: 3rem !important;
+	   width: 3rem !important;
+	}
+
+	div {
+	   line-height: 2.5;
+	}
+
+	.navbar-nav .nav-link {
+	   padding-right: 1.2rem !important;
+	   padding-left: 1.2rem !important;
+
+	   color: rgb(255, 255, 255);
+	}
+
+	.navbar-nav .show > .nav-link, .navbar-nav .nav-link.active {
+	   color: rgba(255, 255, 255, 0.6);
+	}
+
+   .contact {
+      color: rgba(255, 255, 255, 0.6) !important;
+   }
+
+   .navbar-nav-scroll {
+      max-height: 64vh !important;
+   }
+}
+
+/* INDEX.HTML */
+/* MAIN CONTENT */
+section {
+   display: flex;
+   align-items: center;
+   padding-left: 1rem;
+   padding-right: 1rem;
+   padding-top: 8rem;
+   padding-bottom: 8rem;
+}
+
+section .section-content {
+   width: 100%;
+
+   .logo {
+      margin: -1.5rem 0 -0.5rem;
+
+      text-align: center;
+
+      img {
+         height: 8rem;
+      }
+   }
+
+   p {
+      white-space: pre-line;
+   }
+
+   picture img {
+      height: 9rem;
+      margin: 2rem 0;
+   }
+}
+
+h1 {
+   margin-top: 2.5rem;
+
+   font-size: 3rem;
+}
+
+h3 {
+   font-size: calc(1.325rem + 0.9vw);
+}
+
+.text-primary {
+   font-family: "Wallpoet", sans-serif;
+
+   color: indigo !important;
+}
+
+.subheading {
+   font-family: "Roboto", sans-serif;
+   font-size: 1.5rem;
+   font-weight: 500;
+   text-transform: uppercase;
+
+   a {
+      text-decoration: none;
+
+      color: indigo !important;
+   }
+
+   a:hover {
+      text-decoration: underline;
+      text-underline-offset: 0.2rem;
+
+      color: rgb(133, 64, 245) !important;
+   }
+}
+
+a i {
+   font-size: 3rem;
+}
+
+a i:hover {
+   color: rgb(133, 64, 245) !important;
+}
+
+h2 {
+   font-family: "Wallpoet", sans-serif;
+   font-size: 2.5rem;
+
+   color: indigo !important;
+}
+
+.fa-ul {
+   margin-left: 2.5rem;
+
+   li {
+      margin: 1rem auto;
+   }
+
+   li:last-child {
+      margin-bottom: 0.5rem;
+   }
+
+   .fa-minus {
+      font-size: 1.25rem;
+   }
+}
+
+i {
+   font-size: 1.5rem;
+
+   color: indigo !important;
+}
+
+.exp-flex {
+   flex-direction: column-reverse !important;
+
+   .date-local {
+      margin-top: initial;
+      margin-bottom: 1rem;
+   }
+}
+
+.date-local {
+   margin-top: 1rem;
+
+   font-size: calc(1.3rem + 0.6vw);
+
+   span ~ span {
+      margin-left: 0.5rem;
+   }
+}
+
+/* FOOTER */
+footer {
+   padding-bottom: 1rem;
+   line-height: initial;
+   z-index: 1029 !important;
+
+   font-family: "Russo One", sans-serif;
+   font-size: 1.3rem;
+   text-align: center;
+
+   color: rgb(255, 255, 255);
+   background-color: indigo;
+
+   .mentionsLegales {
+      padding-top: 1.5rem;
+
+      p {
+         margin-bottom: 0.8rem;
+         a {
+            text-decoration: underline;
+            text-underline-offset: 0.2rem;
+            
+            color: rgb(255, 255, 255);
+         }
+
+         a:hover {
+            text-decoration: none;
+
+            color: rgba(255, 255, 255, 0.6);
+         }
+      }
+   }
+}
+
+/* PAGE-INTROUVABLE.HTML */
+// BREADCRUMB
+.filAriane {
+   padding: 0.5rem 0 2rem;
+   margin: 5.2rem auto 3rem -1.8rem;
+
+   font-size: 1.2rem;
+   font-weight: 100;
+   
+   background-color: rgb(250, 250, 250);
+
+   ul {
+      max-width: 120rem;
+      margin-left: auto;
+      margin-right: auto;
+
+      li {
+          float: left;
+          position: relative;
+
+          margin-right: 2.4rem;
+
+         list-style: none;
+
+         a {
+            text-decoration: none;
+            
+            color: rgb(33, 37, 41);
+         }
+
+         .home::before {
+            padding-right: 0.5rem;
+
+            font-family: "Font Awesome 5 Free";
+            font-size: 1.3rem;
+            font-weight: 900;
+
+            content: "\F3E5";
+         }
+      }
+
+      .titreFil300 {
+         display: none;
+      }
+   }
+
+   ul li a::after {
+      position: absolute;
+      right: -1.5rem;
+
+      color: #333;
+
+      content: "/";
+   }
+
+   ul li a:hover {
+      color: rgb(133, 64, 245);
+   }
+}
+
+/* MAIN CONTENT */
+.containerErreur404 {
+	max-width: 115rem;
+	margin: 0 auto;
+	padding: 0 0.5rem;
+
+	div {
+		padding-top: 6.5rem;
+
+		text-align: center;
+
+		img {
+			max-height: 15rem;
+			vertical-align: baseline;
+		}
+
+		h2 {
+			font-size: 2rem;
+			font-weight: 400;
+		}
+	}
+}
+
+/* PAGE CONTACT.PHP */
+// MAIN CONTENT
+.containerContact {
+   max-width: 115rem;
+   margin: 0 auto 9.5rem;
+   padding: 0.5rem;
+
+   text-align: center;
+
+   h5 {
+      position: relative;
+
+      display: table;
+      width: 100%;
+      max-width: 57rem;
+      margin: 1rem auto 3.5rem;
+
+      span {
+         position: relative;
+
+         display: table;
+         margin: 0 auto -1.2rem;
+         padding: 0 1.5rem;
+         z-index: 1;
+
+         font-family: "Wallpoet", sans-serif;
+         font-size: 2.1rem;
+         font-weight: bold;
+         text-transform: uppercase;
+
+         color: indigo;
+         background-color: rgb(255, 255, 255);
+      }
+   }
+
+   h5::after {
+      display: block;
+      margin-top: -1rem;
+
+      content: "";
+      border-top: 1px solid rgb(221, 221, 221);
+   }
+
+   form {
+      input {
+         height: 3rem;
+         width: 30%;
+         margin: 1.5rem 0 1rem;
+         padding-left: 0.5rem;
+
+         border-radius: 2px;
+         border: 1px solid #d2d2d2;
+      }
+
+      input::placeholder {
+         font-style: italic;
+      }
+      
+      .sujet {
+         width: 60.3%;
+         margin-top: 2rem;
+      }
+
+      textarea {
+         width: 60.3%;
+         margin: 2rem 0 1rem;
+         padding: 0.5rem;
+
+         border-radius: 2px;
+         border: 1px solid #d2d2d2;
+      }
+
+      textarea::placeholder {
+         font-style: italic;
+      }
+
+      .btnMsg {
+         height: 2.8rem;
+         margin: 2rem 0 0.5rem;
+         padding: 0 1.5rem;
+         line-height: 2.6rem;
+
+         font-size: 1.2rem;
+         text-transform: uppercase;
+
+         color: #ffffff;
+         background-color: #C0C0C0;
+         border: none;
+         border-radius: 3px;
+         transition-duration: 0.2s;
+      }
+
+      .btnMsg:hover {
+         color: #ffffff;
+         background-color: rgb(133, 64, 245);
+         cursor: pointer;
+      }
+
+      p {
+         margin: 1rem auto 0.5rem;
+
+         color: rgb(255, 0, 0);
+      }
+
+      .msgErreur {
+         margin-top: 1.5rem;
+
+         color: rgb(255, 0, 0);
+      }
+
+      .msgValid {
+         margin-top: 1.5rem;
+         white-space: pre-line;
+
+         color: rgb(0, 128, 0);
+      }
+
+   }
+}
+
+@media (min-width: 576px) {
+   /* MAIN CONTENT */
+   section .section-content picture img {
+      margin: initial;
+   }
+
+	/* PAGE-INTROUVABLE.HTML */
+	/* MAIN CONTENT */
+	.containerErreur404 div {
+      height: 23.8rem;
+      margin-top: -3rem;
+		padding-top: initial;
+	}
+}
+
+@media (min-width: 992px) {
+   .container-lg, .container-md, .container-sm, .container {
+      max-width: 960px;
+   }
+
+   body {
+   font-size: 1.6rem;
+   }
+
+   /* Navmenu */
+   .navbar .logoTitle {
+      .logo {
+         display: initial;
+      }
+
+      .title {
+         display: none;
+      }
+   }
+
+   /* MAIN CONTENT */
+   section {
+      display: flex;
+      min-height: 60rem;
+      align-items: center;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      padding-top: 10rem;
+      padding-bottom: 10rem;
+   }
+
+   section:last-child {
+      min-height: 51rem;
+      padding-top: initial;
+      padding-bottom: initial;
+   }
+
+   section .section-content {
+      .logo {
+         margin: 2rem 0;
+
+         img {
+            height: 9rem;
+         }
+      }
+
+      picture img {
+         height: 12rem;
+      }
+   }
+
+   h1 {
+      font-size: 5rem;
+   }
+
+   h2 {
+      font-size: 4rem;
+   }
+
+   h3 {
+      font-size: 2rem;
+   }
+
+   .fa-ul {
+      margin-left: 3.5em;
+
+      li {
+         margin: initial;
+      }
+
+      li:last-child {
+         margin-bottom: initial;
+      }
+
+      i {
+         margin-right: 1.3rem;
+
+         font-size: 2rem;
+      }
+   }
+
+   .exp-flex {
+      flex-direction: row !important;
+   }
+
+   .date-local {
+      width: 15.5rem;
+      margin: initial;
+
+      font-size: 1.75rem;
+
+      span ~ span {
+         display: block;
+         margin-top: -0.5rem;
+         margin-left: initial;
+      }
+
+      .local-form1 {
+         margin-top: 2.9rem;
+      }
+
+      .local-form2 {
+         margin-top: 0.7rem;
+      }
+   }
+
+   /* FOOTER */
+   footer {
+      line-height: 2.4rem;
+
+      font-size: 1.5rem;
+
+      .mentionsLegales {
+         padding-top: 2rem;
+      }
+   }
+
+	/* PAGE-INTROUVABLE.HTML */
+   // BREADCRUMB
+   .filAriane {
+      padding: 1rem 1.5rem 2.5rem;
+      margin: 6.4rem auto 4rem;
+   }
+
+	/* MAIN CONTENT */
+	.containerErreur404 {
+		div {
+			padding-top: 11rem;
+
+			h2 {
+				font-size: 2.5rem;
+			}
+		}
+	}
+
+   /* PAGE CONTACT.PHP */
+   // MAIN CONTENT
+   .containerContact h5 {
+      margin: 1rem auto 4.5rem;
+   }
+}
+
+@media (min-height: 1024px) {
+	/* PAGE-INTROUVABLE.HTML */
+	/* MAIN CONTENT */
+	.containerErreur404 div {
+		padding-top: 11rem;
+		//padding-bottom: 7.5rem;
+	}
+}
+
+@media (min-width: 1200px) {
+	/* PAGE-INTROUVABLE.HTML */
+	/* MAIN CONTENT */
+	.containerErreur404 div {
+		padding-top: 14.5rem;
+	}
+}
