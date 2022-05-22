@@ -1,3 +1,4 @@
 /cache/twig/
 /.idea/
+/vendor/
 /public/css/.sass-cache/
