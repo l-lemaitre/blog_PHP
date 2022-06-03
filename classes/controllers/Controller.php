@@ -1,17 +1,13 @@
 <?php
-    namespace App\Classes;
+    namespace App\Classes\Controllers;
 
-    class HomeController
-    {
-        public function displayHomePage()
-        {
-            require_once 'vendor/autoload.php';
-
+    class Controller {
+        protected function render($file) {
             $loader = new \Twig\Loader\FilesystemLoader('views/templates/front');
             $twig = new \Twig\Environment($loader, [
                 'cache' => 'cache/twig',
             ]);
 
-            echo $twig->render('index.html.twig');
+            echo $twig->render($file);
         }
     }

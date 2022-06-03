@@ -1,0 +1,14 @@
+# If source file "mod_rewrite.c" exists
+<IfModule mod_rewrite.c>
+    # Allow to rename pages
+    RewriteEngine on
+
+    # We create the redirection to our index.php file which uses the router
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+
+	# We redirect external requests containing the .php extension by removing the extension from the URL
+	RewriteCond %{REQUEST_FILENAME} -f
+	RewriteCond %{THE_REQUEST} ^(.+)\.php [NC]
+	RewriteRule ^(.+)\.php$ /blog_php/$1 [R=301,L]
+</IfModule>
