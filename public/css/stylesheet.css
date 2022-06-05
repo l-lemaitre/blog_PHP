@@ -84,6 +84,9 @@ body {
 
 /* INDEX.HTML */
 /* MAIN CONTENT */
+.container {
+  margin-bottom: 11rem; }
+
 section {
   display: flex;
   align-items: center;
@@ -167,6 +170,7 @@ i {
 
 /* FOOTER */
 footer {
+  margin-top: 5rem;
   padding-bottom: 1rem;
   line-height: initial;
   z-index: 1029 !important;
@@ -212,7 +216,7 @@ footer {
         font-size: 1.3rem;
         font-weight: 900;
         content: "\F3E5"; }
-    .filAriane ul .titreFil300 {
+    .filAriane ul .titreFil {
       display: none; }
   .filAriane ul li a::after {
     position: absolute;
@@ -408,6 +412,10 @@ footer {
   .filAriane {
     padding: 1rem 1.5rem 2.5rem;
     margin: 6.4rem auto 4rem; }
+    .filAriane ul .titreFil {
+      display: initial; }
+    .filAriane ul .titreFil300 {
+      display: none; }
 
   /* MAIN CONTENT */
   .containerErreur404 div {

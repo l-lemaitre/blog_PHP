@@ -144,6 +144,10 @@ body {
 
 /* INDEX.HTML */
 /* MAIN CONTENT */
+.container {
+   margin-bottom: 11rem;
+}
+
 section {
    display: flex;
    align-items: center;
@@ -270,6 +274,7 @@ i {
 
 /* FOOTER */
 footer {
+   margin-top: 5rem;
    padding-bottom: 1rem;
    line-height: initial;
    z-index: 1029 !important;
@@ -343,7 +348,7 @@ footer {
          }
       }
 
-      .titreFil300 {
+      .titreFil {
          display: none;
       }
    }
@@ -647,6 +652,16 @@ footer {
    .filAriane {
       padding: 1rem 1.5rem 2.5rem;
       margin: 6.4rem auto 4rem;
+
+      ul {
+         .titreFil {
+            display: initial;
+         }
+
+         .titreFil300 {
+            display: none;
+         }
+      }
    }
 
 	/* MAIN CONTENT */
