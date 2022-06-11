@@ -1,8 +1,7 @@
 @charset "UTF-8";
 /* CSS GLOBAL Document */
 
-/* La règle @ @font-face permet de définir la police d'écriture "Montserrat-Regular" à utiliser 
-pour afficher le texte des pages web */
+/* The @ @font-face rule defines the "Montserrat-Regular" font to use to display the text of web pages */
 @font-face {
    font-family: "Montserrat-Regular";
    src: url("/blog_php/public/webfonts/Montserrat-Regular/Montserrat-Regular.eot");
@@ -286,7 +285,7 @@ footer {
    color: rgb(255, 255, 255);
    background-color: indigo;
 
-   .mentionsLegales {
+   .legalNotice {
       padding-top: 1.5rem;
 
       p {
@@ -296,6 +295,7 @@ footer {
             text-underline-offset: 0.2rem;
             
             color: rgb(255, 255, 255);
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
          }
 
          a:hover {
@@ -307,9 +307,9 @@ footer {
    }
 }
 
-/* PAGE-INTROUVABLE.HTML */
+/* PAGE ERROR.HTML.TWIG */
 // BREADCRUMB
-.filAriane {
+.breadcrumbs {
    padding: 0.5rem 0 2rem;
    margin: 5.2rem auto 3rem -1.8rem;
 
@@ -348,7 +348,7 @@ footer {
          }
       }
 
-      .titreFil {
+      .threadTitle {
          display: none;
       }
    }
@@ -368,7 +368,7 @@ footer {
 }
 
 /* MAIN CONTENT */
-.containerErreur404 {
+.containerError404 {
 	max-width: 115rem;
 	margin: 0 auto;
 	padding: 0 0.5rem;
@@ -494,7 +494,7 @@ footer {
          color: rgb(255, 0, 0);
       }
 
-      .msgErreur {
+      .msgError {
          margin-top: 1.5rem;
 
          color: rgb(255, 0, 0);
@@ -516,9 +516,9 @@ footer {
       margin: initial;
    }
 
-	/* PAGE-INTROUVABLE.HTML */
+	/* PAGE ERROR.HTML.TWIG */
 	/* MAIN CONTENT */
-	.containerErreur404 div {
+	.containerError404 div {
       height: 23.8rem;
       margin-top: -3rem;
 		padding-top: initial;
@@ -642,30 +642,30 @@ footer {
 
       font-size: 1.5rem;
 
-      .mentionsLegales {
+      .legalNotice {
          padding-top: 2rem;
       }
    }
 
-	/* PAGE-INTROUVABLE.HTML */
+	/* PAGE ERROR.HTML.TWIG */
    // BREADCRUMB
-   .filAriane {
+   .breadcrumbs {
       padding: 1rem 1.5rem 2.5rem;
       margin: 6.4rem auto 4rem;
 
       ul {
-         .titreFil {
+         .threadTitle {
             display: initial;
          }
 
-         .titreFil300 {
+         .threadTitle300 {
             display: none;
          }
       }
    }
 
 	/* MAIN CONTENT */
-	.containerErreur404 {
+	.containerError404 {
 		div {
 			padding-top: 11rem;
 
@@ -683,18 +683,18 @@ footer {
 }
 
 @media (min-height: 1024px) {
-	/* PAGE-INTROUVABLE.HTML */
+	/* PAGE ERROR.HTML.TWIG */
 	/* MAIN CONTENT */
-	.containerErreur404 div {
+	.containerError404 div {
 		padding-top: 11rem;
 		//padding-bottom: 7.5rem;
 	}
 }
 
 @media (min-width: 1200px) {
-	/* PAGE-INTROUVABLE.HTML */
+	/* PAGE ERROR.HTML.TWIG */
 	/* MAIN CONTENT */
-	.containerErreur404 div {
+	.containerError404 div {
 		padding-top: 14.5rem;
 	}
 }

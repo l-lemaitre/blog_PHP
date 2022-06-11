@@ -3,7 +3,7 @@
 
     use \PDO;
 
-    class DatabaseConnection {
+    class DataBaseConnection {
         // We declare our attributes and we initialize them (except _connexion) by assigning them the following values
         private $_host = "localhost";
         private $_name = "blog_php";
@@ -11,8 +11,10 @@
         private $_pass = "password";
         private $_connexion;
 
-        // We declare the constructor method to initialize the following attributes as soon as the $bdd object is created (line ??)
-        public function __construct($_host = NULL, $_name = NULL, $_user = NULL, $_pass = NULL) {
+        private static $obj;
+
+        // We declare the constructor method to initialize the following attributes as soon as the $bdd object is created
+        private final function __construct($_host = NULL, $_name = NULL, $_user = NULL, $_pass = NULL) {
             if($_host != NULL){
                 $this->_host = $_host;
                 $this->_name = $_name;
@@ -30,7 +32,15 @@
                 echo "Erreur : Impossible de se connecter à la base de données.";
                 die();
             }
-        }   
+        }
+
+        public static function getConnect() {
+            if (!isset(self::$obj)) {
+                self::$obj = new DataBaseConnection();
+            }
+
+            return self::$obj;
+        }
 
         // We declare the query method which will serve as an accessor to display the database data
         public function query($sql, $data = array()) {
@@ -45,6 +55,3 @@
             $query->execute($data);
         }
     }
-  
-    // We create the $bdd object by instantiating the BddConnection class
-    $bdd = new DatabaseConnection;

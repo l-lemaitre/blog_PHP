@@ -1,7 +1,6 @@
 @charset "UTF-8";
 /* CSS GLOBAL Document */
-/* La règle @ @font-face permet de définir la police d'écriture "Montserrat-Regular" à utiliser 
-pour afficher le texte des pages web */
+/* The @ @font-face rule defines the "Montserrat-Regular" font to use to display the text of web pages */
 @font-face {
   font-family: "Montserrat-Regular";
   src: url("/blog_php/public/webfonts/Montserrat-Regular/Montserrat-Regular.eot");
@@ -179,65 +178,66 @@ footer {
   text-align: center;
   color: white;
   background-color: indigo; }
-  footer .mentionsLegales {
+  footer .legalNotice {
     padding-top: 1.5rem; }
-    footer .mentionsLegales p {
+    footer .legalNotice p {
       margin-bottom: 0.8rem; }
-      footer .mentionsLegales p a {
+      footer .legalNotice p a {
         text-decoration: underline;
         text-underline-offset: 0.2rem;
-        color: white; }
-      footer .mentionsLegales p a:hover {
+        color: white;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out; }
+      footer .legalNotice p a:hover {
         text-decoration: none;
         color: rgba(255, 255, 255, 0.6); }
 
-/* PAGE-INTROUVABLE.HTML */
-.filAriane {
+/* PAGE ERROR.HTML.TWIG */
+.breadcrumbs {
   padding: 0.5rem 0 2rem;
   margin: 5.2rem auto 3rem -1.8rem;
   font-size: 1.2rem;
   font-weight: 100;
   background-color: #fafafa; }
-  .filAriane ul {
+  .breadcrumbs ul {
     max-width: 120rem;
     margin-left: auto;
     margin-right: auto; }
-    .filAriane ul li {
+    .breadcrumbs ul li {
       float: left;
       position: relative;
       margin-right: 2.4rem;
       list-style: none; }
-      .filAriane ul li a {
+      .breadcrumbs ul li a {
         text-decoration: none;
         color: #212529; }
-      .filAriane ul li .home::before {
+      .breadcrumbs ul li .home::before {
         padding-right: 0.5rem;
         font-family: "Font Awesome 5 Free";
         font-size: 1.3rem;
         font-weight: 900;
         content: "\F3E5"; }
-    .filAriane ul .titreFil {
+    .breadcrumbs ul .threadTitle {
       display: none; }
-  .filAriane ul li a::after {
+  .breadcrumbs ul li a::after {
     position: absolute;
     right: -1.5rem;
     color: #333;
     content: "/"; }
-  .filAriane ul li a:hover {
+  .breadcrumbs ul li a:hover {
     color: #8540f5; }
 
 /* MAIN CONTENT */
-.containerErreur404 {
+.containerError404 {
   max-width: 115rem;
   margin: 0 auto;
   padding: 0 0.5rem; }
-  .containerErreur404 div {
+  .containerError404 div {
     padding-top: 6.5rem;
     text-align: center; }
-    .containerErreur404 div img {
+    .containerError404 div img {
       max-height: 15rem;
       vertical-align: baseline; }
-    .containerErreur404 div h2 {
+    .containerError404 div h2 {
       font-size: 2rem;
       font-weight: 400; }
 
@@ -309,7 +309,7 @@ footer {
   .containerContact form p {
     margin: 1rem auto 0.5rem;
     color: red; }
-  .containerContact form .msgErreur {
+  .containerContact form .msgError {
     margin-top: 1.5rem;
     color: red; }
   .containerContact form .msgValid {
@@ -322,9 +322,9 @@ footer {
   section .section-content picture img {
     margin: initial; }
 
-  /* PAGE-INTROUVABLE.HTML */
+  /* PAGE ERROR.HTML.TWIG */
   /* MAIN CONTENT */
-  .containerErreur404 div {
+  .containerError404 div {
     height: 23.8rem;
     margin-top: -3rem;
     padding-top: initial; } }
@@ -405,36 +405,36 @@ footer {
   footer {
     line-height: 2.4rem;
     font-size: 1.5rem; }
-    footer .mentionsLegales {
+    footer .legalNotice {
       padding-top: 2rem; }
 
-  /* PAGE-INTROUVABLE.HTML */
-  .filAriane {
+  /* PAGE ERROR.HTML.TWIG */
+  .breadcrumbs {
     padding: 1rem 1.5rem 2.5rem;
     margin: 6.4rem auto 4rem; }
-    .filAriane ul .titreFil {
+    .breadcrumbs ul .threadTitle {
       display: initial; }
-    .filAriane ul .titreFil300 {
+    .breadcrumbs ul .threadTitle300 {
       display: none; }
 
   /* MAIN CONTENT */
-  .containerErreur404 div {
+  .containerError404 div {
     padding-top: 11rem; }
-    .containerErreur404 div h2 {
+    .containerError404 div h2 {
       font-size: 2.5rem; }
 
   /* PAGE CONTACT.PHP */
   .containerContact h5 {
     margin: 1rem auto 4.5rem; } }
 @media (min-height: 1024px) {
-  /* PAGE-INTROUVABLE.HTML */
+  /* PAGE ERROR.HTML.TWIG */
   /* MAIN CONTENT */
-  .containerErreur404 div {
+  .containerError404 div {
     padding-top: 11rem; } }
 @media (min-width: 1200px) {
-  /* PAGE-INTROUVABLE.HTML */
+  /* PAGE ERROR.HTML.TWIG */
   /* MAIN CONTENT */
-  .containerErreur404 div {
+  .containerError404 div {
     padding-top: 14.5rem; } }
 
 /*# sourceMappingURL=stylesheet.css.map */

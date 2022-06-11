@@ -3,20 +3,20 @@
 {% block title %}Article {{ post.title|e }}{% endblock %}
 {% block content %}
    <!-- BREADCRUMB -->
-   <nav class="filAriane">
+   <nav class="breadcrumbs">
       <ul>
          <li><a href="/blog_php" class="home">Accueil</a></li>
          <li><a href="/blog_php/articles">Articles</a></li>
-         <li class="titreFil">Article {{ post.title|e }}</li>
-         <li class="titreFil300" title="Article {{ post.title|e }}">Article {{ post.title|slice(0, 10) }}...</li>
+         <li class="threadTitle">Article {{ post.title|e }}</li>
+         <li class="threadTitle300" title="Article {{ post.title|e }}">Article {{ post.title|slice(0, 10) }}...</li>
       </ul>
    </nav>
    <!-- MAIN CONTENT -->
    <div class="container">
-      <div class="flex-column mx-auto text-center">
-         <h2>{{ post.title|e }}</h2>
-         <p class="mb-5">{{ post.chapo|e }}</p>
-         <p>{{ post.contents|e }}</p>
+      <div class="flex-column mx-auto">
+         <h2 class="text-center">{{ post.title|e }}</h2>
+         <p class="mb-5 text-center">{{ post.chapo|e }}</p>
+         <p>{{ post.contents|nl2br }}</p>
          <p class="mt-5 text-end">{{ author.username|e }}</p>
          <p class="text-end">{{ post.date_updated|date("d/m/Y H:i") }}</p>
       </div>

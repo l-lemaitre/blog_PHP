@@ -1,7 +1,8 @@
 <?php
     namespace App\Classes\Controllers;
 
-    use App\Classes\Models\DatabaseConnection;
+    use App\Classes\Models\Article;
+    use App\Classes\Models\User;
 
     class FrontController extends Controller {
         public function showHomePage() {
@@ -9,11 +10,7 @@
         }
 
         public function showBlogPosts($page = null) {
-            $bdd = new DatabaseConnection;
-
-            $query = "SELECT * FROM `article` WHERE `status` = ?";
-            $resultSet = $bdd->query($query, array("Publié"));
-            $posts = $resultSet->fetchAll();
+            $posts = Article::getArticlesPusblished();
 
             $this->render('blog_posts.html.twig',
                 ['posts' => $posts]
@@ -21,15 +18,9 @@
         }
 
         public function showPost($slug, $id) {
-            $bdd = new DatabaseConnection;
+            $post = Article::getArticleById($id);
 
-            $query = "SELECT * FROM `article` WHERE `id_article` = ?";
-            $resultSet = $bdd->query($query, array($id));
-            $post = $resultSet->fetch();
-
-            $query = "SELECT `username` FROM `user` WHERE `id_user` = ?";
-            $resultSet = $bdd->query($query, array($post['user_id']));
-            $author = $resultSet->fetch();
+            $author = User::getUsernameById($post['user_id']);
 
             $this->render('blog_post.html.twig',
                 ['post' => $post,
