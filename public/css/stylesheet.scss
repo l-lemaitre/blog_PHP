@@ -399,7 +399,7 @@ footer {
 
    text-align: center;
 
-   h5 {
+   h2 {
       position: relative;
 
       display: table;
@@ -448,7 +448,7 @@ footer {
          font-style: italic;
       }
       
-      .sujet {
+      .email, .subject {
          width: 60.3%;
          margin-top: 2rem;
       }
@@ -466,28 +466,6 @@ footer {
          font-style: italic;
       }
 
-      .btnMsg {
-         height: 2.8rem;
-         margin: 2rem 0 0.5rem;
-         padding: 0 1.5rem;
-         line-height: 2.6rem;
-
-         font-size: 1.2rem;
-         text-transform: uppercase;
-
-         color: #ffffff;
-         background-color: #C0C0C0;
-         border: none;
-         border-radius: 3px;
-         transition-duration: 0.2s;
-      }
-
-      .btnMsg:hover {
-         color: #ffffff;
-         background-color: rgb(133, 64, 245);
-         cursor: pointer;
-      }
-
       p {
          margin: 1rem auto 0.5rem;
 
@@ -495,19 +473,81 @@ footer {
       }
 
       .msgError {
-         margin-top: 1.5rem;
-
          color: rgb(255, 0, 0);
       }
 
       .msgValid {
-         margin-top: 1.5rem;
          white-space: pre-line;
 
          color: rgb(0, 128, 0);
       }
-
    }
+}
+
+/* PAGE LOGIN.HTML */
+/* MAIN CONTENT */
+.containerLogin {
+   padding-top: 10rem;
+
+   form {
+      margin: -0.5rem 0 10rem;
+      padding: 1.2rem 0.5rem 1.4rem;
+
+      text-align: center;
+
+      border: 1px solid #d2d2d2;
+      border-radius: 2px;
+
+      ul {
+         list-style: none;
+
+         margin: 0 auto;
+
+         li {
+            input {
+               height: 3rem;
+               width: 30.1rem;
+               margin: 1rem 0 2rem;
+               padding-left: 0.5rem;
+
+               border-radius: 2px;
+               border: 1px solid #d2d2d2;
+            }
+
+            input::placeholder {
+               font-style: italic;
+            }
+         }
+      }
+   }
+
+   div p {
+      margin: 0 auto 1.3rem;
+
+      color: rgb(255, 0, 0);
+   }
+}
+
+.button {
+   height: 2.8rem;
+   margin: 2rem auto 2rem;
+   padding: 0 1.5rem;
+   line-height: 2.6rem;
+
+   font-size: 1.2rem;
+   text-transform: uppercase;
+
+   color: #ffffff;
+   background-color: #C0C0C0;
+   border: none;
+   border-radius: 3px;
+   transition-duration: 0.2s;
+}
+
+.button:hover {
+   color: #ffffff;
+   background-color: rgb(133, 64, 245);
+   cursor: pointer;
 }
 
 @media (min-width: 576px) {
@@ -677,7 +717,7 @@ footer {
 
    /* PAGE CONTACT.PHP */
    // MAIN CONTENT
-   .containerContact h5 {
+   .containerContact h2 {
       margin: 1rem auto 4.5rem;
    }
 }

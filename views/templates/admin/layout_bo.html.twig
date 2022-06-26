@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+        {% block head %}
+            <!-- Meta -->
+            <meta charset="UTF-8" />
+            <meta name="description" content="Blog de Ludovic Lemaître" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <link href="/blog_php/public/img/home_floor_l_icon.ico" rel="icon" type="image/ico" />
+            <title>Blog Ludovic Lemaître | {% block title %}{% endblock %}</title>
+            <!-- CSS Vendor -->
+            <link href="/blog_php/public/css/fontawesome-all.css" rel="stylesheet" type="text/css" />
+            <!-- Main CSS theme (includes Bootstrap) -->
+            <link href="/blog_php/vendor/twbs/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
+            <!-- Custom CSS -->
+            <link href="/blog_php/public/css/stylesheet.css" rel="stylesheet" type="text/css" />
+        {% endblock %}
+	</head>
+	<body>
+        <!-- Navmenu -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+            <div>
+                <a href="/blog_php" class="logoTitle">
+                    <img src="/blog_php/public/img/alpha_l_circle.png" class="logo" alt="Site logo" title="Accueil" />
+                    <h2 class="title">Blog llemaitre.com</h2>
+                </a>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+                <ul class="navbar-nav text-uppercase">
+                    <li class="nav-item"><a href="/blog_php/articles" class="nav-link">Liste des articles</a></li>
+                </ul>
+            </div>
+        </nav>
+		<!-- MAIN CONTENT -->
+		<main>
+            {% block content %}{% endblock %}
+		</main>
+        <!-- FOOTER -->
+		<footer class="fixed-bottom">
+            {% block footer %}
+                <!-- Legal notice -->
+                <div class="legalNotice">
+                    <p>&copy; 2022 &middot; Conçu et développé par <a href="mailto:contact@llemaitre.com">Ludovic LEMAÎTRE</a>. Tous droits réservés</p>
+                </div>
+            {% endblock %}
+        </footer>
+		<!-- Bootstrap JS -->
+        <script src="/blog_php/vendor/twbs/bootstrap/dist/js/bootstrap.bundle.js"></script>
+        <!-- Custom JS -->
+        <!--<script src="/blog_php/public/js/main.js"></script>-->
+    </body>
+</html>

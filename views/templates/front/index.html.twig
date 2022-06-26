@@ -144,6 +144,59 @@
             <p>La pratique de jeux vidéo sur PC, consoles ou Android ainsi qu’en réalité virtuelle, la lecture et le visionnage d'oeuvres de science-fiction, l'écoute de musique notamment sur platine vinyle.</p>
          </div>
       </section>
+      <!-- Contact form -->
+      <section class="containerContact">
+         <div class="section-content">
+            <h2 class="mb-5">Contactez-moi</h2>
+            <form method="POST">
+               <div>
+                  <div>
+                     <label for="firstname"></label>
+                     <input type="text" name="firstname" placeholder="Prénom :" value="{% if firstname is defined %}{{ firstname|e }}{% endif %}" maxlength="100" required />
+                     <label for="lastname"></label>
+                     <input type="text" name="lastname" placeholder="Nom :" value="{% if lastname is defined %}{{ lastname|e }}{% endif %}" maxlength="100" required />
+                     {% if emptyName %}
+                        <p>Le <em>prénom</em> ou le <em>nom</em> ne peuvent pas être vide.</p>
+                     {% elseif invalidName %}
+                        <p>Le <em>prénom</em> ou le <em>nom</em> doivent contenir au moins 2 caractères et ne pas comporter de caractères spéciaux.</p>
+                     {% endif %}
+                  </div>
+               </div>
+               <div>
+                  <label for="email"></label>
+                  <input type="email" class="email" name="email" placeholder="E-mail :" value="{% if email is defined %}{{ email|e }}{% endif %}" maxlength="100" required />
+                  {% if emptyMail %}
+                     <p>L'adresse <em>e-mail</em> ne peut pas être vide.</p>
+                  {% elseif invalidMail %}
+                     <p>L'adresse <em>e-mail</em> n'est pas valide.</p>
+                  {% endif %}
+               </div>
+               <div>
+                  <label for="subject"></label>
+                  <input type="text" class="subject" name="subject" placeholder="Sujet :" value="{% if subject is defined %}{{ subject|e }}{% endif %}" maxlength="100" required />
+                  {% if emptySubject %}
+                     <p>Le <em>sujet</em> du message ne peut pas être vide.</p>
+                  {% endif %}
+               </div>
+               <div>
+                  <label for="content"></label>
+                  <textarea name="content" placeholder="Votre message :" maxlength="400" rows="6" required>{% if content is defined %}{{ content|e }}{% endif %}</textarea>
+                  {% if emptyContent %}
+                     <p>Le champ de saisie <em>votre message</em> ne peut pas être vide.</p>
+                  {% endif %}
+               </div>
+               <button class="button" type="submit" name="message">Envoyer</button>
+               {% if reply is defined %}
+                  {% if reply == 'ok' %}
+                     <div><p class="msgValid">Votre message a bien été envoyé.
+                           Je vous répondrais par courrier électronique dans les prochaines heures.</p></div>
+                  {% elseif reply == 'error' %}
+                     <div><p class="msgError">Erreur : Votre message n'a pu être envoyé.</p></div>
+                  {% endif %}
+               {% endif %}
+            </form>
+         </div>
+      </section>
    </div>
 {% endblock %}
 {# Used to add information to the footer in addition to that contained in the base template footer

@@ -1,26 +1,17 @@
 <?php
     namespace App\Classes\Models;
 
-    define("PUBLISHED", "Published");
+    use App\Classes\Entities\Article;
+    use \PDO;
 
-    class Article
+    class ArticleRepository
     {
-        public	$id_article;
-        public	$category_id;
-        public	$user_id;
-        public	$title;
-        public	$chapo;
-        public	$contents;
-        public	$slug;
-        public	$status;
-        public	$date_add;
-        public	$date_updated;
-
         public static function getArticlesPusblished() {
             $bdd = DataBaseConnection::getConnect();
 
             $query = "SELECT * FROM `article` WHERE `status` = ?";
-            $resultSet = $bdd->query($query, array(PUBLISHED));
+            $resultSet = $bdd->query($query, array(Article::PUBLISHED));
+            $resultSet->setFetchMode(PDO::FETCH_CLASS, Article::class);
             return $resultSet->fetchAll();
         }
 
@@ -30,6 +21,7 @@
 
             $query = "SELECT * FROM `article` WHERE `id_article` = ?";
             $resultSet = $bdd->query($query, array($id));
+            $resultSet->setFetchMode(PDO::FETCH_CLASS, Article::class);
             return $resultSet->fetch();
         }
     }

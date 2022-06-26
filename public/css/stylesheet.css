@@ -247,13 +247,13 @@ footer {
   margin: 0 auto 9.5rem;
   padding: 0.5rem;
   text-align: center; }
-  .containerContact h5 {
+  .containerContact h2 {
     position: relative;
     display: table;
     width: 100%;
     max-width: 57rem;
     margin: 1rem auto 3.5rem; }
-    .containerContact h5 span {
+    .containerContact h2 span {
       position: relative;
       display: table;
       margin: 0 auto -1.2rem;
@@ -279,7 +279,7 @@ footer {
     border: 1px solid #d2d2d2; }
   .containerContact form input::placeholder {
     font-style: italic; }
-  .containerContact form .sujet {
+  .containerContact form .email, .containerContact form .subject {
     width: 60.3%;
     margin-top: 2rem; }
   .containerContact form textarea {
@@ -290,32 +290,58 @@ footer {
     border: 1px solid #d2d2d2; }
   .containerContact form textarea::placeholder {
     font-style: italic; }
-  .containerContact form .btnMsg {
-    height: 2.8rem;
-    margin: 2rem 0 0.5rem;
-    padding: 0 1.5rem;
-    line-height: 2.6rem;
-    font-size: 1.2rem;
-    text-transform: uppercase;
-    color: #ffffff;
-    background-color: #C0C0C0;
-    border: none;
-    border-radius: 3px;
-    transition-duration: 0.2s; }
-  .containerContact form .btnMsg:hover {
-    color: #ffffff;
-    background-color: #8540f5;
-    cursor: pointer; }
   .containerContact form p {
     margin: 1rem auto 0.5rem;
     color: red; }
   .containerContact form .msgError {
-    margin-top: 1.5rem;
     color: red; }
   .containerContact form .msgValid {
-    margin-top: 1.5rem;
     white-space: pre-line;
     color: green; }
+
+/* PAGE LOGIN.HTML */
+/* MAIN CONTENT */
+.containerLogin {
+  padding-top: 10rem; }
+  .containerLogin form {
+    margin: -0.5rem 0 10rem;
+    padding: 1.2rem 0.5rem 1.4rem;
+    text-align: center;
+    border: 1px solid #d2d2d2;
+    border-radius: 2px; }
+    .containerLogin form ul {
+      list-style: none;
+      margin: 0 auto; }
+      .containerLogin form ul li input {
+        height: 3rem;
+        width: 30.1rem;
+        margin: 1rem 0 2rem;
+        padding-left: 0.5rem;
+        border-radius: 2px;
+        border: 1px solid #d2d2d2; }
+      .containerLogin form ul li input::placeholder {
+        font-style: italic; }
+  .containerLogin div p {
+    margin: 0 auto 1.3rem;
+    color: red; }
+
+.button {
+  height: 2.8rem;
+  margin: 2rem auto 2rem;
+  padding: 0 1.5rem;
+  line-height: 2.6rem;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  color: #ffffff;
+  background-color: #C0C0C0;
+  border: none;
+  border-radius: 3px;
+  transition-duration: 0.2s; }
+
+.button:hover {
+  color: #ffffff;
+  background-color: #8540f5;
+  cursor: pointer; }
 
 @media (min-width: 576px) {
   /* MAIN CONTENT */
@@ -424,7 +450,7 @@ footer {
       font-size: 2.5rem; }
 
   /* PAGE CONTACT.PHP */
-  .containerContact h5 {
+  .containerContact h2 {
     margin: 1rem auto 4.5rem; } }
 @media (min-height: 1024px) {
   /* PAGE ERROR.HTML.TWIG */
