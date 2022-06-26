@@ -2,12 +2,24 @@
 
 {% block title %}Articles{% endblock %}
 {% block content %}
-   <div class="container p-5">
-      <section>
-         <div class="flex-column mx-auto">
-            <h3>Voici tous les articles.</h3>
-            <div class="text-center">Article <a href="/blog_php/article/test-1">1</a>.</div>
+   <!-- BREADCRUMB -->
+   <nav class="breadcrumbs">
+      <ul>
+         <li><a href="/blog_php" class="home">Accueil</a></li>
+         <li>Articles</li>
+      </ul>
+   </nav>
+   <!-- MAIN CONTENT -->
+   <div class="container p-1">
+      {% for post in posts %}
+         <div class="card mt-5">
+            <div class="card-body text-center">
+               <h3 class="card-title">{{ post.title|e }}</h3>
+               <p>{{ post.date_updated|date("d/m/Y H:i") }}</p>
+               <p class="card-text">{{ post.chapo|e }}</p>
+               <div><a href="/blog_php/article/{{ post.slug }}-{{ post.id_article }}">Lire</a></div>
+            </div>
          </div>
-      </section>
+      {% endfor %}
    </div>
 {% endblock %}

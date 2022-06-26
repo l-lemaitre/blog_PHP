@@ -3,7 +3,8 @@
 
     use App\Classes\Router\Router;
     use App\Classes\Router\RouterException;
-    use App\Classes\Controllers\FrontEndController;
+    use App\Classes\Controllers\FrontController;
+    use App\Classes\Controllers\ErrorController;
 
     $pathUrl = htmlspecialchars($_GET['url']);
 
@@ -12,22 +13,26 @@
     $router = new Router($pathUrl);
 
     $router->get('/', function() {
-        $FrontEndController = new FrontEndController();
-        $FrontEndController->showHomePage();
+        $FrontController = new FrontController();
+        $FrontController->showHomePage();
+    });
+
+    $router->get('/articles/:page', 'Front#showBlogPosts')->with("page", "[0-9]+", function() {
+        $FrontController = new FrontController();
+        $FrontController->showBlogPosts();
     });
 
     $router->get('/articles', function() {
-        $FrontEndController = new FrontEndController();
-        $FrontEndController->showBlogPosts();
+        $FrontController = new FrontController();
+        $FrontController->showBlogPosts();
     });
 
-    $router->get('/article/:slug-:id/:page', 'FrontEnd#showPost')->with("slug", "[a-z\-0-9]+")->with("id", "[0-9]+")->with("page", "[0-9]+");
-    $router->get('/article/:slug-:id', 'FrontEnd#showPost')->with("slug", "[a-z\-0-9]+")->with("id", "[0-9]+");
+    $router->get('/article/:slug-:id', 'Front#showPost')->with("slug", "[a-z\-0-9]+")->with("id", "[0-9]+");
 
     try {
         $router->run();
     }
     catch(RouterException $e) {
-        $FrontEndController = new FrontEndController();
-        $FrontEndController->showError();
+        $ErrorController = new ErrorController();
+        $ErrorController->showError();
     }

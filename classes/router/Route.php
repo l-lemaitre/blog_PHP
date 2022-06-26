@@ -18,6 +18,10 @@
       return $this;
    }
 
+   /**
+   * Will capture the url with parameters
+   * get('/posts/:slug-:id') for example
+   **/
    public function match($url) {
       $url = trim($url, '/');
       $path = preg_replace_callback('#:([\w]+)#', [$this, 'paramMatch'], $this->path);
