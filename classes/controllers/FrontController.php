@@ -1,15 +1,14 @@
 <?php
     namespace App\Classes\Controllers;
 
-    use App\Classes\Models\ArticleRepository;
+    use App\Classes\Models\PostRepository;
     use App\Classes\Models\UserRepository;
-
     use Symfony\Component\Mailer\Transport;
     use Symfony\Component\Mailer\Mailer;
     use Symfony\Component\Mime\Email;
 
     class FrontController extends Controller {
-        public function showHomePage() {
+        public function displayHomePage() {
             if(isset($_GET["reply"])) {
                 $reply = htmlspecialchars($_GET["reply"]);
 
@@ -24,14 +23,6 @@
         }
 
         public function renderContactForm() {
-            // If the GET "reply" variable is declared and different from NULL
-            if(isset($_GET["reply"])) {
-                // We retrieve and secure its content
-                $reply = htmlspecialchars($_GET["reply"]);
-            } else {
-                $reply = false;
-            }
-
             // If the "message" POST variable is declared and different from NULL
             if(isset($_POST["message"])) {
                 $firstname = htmlspecialchars(trim($_POST["firstname"])); // We get the firstname
@@ -141,24 +132,21 @@
             }
         }
 
-        public function showBlogPosts($page = null) {
-            $posts = ArticleRepository::getArticlesPusblished();
+        public function displayPosts($page = null) {
+            $posts = PostRepository::getPostsPusblished();
 
             $this->render('views/templates/front',
-                'blog_posts.html.twig',
+                'posts.html.twig',
                 ['posts' => $posts]
             );
         }
 
-        public function showPost($slug, $id) {
-            $post = ArticleRepository::getArticleById($id);
-
-            $author = UserRepository::getUsernameById($post->user_id);
+        public function displayPost($slug, $id) {
+            $post = PostRepository::getPostById($id);
 
             $this->render('views/templates/front',
-                'blog_post.html.twig',
-                ['post' => $post,
-                'author' => $author]
+                'post.html.twig',
+                ['post' => $post]
             );
         }
     }

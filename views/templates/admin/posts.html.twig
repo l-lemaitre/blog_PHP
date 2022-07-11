@@ -1,0 +1,49 @@
+{% extends "layout_bo.html.twig" %}
+
+{% block title %}Liste des articles{% endblock %}
+{% block content %}
+   <!-- BREADCRUMB -->
+   <nav class="breadcrumbs breadcrumbs-bo">
+      <ul>
+         <li><a href="/blog_php" class="home">Accueil</a></li>
+         <li>Liste des articles</li>
+      </ul>
+   </nav>
+   <div class="container-bo">
+      <table class="table table-striped">
+         <thead>
+            <tr>
+               <th scope="col">ID</th>
+               <th scope="col">Catégorie</th>
+               <th scope="col">Auteur</th>
+               <th scope="col">Titre</th>
+               <th scope="col">Chapô</th>
+               <th scope="col">Statut</th>
+               <th scope="col">Supprimé</th>
+               <th scope="col">Date de création</th>
+               <th scope="col">Date de mise à jour</th>
+               <th scope="col">Options</th>
+            </tr>
+         </thead>
+         <tbody>
+            {% for post in posts %}
+               <tr>
+                  <th scope="row">{{ post.id_post|e }}</th>
+                  <td>{{ post.category_title|e }}</td>
+                  <td>{{ post.user_username|e }}</td>
+                  <td>{{ post.title|e }}</td>
+                  <td title="{{ post.chapo|e }}">{{ post.chapo|slice(0, 20) }}...</td>
+                  <td>{{ post.status|e }}</td>
+                  <td>{% if post.deleted == 0 %}Non{% else %}Oui{% endif %}</td>
+                  <td>{{ post.date_add|date("d/m/Y H:i") }}</td>
+                  <td>{{ post.date_updated|date("d/m/Y H:i") }}</td>
+                  <td>
+                     <a href="/blog_php/backoff/post-{{ post.id_post|e }}" class="btn btn-secondary">Modifier</a>
+                     <button class="btn btn-danger" type="submit" name="reset">Supprimer</button>
+                  </td>
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+   </div>
+{% endblock %}

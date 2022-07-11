@@ -58,7 +58,6 @@ body {
       margin: 0 0.5rem 0 1rem;
       vertical-align: middle;
       line-height: 3.5rem;
-      font-family: "Roboto", sans-serif;
       font-size: 1.5em;
       font-weight: 500;
       text-transform: uppercase;
@@ -140,7 +139,7 @@ a i:hover {
 h2 {
   font-family: "Wallpoet", sans-serif;
   font-size: 2.5rem;
-  color: indigo !important; }
+  color: indigo; }
 
 .fa-ul {
   margin-left: 2.5rem; }
@@ -152,7 +151,9 @@ h2 {
     font-size: 1.25rem; }
 
 i {
-  font-size: 1.5rem;
+  font-size: 1.5rem; }
+
+.fa-github {
   color: indigo !important; }
 
 .exp-flex {
@@ -359,7 +360,7 @@ footer {
     max-width: 960px; }
 
   body {
-    font-size: 1.6rem; }
+    font-size: 1.5rem; }
 
   /* Navmenu */
   .navbar div:first-child {
@@ -436,8 +437,8 @@ footer {
 
   /* PAGE ERROR.HTML.TWIG */
   .breadcrumbs {
-    padding: 1rem 1.5rem 2.5rem;
-    margin: 6.4rem auto 4rem; }
+    padding: 1.5rem 1.5rem 2.5rem;
+    margin: 5.5rem auto 4rem; }
     .breadcrumbs ul .threadTitle {
       display: initial; }
     .breadcrumbs ul .threadTitle300 {
@@ -451,7 +452,14 @@ footer {
 
   /* PAGE CONTACT.PHP */
   .containerContact h2 {
-    margin: 1rem auto 4.5rem; } }
+    margin: 1rem auto 4.5rem; }
+
+  /* BACK OFFICE */
+  .breadcrumbs-bo {
+    margin: 0 auto 4rem; }
+
+  .container-bo {
+    padding: 0 5rem; } }
 @media (min-height: 1024px) {
   /* PAGE ERROR.HTML.TWIG */
   /* MAIN CONTENT */
@@ -462,5 +470,337 @@ footer {
   /* MAIN CONTENT */
   .containerError404 div {
     padding-top: 14.5rem; } }
+/* PAGE LAYOUT.PHTML */
+/* TOPBAR */
+.topBar {
+  position: relative;
+  height: 4.4rem;
+  margin: 0 auto;
+  z-index: 100;
+  color: #fafafa;
+  background-color: indigo;
+  border-top: 1px solid indigo; }
+  .topBar .topbarContenu {
+    display: flex;
+    justify-content: center;
+    max-width: 115rem;
+    margin: 0 auto;
+    font-size: 1.3rem; }
+    .topBar .topbarContenu .logo {
+      display: flex;
+      align-items: center;
+      flex-grow: 1.1; }
+      .topBar .topbarContenu .logo a {
+        text-decoration: none;
+        color: #fafafa; }
+        .topBar .topbarContenu .logo a h2 {
+          margin-top: 0.5rem;
+          font-size: 1.9em;
+          font-weight: 600;
+          text-align: center;
+          text-transform: uppercase;
+          color: #fafafa; }
+    .topBar .topbarContenu .displayAdmin {
+      flex-grow: 0; }
+      .topBar .topbarContenu .displayAdmin ul {
+        margin-top: 1rem;
+        padding: 0; }
+        .topBar .topbarContenu .displayAdmin ul li {
+          display: inline-block;
+          list-style: none; }
+        .topBar .topbarContenu .displayAdmin ul li:first-child + li {
+          margin: 0 0.3rem; }
+        .topBar .topbarContenu .displayAdmin ul a {
+          font-weight: 100;
+          text-decoration: none;
+          color: #fafafa;
+          transition-duration: 0.2s; }
+          .topBar .topbarContenu .displayAdmin ul a span::after {
+            padding-left: 0.8rem;
+            font-family: "Font Awesome 5 Free";
+            font-size: 1.3rem;
+            font-weight: 900;
+            content: "\F2F5"; }
+      .topBar .topbarContenu .displayAdmin ul a:hover {
+        text-decoration: underline;
+        text-underline-offset: 0.2rem; }
+
+/* HEADER */
+.headerLayout {
+  position: sticky;
+  top: 0;
+  z-index: 99; }
+  .headerLayout nav > ul > li {
+    display: inline-block; }
+  .headerLayout nav > ul > li:focus-within > a {
+    color: #fafafa;
+    background-color: #8540f5; }
+  .headerLayout nav {
+    background-color: white;
+    border-bottom: 4px solid indigo; }
+    .headerLayout nav ul {
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      list-style: none; }
+      .headerLayout nav ul li {
+        margin: 0 -0.2rem; }
+        .headerLayout nav ul li a {
+          display: inline-block;
+          padding: 2rem 3.2rem;
+          font-weight: bold;
+          text-decoration: none;
+          color: indigo;
+          transition: all ease-in-out 0.2s;
+          -webkit-transition: all ease-in-out 0.2s; }
+          .headerLayout nav ul li a h3 {
+            font-family: "Wallpoet", sans-serif; }
+        .headerLayout nav ul li .menu {
+          position: absolute;
+          left: 0;
+          right: 0;
+          padding-bottom: 3rem;
+          background: indigo;
+          opacity: 0;
+          visibility: hidden;
+          transition: all ease-in-out 0.2s;
+          -webkit-transition: all ease-in-out 0.2s; }
+          .headerLayout nav ul li .menu .sousMenu {
+            display: inline-block;
+            width: 19%;
+            padding: 0 0.5rem;
+            vertical-align: top; }
+            .headerLayout nav ul li .menu .sousMenu h2 {
+              margin: 0 0 -0.3rem;
+              padding: 3rem 0 1.5rem;
+              font-size: 1.6rem;
+              text-transform: uppercase;
+              color: #fafafa; }
+            .headerLayout nav ul li .menu .sousMenu br + ul {
+              margin-top: 1rem; }
+            .headerLayout nav ul li .menu .sousMenu ul li a {
+              padding: 0;
+              line-height: 2.5rem;
+              text-decoration: none;
+              color: #fafafa;
+              transition-duration: 0.2s; }
+              .headerLayout nav ul li .menu .sousMenu ul li a i {
+                padding-right: 0.8rem;
+                vertical-align: 0.07rem;
+                font-size: 1.3rem; }
+            .headerLayout nav ul li .menu .sousMenu ul li a:hover {
+              text-decoration: underline;
+              text-underline-offset: 0.2rem;
+              transition-duration: 0.2s; }
+          .headerLayout nav ul li .menu .singleMenu ul li:first-child {
+            padding-top: 3rem; }
+    .headerLayout nav ul li:focus-within .menu {
+      opacity: 1;
+      visibility: visible; }
+    .headerLayout nav ul li:hover a {
+      color: #fafafa;
+      background-color: indigo; }
+    .headerLayout nav ul li:hover .menu {
+      z-index: 1;
+      opacity: 1;
+      visibility: visible; }
+
+/* PAGE TABLEAU-DE-BORD.PHTML */
+/* MAIN CONTENT */
+.containerDashboard {
+  display: grid;
+  grid-template-rows: 14rem 11rem 11rem;
+  grid-template-columns: auto;
+  grid-gap: 1em;
+  min-height: 68.3rem;
+  max-width: 115rem;
+  margin: 3rem auto 4rem;
+  line-height: 2rem; }
+  .containerDashboard h2 {
+    grid-area: 1 / 1 / 1 / 4;
+    margin-top: 4.5rem;
+    font-size: 2.5rem; }
+    .containerDashboard h2 i {
+      display: inline-block;
+      height: 4rem;
+      width: 4rem;
+      margin-right: 0.5rem;
+      line-height: 4.1rem;
+      text-align: center;
+      color: indigo; }
+  .containerDashboard .dashboardBox1, .containerDashboard .dashboardBox2, .containerDashboard .dashboardBox3, .containerDashboard .dashboardBox4, .containerDashboard .dashboardBox5, .containerDashboard .dashboardBox6 {
+    background-color: indigo;
+    border: 1px solid #d2d2d2;
+    border-radius: 3px; }
+    .containerDashboard .dashboardBox1 a, .containerDashboard .dashboardBox2 a, .containerDashboard .dashboardBox3 a, .containerDashboard .dashboardBox4 a, .containerDashboard .dashboardBox5 a, .containerDashboard .dashboardBox6 a {
+      display: grid;
+      grid-template-rows: auto;
+      grid-template-columns: auto;
+      text-decoration: none; }
+      .containerDashboard .dashboardBox1 a .dashboardIcons, .containerDashboard .dashboardBox2 a .dashboardIcons, .containerDashboard .dashboardBox3 a .dashboardIcons, .containerDashboard .dashboardBox4 a .dashboardIcons, .containerDashboard .dashboardBox5 a .dashboardIcons, .containerDashboard .dashboardBox6 a .dashboardIcons {
+        grid-row-start: 1;
+        grid-column-start: 1;
+        grid-row-end: 1;
+        grid-column-end: 1;
+        margin: 3.5rem auto 0;
+        padding-left: 1rem; }
+        .containerDashboard .dashboardBox1 a .dashboardIcons i, .containerDashboard .dashboardBox2 a .dashboardIcons i, .containerDashboard .dashboardBox3 a .dashboardIcons i, .containerDashboard .dashboardBox4 a .dashboardIcons i, .containerDashboard .dashboardBox5 a .dashboardIcons i, .containerDashboard .dashboardBox6 a .dashboardIcons i {
+          font-size: 4rem;
+          color: #fafafa; }
+      .containerDashboard .dashboardBox1 a .dashboardInfos, .containerDashboard .dashboardBox2 a .dashboardInfos, .containerDashboard .dashboardBox3 a .dashboardInfos, .containerDashboard .dashboardBox4 a .dashboardInfos, .containerDashboard .dashboardBox5 a .dashboardInfos, .containerDashboard .dashboardBox6 a .dashboardInfos {
+        grid-row-start: 1;
+        grid-column-start: 2;
+        grid-row-end: 1;
+        grid-column-end: 2;
+        margin: 1.2rem auto 0;
+        padding: 0 1.2rem 1rem 2rem;
+        line-height: 1.5rem;
+        text-align: center;
+        color: #fafafa; }
+        .containerDashboard .dashboardBox1 a .dashboardInfos h4, .containerDashboard .dashboardBox2 a .dashboardInfos h4, .containerDashboard .dashboardBox3 a .dashboardInfos h4, .containerDashboard .dashboardBox4 a .dashboardInfos h4, .containerDashboard .dashboardBox5 a .dashboardInfos h4, .containerDashboard .dashboardBox6 a .dashboardInfos h4 {
+          margin-bottom: 1.5rem; }
+        .containerDashboard .dashboardBox1 a .dashboardInfos strong, .containerDashboard .dashboardBox2 a .dashboardInfos strong, .containerDashboard .dashboardBox3 a .dashboardInfos strong, .containerDashboard .dashboardBox4 a .dashboardInfos strong, .containerDashboard .dashboardBox5 a .dashboardInfos strong, .containerDashboard .dashboardBox6 a .dashboardInfos strong {
+          font-size: 1.8rem; }
+  .containerDashboard .dashboardBox1, .containerDashboard .dashboardBox2, .containerDashboard .dashboardBox5, .containerDashboard .dashboardBox6 {
+    grid-area: 2 / auto / 2 / auto; }
+  .containerDashboard .dashboardBox3 {
+    grid-area: 3 / 2 / 3 / 2; }
+  .containerDashboard .dashboardBox4 {
+    grid-area: 3 / 3 / 3 / 3; }
+
+/* PAGES AJOUTCAT.PHTML ET MODIFCAT.PHTML */
+/* MAIN CONTENT */
+.containerAdd, .containerEdit {
+  min-height: 64.3rem;
+  max-width: 50rem;
+  margin: 0 auto 3rem;
+  padding: 0 0.5rem; }
+  .containerAdd h3, .containerEdit h3 {
+    margin: 0 0 4rem -1rem;
+    font-weight: 100;
+    text-align: center;
+    color: #212529; }
+    .containerAdd h3 i, .containerEdit h3 i {
+      height: 0;
+      width: 4rem;
+      color: indigo; }
+  .containerAdd form, .containerEdit form {
+    margin: -0.5rem 0 3.05rem;
+    padding: 2.5rem 0.5rem 0.5rem;
+    line-height: 1.5rem;
+    font-weight: 100;
+    text-align: center;
+    color: #212529;
+    border: 1px solid #d2d2d2;
+    border-radius: 2px; }
+    .containerAdd form div, .containerEdit form div {
+      position: relative;
+      width: 40rem;
+      margin: 0 auto;
+      padding: 0.5rem 0; }
+      .containerAdd form div label, .containerEdit form div label {
+        display: block;
+        text-align: left; }
+      .containerAdd form div i, .containerEdit form div i {
+        float: right;
+        margin: -1.4rem 0;
+        font-size: 1.3rem; }
+        .containerAdd form div i a, .containerEdit form div i a {
+          text-decoration: none;
+          color: #212529;
+          transition-duration: 0.1s; }
+        .containerAdd form div i a:hover, .containerEdit form div i a:hover {
+          color: red; }
+      .containerAdd form div span, .containerEdit form div span {
+        display: block;
+        margin: 1rem 0 0.5rem;
+        line-height: 1.8rem;
+        white-space: pre-line;
+        font-size: 1.4rem;
+        font-style: italic;
+        text-align: left; }
+        .containerAdd form div span u, .containerEdit form div span u {
+          text-decoration: underline red;
+          text-underline-offset: 0.2rem; }
+        .containerAdd form div span a, .containerEdit form div span a {
+          text-decoration: none;
+          color: red;
+          transition-duration: 0.1s; }
+      .containerAdd form div input, .containerEdit form div input {
+        height: 3.5rem;
+        width: 40rem;
+        margin: 0.8rem 0 1.5rem;
+        padding: 0.5rem;
+        color: #212529;
+        border-radius: 2px;
+        border: 1px solid #d2d2d2; }
+      .containerAdd form div input::placeholder, .containerEdit form div input::placeholder {
+        font-size: 1.3rem;
+        font-style: italic;
+        color: red; }
+      .containerAdd form div p, .containerEdit form div p {
+        margin: 0.2rem 0 0.7rem;
+        line-height: 2rem;
+        color: red; }
+      .containerAdd form div select, .containerEdit form div select {
+        height: 3.5rem;
+        width: 40rem;
+        margin: 0.8rem 0 1.5rem;
+        padding: 0.5rem;
+        color: #212529;
+        border-radius: 2px;
+        border: 1px solid #d2d2d2; }
+      .containerAdd form div textarea, .containerEdit form div textarea {
+        width: 100%;
+        margin: 1rem 0;
+        padding: 0.5rem;
+        color: #212529;
+        border-radius: 2px;
+        border: 1px solid #d2d2d2; }
+    .containerAdd form .btn, .containerEdit form .btn {
+      display: block;
+      height: 3.2rem;
+      margin: 1rem auto 2.5rem;
+      padding: 0.8rem 1.5rem;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      color: #ffffff;
+      background-color: #C0C0C0;
+      border: none;
+      border-radius: 3px;
+      transition-duration: 0.2s; }
+    .containerAdd form .btn:hover, .containerEdit form .btn:hover {
+      color: #ffffff;
+      background-color: #8540f5;
+      cursor: pointer; }
+    .containerAdd form .msg p, .containerEdit form .msg p {
+      margin: -1.2rem 0 1.5rem;
+      color: red; }
+  .containerAdd .formReset, .containerEdit .formReset {
+    margin: -0.5rem 0 9rem;
+    padding: 0;
+    border: none; }
+    .containerAdd .formReset .btnReset, .containerEdit .formReset .btnReset {
+      height: 3.2rem;
+      margin: 0 auto 1.5rem;
+      padding: 1rem;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      color: #ffffff;
+      background-color: #C0C0C0;
+      border: none;
+      border-radius: 3px;
+      transition-duration: 0.2s; }
+      .containerAdd .formReset .btnReset i, .containerEdit .formReset .btnReset i {
+        margin-right: 0.5rem; }
+    .containerAdd .formReset .btnReset:hover, .containerEdit .formReset .btnReset:hover {
+      color: #ffffff;
+      background-color: red;
+      cursor: pointer; }
+    .containerAdd .formReset div, .containerEdit .formReset div {
+      width: initial; }
+      .containerAdd .formReset div p, .containerEdit .formReset div p {
+        margin: -0.2rem 0 -0.6rem;
+        color: red; }
 
 /*# sourceMappingURL=stylesheet.css.map */

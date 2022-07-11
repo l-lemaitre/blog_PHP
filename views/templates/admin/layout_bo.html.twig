@@ -17,21 +17,68 @@
         {% endblock %}
 	</head>
 	<body>
-        <!-- Navmenu -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
-            <div>
-                <a href="/blog_php" class="logoTitle">
-                    <img src="/blog_php/public/img/alpha_l_circle.png" class="logo" alt="Site logo" title="Accueil" />
-                    <h2 class="title">Blog llemaitre.com</h2>
-                </a>
-            </div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-                <ul class="navbar-nav text-uppercase">
-                    <li class="nav-item"><a href="/blog_php/articles" class="nav-link">Liste des articles</a></li>
-                </ul>
+        <!-- TOPBAR -->
+        <nav class="topBar noPrint">
+            <div class="topbarContenu">
+                <!-- Logo -->
+                <div class="logo">
+                    <a href="/blog_php/backoff/dashboard" title="Accueil"><h2>Blog llemaitre.com</h2></a>
+                </div>
+                {% if admin is defined %}
+                    <div class="displayAdmin">
+                        <ul>
+                            <li>{{ admin|e }}</li>
+                            <li>|</li>
+                            <li><a href="/blog_php/backoff/logout"><span>Déconnexion</span></a></li>
+                        </ul>
+                    </div>
+                {% endif %}
             </div>
         </nav>
+        <!-- HEADER -->
+        <header class="headerLayout noPrint">
+            <nav>
+                <ul>
+                    <li>
+                        <a href="#"><h3>Contenu</h3></a>
+                        <div class="menu">
+                            <div class="sousMenu">
+                                <h2>Articles</h2>
+                                <ul>
+                                    <li><a href="/blog_php/backoff/posts?page=1"><i class="fa fa-cog"></i>Gérer les articles</a></li>
+                                    <li><a href="/blog_php/backoff/add-post"><i class="fa fa-plus"></i>Ajouter un article</a></li>
+                                </ul>
+                            </div>
+                            <div class="sousMenu">
+                                <h2>Commentaires</h2>
+                                <ul>
+                                    <li><a href="/blog_php/backoff/comments?page=1"><i class="fa fa-cog"></i>Gérer les commentaires</a></li>
+                                    <li><a href="/blog_php/backoff/add-comment"><i class="fa fa-plus"></i>Ajouter un commentaire</a></li>
+                                </ul>
+                            </div>
+                            <div class="sousMenu">
+                                <h2>Catégories</h2>
+                                <ul>
+                                    <li><a href="/blog_php/backoff/categories?page=1"><i class="fa fa-cog"></i>Gérer les catégories</a></li>
+                                    <li><a href="/blog_php/backoff/add-category"><i class="fa fa-plus"></i>Ajouter une catégorie</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#"><h3>Utilisateurs</h3></a>
+                        <div class="menu">
+                            <div class="sousMenu singleMenu">
+                                <ul>
+                                    <li><a href="/blog_php/backoff/users?page=1"><i class="fa fa-cog"></i>Gérer les utilisateurs</a></li>
+                                    <li><a href="/blog_php/backoff/add-user"><i class="fa fa-plus"></i>Ajouter un utilisateur</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </header>
 		<!-- MAIN CONTENT -->
 		<main>
             {% block content %}{% endblock %}

@@ -1,9 +1,9 @@
 <?php
     namespace App\Classes\Entities;
 
-    class Article
+    class Post
     {
-        public	$id_article;
+        public	$id_post;
         public	$category_id;
         public	$user_id;
         public	$title;

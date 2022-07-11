@@ -1,11 +1,13 @@
 <?php
     require "vendor/autoload.php";
 
-    use App\Classes\Router\Router;
-    use App\Classes\Router\RouterException;
-    use App\Classes\Controllers\FrontController;
+    session_start();
+
     use App\Classes\Controllers\AdminController;
     use App\Classes\Controllers\ErrorController;
+    use App\Classes\Controllers\FrontController;
+    use App\Classes\Router\Router;
+    use App\Classes\Router\RouterException;
 
     $pathUrl = htmlspecialchars($_GET['url']);
 
@@ -17,7 +19,7 @@
 
     $router->get('/', function() {
         $frontController = new FrontController();
-        $frontController->showHomePage();
+        $frontController->displayHomePage();
     });
 
     $router->post('/', function() {
@@ -25,32 +27,50 @@
         $frontController->renderContactForm();
     });
 
-    $router->get('/articles/:page', 'Front#showBlogPosts')->with("page", "[0-9]+", function() {
+    $router->get('/posts', function() {
         $frontController = new FrontController();
-        $frontController->showBlogPosts();
+        $frontController->displayPosts();
     });
 
-    $router->get('/articles', function() {
-        $frontController = new FrontController();
-        $frontController->showBlogPosts();
+    $router->get('/post/:slug-:id', 'Front#displayPost')->with("slug", "[a-z\-0-9]+")->with("id", "[0-9]+");
+
+    $router->get('/backoff/dashboard', function() {
+        $adminController = new AdminController();
+        $adminController->displayDashboard();
+    });
+
+    $router->get('/backoff/posts', function() {
+        $adminController = new AdminController();
+        $adminController->displayPosts();
+    });
+
+    $router->get('/backoff/post-:id', 'Admin#displayEditPost')->with("id", "[0-9]+");
+
+    if(isset($_POST["editPost"])) {
+        $router->post('/backoff/post-:id', 'Admin#renderFormEditPost')->with("id", "[0-9]+");
+    } elseif(isset($_POST["resetPost"])) {
+        $router->post('/backoff/post-:id', 'Admin#renderFormResetPost')->with("id", "[0-9]+");
+    }
+
+    $router->get('/backoff/logout', function() {
+        $adminController = new AdminController();
+        $adminController->logoutBackOffice();
     });
 
     $router->get('/backoff', function() {
         $adminController = new AdminController();
-        $adminController->showBackOffice();
+        $adminController->displayLoginBackOffice();
     });
 
     $router->post('/backoff', function() {
         $adminController = new AdminController();
-        $adminController->loginBackOffice();
+        $adminController->renderFormLoginBackOffice();
     });
-
-    $router->get('/article/:slug-:id', 'Front#showPost')->with("slug", "[a-z\-0-9]+")->with("id", "[0-9]+");
 
     try {
         $router->run();
     }
     catch(RouterException $e) {
         $errorController = new ErrorController();
-        $errorController->showError();
+        $errorController->displayError();
     }
