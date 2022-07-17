@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+        {% block head %}
+            <!-- Meta -->
+            <meta charset="UTF-8" />
+            <meta name="description" content="Blog de Ludovic Lemaître" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <link href="/blog_php/public/img/home_floor_l_icon.ico" rel="icon" type="image/ico" />
+            <title>Blog Ludovic Lemaître | {% block title %}{% endblock %}</title>
+            <!-- CSS Vendor -->
+            <link href="/blog_php/public/css/fontawesome-all.css" rel="stylesheet" type="text/css" />
+            <!-- Main CSS theme (includes Bootstrap) -->
+            <link href="/blog_php/vendor/twbs/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
+            <!-- Custom CSS -->
+            <link href="/blog_php/public/css/stylesheet.css" rel="stylesheet" type="text/css" />
+        {% endblock %}
+	</head>
+	<body>
+        <!-- TOPBAR -->
+        <nav class="topBar noPrint">
+            <div class="topbarContenu">
+                <!-- Logo -->
+                <div class="logo">
+                    <a href="/blog_php/backoff/dashboard" title="Accueil"><h2>Blog llemaitre.com</h2></a>
+                </div>
+                {% if admin is defined %}
+                    <div class="displayAdmin">
+                        <ul>
+                            <li>{{ admin|e }}</li>
+                            <li>|</li>
+                            <li><a href="/blog_php/backoff/logout"><span>Déconnexion</span></a></li>
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        </nav>
+        <!-- HEADER -->
+        <header class="headerLayout noPrint">
+            <nav>
+                <ul>
+                    <li>
+                        <a href="#"><h3>Contenu</h3></a>
+                        <div class="menu">
+                            <div class="sousMenu">
+                                <h2>Articles</h2>
+                                <ul>
+                                    <li><a href="/blog_php/backoff/posts?page=1"><i class="fa fa-cog"></i>Gérer les articles</a></li>
+                                    <li><a href="/blog_php/backoff/add-post"><i class="fa fa-plus"></i>Ajouter un article</a></li>
+                                </ul>
+                            </div>
+                            <div class="sousMenu">
+                                <h2>Commentaires</h2>
+                                <ul>
+                                    <li><a href="/blog_php/backoff/comments?page=1"><i class="fa fa-cog"></i>Gérer les commentaires</a></li>
+                                    <li><a href="/blog_php/backoff/add-comment"><i class="fa fa-plus"></i>Ajouter un commentaire</a></li>
+                                </ul>
+                            </div>
+                            <div class="sousMenu">
+                                <h2>Catégories</h2>
+                                <ul>
+                                    <li><a href="/blog_php/backoff/categories?page=1"><i class="fa fa-cog"></i>Gérer les catégories</a></li>
+                                    <li><a href="/blog_php/backoff/add-category"><i class="fa fa-plus"></i>Ajouter une catégorie</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#"><h3>Utilisateurs</h3></a>
+                        <div class="menu">
+                            <div class="sousMenu singleMenu">
+                                <ul>
+                                    <li><a href="/blog_php/backoff/users?page=1"><i class="fa fa-cog"></i>Gérer les utilisateurs</a></li>
+                                    <li><a href="/blog_php/backoff/add-user"><i class="fa fa-plus"></i>Ajouter un utilisateur</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+		<!-- MAIN CONTENT -->
+		<main>
+            {% block content %}{% endblock %}
+		</main>
+        <!-- FOOTER -->
+		<footer class="fixed-bottom">
+            {% block footer %}
+                <!-- Legal notice -->
+                <div class="legalNotice">
+                    <p>&copy; 2022 &middot; Conçu et développé par <a href="mailto:contact@llemaitre.com">Ludovic LEMAÎTRE</a>. Tous droits réservés</p>
+                </div>
+            {% endblock %}
+        </footer>
+		<!-- Bootstrap JS -->
+        <script src="/blog_php/vendor/twbs/bootstrap/dist/js/bootstrap.bundle.js"></script>
+        <!-- Custom JS -->
+        <!--<script src="/blog_php/public/js/main.js"></script>-->
+    </body>
+</html>

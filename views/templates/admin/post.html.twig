@@ -1,0 +1,90 @@
+{% extends "layout_bo.html.twig" %}
+
+{% block title %}Modifier Article {{ post.title|e }}{% endblock %}
+{% block content %}
+   <!-- BREADCRUMB -->
+   <nav class="breadcrumbs breadcrumbs-bo">
+      <ul>
+         <li><a href="/blog_php/backoff/dashboard" class="home">Accueil</a></li>
+         <li><a href="/blog_php/backoff/posts?page=1">Liste des articles</a></li>
+         <li class="threadTitle">Modifier article {{ post.title|e }}</li>
+         <li class="threadTitle300" title="Modifier article {{ post.title|e }}">Modifier ...</li>
+      </ul>
+   </nav>
+   <!-- MAIN CONTENT -->
+   <div class="containerEdit">
+      <h3><i class="fas fa-pencil-alt"></i>Modifier article {{ post.title|e }}</h3>
+      <form method="POST">
+         <div>
+            <label for="category">Catégorie :</label>
+            <select id="category" name="category" required>
+               {% for category in categories %}
+               <option value="{{ category.id_category|e }}" {% if category.id_category == post.category_id %}selected="selected"{% endif %}>
+                  {{ category.title|e }}
+               </option>
+               {% endfor %}
+            </select>
+            {% if emptyCategory %}
+               <p>La<em>catégorie</em> ne peut pas être vide.</p>
+            {% elseif invalidCategory %}
+               <p>La<em>catégorie</em> n'est pas valide.</p>
+            {% endif %}
+         </div>
+         <div>
+            <label for="author">Auteur :</label>
+            <select id="author" name="author" required>
+               {% for user in users %}
+                  <option value="{{ user.id_user|e }}" {% if user.id_user == post.user_id %}selected="selected"{% endif %}>
+                     {{ user.username|e }}
+                  </option>
+               {% endfor %}
+            </select>
+            {% if emptyAuthor %}
+               <p>L'<em>auteur</em> ne peut pas être vide.</p>
+            {% elseif invalidAuthor %}
+               <p>L'<em>auteur</em> n'est pas valide.</p>
+            {% endif %}
+         </div>
+         <div>
+            <label for="title">Titre :</label>
+            <input type="text" id="title" name="title" value="{{ post.title|e }}" required />
+            {% if emptyTitle %}
+               <p>Le <em>titre</em> ne peut pas être vide.</p>
+            {% endif %}
+         </div>
+         <div>
+            <div>
+               <label for="chapo">Chapô :</label>
+               <input type="text" id="chapo" name="chapo" value="{{ post.chapo|e }}" required />
+               {% if emptyChapo %}
+                  <p>Le <em>chapô</em> ne peut pas être vide.</p>
+               {% endif %}
+            </div>
+            <label for="contents">Contenu :</label>
+            <textarea id="contents" name="contents" rows="6" required>{{ post.contents|e }}</textarea>
+            {% if emptyContents %}
+               <p>Le <em>contenu</em> de l'article ne peut pas être vide.</p>
+            {% endif %}
+         </div>
+         <div>
+            <label for="slug">Permalien :</label>
+            <input type="text" id="slug" name="slug" value="{{ post.slug|e }}" required />
+            {% if emptySlug %}
+               <p>Le <em>permalien</em> ne peut pas être vide.</p>
+            {% endif %}
+         </div>
+         <div>
+            <label for="status">Statut :</label>
+            <input type="text" id="status" name="status" value="{{ post.status|e }}" required />
+            {% if emptyStatus %}
+               <p>Le <em>statut</em> ne peut pas être vide.</p>
+            {% endif %}
+         </div>
+         <input type="submit" class="btn" name="editPost" value="Valider" />
+      </form>
+      <form class="formReset" method="POST">
+         <button type="submit" id="resetPost" class="btnReset">Supprimer l'article</button>
+         <input type="hidden" name="resetPost" value="1" />
+      </form>
+   </div>
+{% endblock %}
