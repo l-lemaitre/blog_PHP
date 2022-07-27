@@ -1,28 +1,35 @@
 <?php
     namespace App\Classes\Controllers;
 
+    use App\Classes\Models\CommentRepository;
     use App\Classes\Models\CategoryRepository;
-    use App\Classes\Models\DataBaseConnection;
     use App\Classes\Models\PostRepository;
-    use App\Classes\Middlewares\RoleRequiredMiddleware;
     use App\Classes\Models\UserRepository;
+    use App\Classes\Models\DataBaseConnection;
 
     class AdminController extends Controller {
-        public function displayLoginBackOffice() {
-            $RoleRequiredMiddleware = new RoleRequiredMiddleware();
-            $RoleRequiredMiddleware->ifAdminIsLogin();
-
-            if(isset($_GET["reply"])) {
-                $reply = htmlspecialchars($_GET["reply"]);
-
-                $this->render('views/templates/admin',
-                    'login.html.twig',
-                    ['reply' => $reply]
-                );
-            } else {
-                $this->render('views/templates/admin',
-                    'login.html.twig');
+        public function ifAdminIsLogin() {
+            // If an administrator is logged in then we no longer return to this page
+            if(isset($_SESSION["admin_id"])) {
+                header("location:/blog_php/backoff/dashboard");
+                exit;
             }
+        }
+
+        public function ifAdminIsNotLogin() {
+            // If no administrator is logged in then we do not go to this page
+            if(!isset($_SESSION["admin_id"])) {
+                // The user is sent to the login page
+                header("location:/blog_php/backoff/login");
+                exit;
+            }
+        }
+
+        public function displayLoginBackOffice() {
+            $this->ifAdminIsLogin();
+
+            $this->render('views/templates/admin',
+                'login.html.twig');
         }
 
         public function renderFormLoginBackOffice() {
@@ -47,18 +54,16 @@
 
                 $user = UserRepository::checkAdminCredentials($mailUsername);
 
-                $hash = UserRepository::getHashAdmin($mailUsername);
-
-                if($hash) {
+                if($user) {
                     // We check if the password used corresponds to this hash using password_verify
-                    $correctPassword = password_verify($password, $hash->password);
+                    $correctPassword = password_verify($password, $user->password);
                 }
                 else {
                     $correctPassword = false;
                 }
 
                 // If there is a result then we load the admin session using the session variables
-                if($user && $correctPassword && $valid) {
+                if($correctPassword && $valid) {
                     $_SESSION["admin_id"] = htmlspecialchars($user->id_user);
                     $_SESSION["admin"] = htmlspecialchars($user->username);
                     $_SESSION["admin_email"] = htmlspecialchars($user->email);
@@ -81,8 +86,7 @@
         }
 
         public function displayDashboard() {
-            $RoleRequiredMiddleware = new RoleRequiredMiddleware();
-            $RoleRequiredMiddleware->ifAdminIsNotLogin();
+            $this->ifAdminIsNotLogin();
 
             $this->render('views/templates/admin',
                 'dashboard.html.twig',
@@ -91,8 +95,7 @@
         }
 
         public function displayPosts() {
-            $RoleRequiredMiddleware = new RoleRequiredMiddleware();
-            $RoleRequiredMiddleware->ifAdminIsNotLogin();
+            $this->ifAdminIsNotLogin();
 
             $posts = PostRepository::getPosts();
 
@@ -113,8 +116,7 @@
         }
 
         public function displayAddPost() {
-            $RoleRequiredMiddleware = new RoleRequiredMiddleware();
-            $RoleRequiredMiddleware->ifAdminIsNotLogin();
+            $this->ifAdminIsNotLogin();
 
             $categories = CategoryRepository::getCategories();
 
@@ -132,7 +134,7 @@
                 $chapo = strip_tags(trim($_POST["chapo"]));
                 $contents = strip_tags(trim($_POST["contents"]));
                 $slug = strip_tags(trim($_POST["slug"]));
-                if(isset($_POST["published"])) {
+                if (isset($_POST["published"])) {
                     $published = 1;
                 } else {
                     $published = 0;
@@ -185,14 +187,14 @@
                     'chapo' => $chapo,
                     'contents' => $contents,
                     'slug' => $slug,
-                    'errors' => $errors]
+                    'errors' => $errors,
+                    'admin' => $_SESSION["admin"]]
                 );
             }
         }
 
         public function displayEditPost($id) {
-            $RoleRequiredMiddleware = new RoleRequiredMiddleware();
-            $RoleRequiredMiddleware->ifAdminIsNotLogin();
+            $this->ifAdminIsNotLogin();
 
             $post = PostRepository::getPostById($id);
 
@@ -213,7 +215,7 @@
                 $chapo = strip_tags(trim($_POST["chapo"]));
                 $contents = strip_tags(trim($_POST["contents"]));
                 $slug = strip_tags(trim($_POST["slug"]));
-                if(isset($_POST["published"])) {
+                if (isset($_POST["published"])) {
                     $published = 1;
                 } else {
                     $published = 0;
@@ -269,8 +271,79 @@
                     'chapo' => $chapo,
                     'contents' => $contents,
                     'slug' => $slug,
-                    'errors' => $errors]
+                    'errors' => $errors,
+                    'admin' => $_SESSION["admin"]]
                 );
+            }
+        }
+
+        public function displayComments() {
+            $this->ifAdminIsNotLogin();
+
+            $comments = CommentRepository::getComments();
+
+            $this->render('views/templates/admin',
+                'comments.html.twig',
+                ['comments' => $comments,
+                'admin' => $_SESSION["admin"]]
+            );
+        }
+
+        public function displayComment($id) {
+            $this->ifAdminIsNotLogin();
+
+            $comment = CommentRepository::getCommentById($id);
+
+            $this->render('views/templates/admin',
+                'comment.html.twig',
+                ['comment' => $comment,
+                'admin' => $_SESSION["admin"]]
+            );
+        }
+
+        public function renderFormEditComment($id) {
+            if(isset($_POST["editComment"])) {
+                $contents = strip_tags(trim($_POST["contents"]));
+                $status = htmlspecialchars(trim($_POST["status"]));
+                $valid = true;
+                $errors = [];
+
+                if (empty($contents)) {
+                    $valid = false;
+                    $errors['emptyContents'] = "Le \"Contenu\" du commentaire ne peut être vide.";
+                }
+
+                if (empty($status)) {
+                    $valid = false;
+                    $errors['emptyStatus'] = "Le \"Statut\" ne peut être vide.";
+                }
+
+                if ($valid) {
+                    CommentRepository::setComment($contents, $status, $id);
+
+                    header("location:/blog_php/backoff/comments?page=1");
+                    exit;
+                }
+
+                $comment = CommentRepository::getCommentById($id);
+
+                $this->render('views/templates/admin',
+                    'comment.html.twig',
+                    ['comment' => $comment,
+                    'contents' => $contents,
+                    'status' => $status,
+                    'errors' => $errors,
+                    'admin' => $_SESSION["admin"]]
+                );
+            }
+        }
+
+        public function renderFormResetComment($id) {
+            if(isset($_POST["resetComment"])) {
+                CommentRepository::resetComment($id);
+
+                header("location:/blog_php/backoff/comments?page=1");
+                exit;
             }
         }
 

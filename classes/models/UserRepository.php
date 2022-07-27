@@ -4,33 +4,56 @@
     use \PDO;
     use App\Classes\Entities\User;
 
-    class UserRepository
-    {
-        public static function getUsernameById($id)
-        {
+    class UserRepository {
+        // FrontController
+        public static function checkUserCredentials($username, $email) {
             $bdd = DataBaseConnection::getConnect();
 
-            $query = "SELECT `username`
+            // We make a request to know if the name of the admin exists because it is unique
+            $query = "SELECT *
                       FROM `user`
-                      WHERE `id_user` = ?";
-            $resultSet = $bdd->query($query, array($id));
+                      WHERE `username` = ?
+                      OR `email` = ?";
+            $resultSet = $bdd->query($query, [$username, $email]);
             $resultSet->setFetchMode(PDO::FETCH_CLASS, User::class);
             return $resultSet->fetch();
         }
 
-        public static function getHashAdmin($mailUsername)
-        {
+        // À SUPPRIMER
+        public static function setCommentAuthor($username, $email) {
+            date_default_timezone_set("Europe/Paris");
+
             $bdd = DataBaseConnection::getConnect();
 
-            // We request the hash for this user from our database
-            $query = "SELECT `password`
+            $query = "UPDATE `user`
+                      SET `username` = ?, `email` = ?
+                      WHERE `username` = \"".$username."\"
+                      OR `email` = \"".$email."\"";
+            $bdd->insert($query, array($username, $email));
+        }
+
+        public static function insertCommentAuthor($username, $email) {
+            date_default_timezone_set("Europe/Paris");
+
+            $bdd = DataBaseConnection::getConnect();
+
+            $query = "INSERT INTO `user` (`username`, `email`, `is_admin`, `registration_date`)
+                      VALUES (?, ?, ?, ?)";
+            $bdd->insert($query, array($username, $email, User::NOT_ADMIN, date("Y-m-d H:i:s")));
+        }
+
+        public static function getUserByEmail($email) {
+            $bdd = DataBaseConnection::getConnect();
+
+            $query = "SELECT `id_user`
                       FROM `user`
-                      WHERE (`username` = ? OR `email` = ?)";
-            $resultSet = $bdd->query($query, [$mailUsername, $mailUsername]);
+                      WHERE `email` = ?";
+            $resultSet = $bdd->query($query, [$email]);
             $resultSet->setFetchMode(PDO::FETCH_CLASS, User::class);
             return $resultSet->fetch();
         }
 
+        // AdminController
         public static function checkAdminCredentials($mailUsername) {
             $bdd = DataBaseConnection::getConnect();
 
@@ -43,6 +66,7 @@
             return $resultSet->fetch();
         }
 
+        // À SUPPRIMER
         public static function getUsers() {
             $bdd = DataBaseConnection::getConnect();
 

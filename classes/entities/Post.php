@@ -1,8 +1,7 @@
 <?php
     namespace App\Classes\Entities;
 
-    class Post
-    {
+    class Post {
         public	$id_post;
         public	$category_id;
         public	$user_id;
@@ -15,5 +14,7 @@
         public	$date_updated;
 
         const PUBLISHED = 1;
+        const NOT_PUBLISHED = 0;
+        const DELETED = 1;
         const NOT_DELETED = 0;
     }

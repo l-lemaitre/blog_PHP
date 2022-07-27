@@ -4,8 +4,7 @@
     use \PDO;
     use App\Classes\Entities\Category;
 
-    class CategoryRepository
-    {
+    class CategoryRepository {
         public static function getCategories() {
             $bdd = DataBaseConnection::getConnect();
 

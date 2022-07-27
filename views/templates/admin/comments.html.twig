@@ -1,0 +1,45 @@
+{% extends "layout_bo.html.twig" %}
+
+{% block title %}Liste des commentaires{% endblock %}
+{% block content %}
+   <!-- BREADCRUMB -->
+   <nav class="breadcrumbs breadcrumbs-bo">
+      <ul>
+         <li><a href="/blog_php" class="home">Accueil</a></li>
+         <li>Liste des commentaires</li>
+      </ul>
+   </nav>
+   <div class="container-bo">
+      <table class="table table-striped">
+         <thead>
+            <tr>
+               <th scope="col">ID</th>
+               <th scope="col">Auteur</th>
+               <th scope="col">Article</th>
+               <th scope="col">Statut</th>
+               <th scope="col">Date de création</th>
+               <th scope="col">Date de mise à jour</th>
+               <th scope="col">Options</th>
+            </tr>
+         </thead>
+         <tbody>
+            {% for comment in comments %}
+               <tr>
+                  <th scope="row">{{ comment.id_comment|e }}</th>
+                  <td>{{ comment.user_username|e }}</td>
+                  <td>{{ comment.post_title|e }}</td>
+                  <td>{{ comment.status|title|e }}</td>
+                  <td>{{ comment.date_add|date("d/m/Y H:i") }}</td>
+                  <td>{{ comment.date_updated|date("d/m/Y H:i") }}</td>
+                  <td>
+                     <a href="/blog_php/backoff/comment-{{ comment.id_comment|e }}" class="btn btn-secondary">Modifier</a>
+                     <form class="formReset" method="POST">
+                        <button class="btn btn-danger" type="submit" name="resetComment" value="{{ comment.id_comment|e }}">Supprimer</button>
+                     </form>
+                  </td>
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+   </div>
+{% endblock %}

@@ -1,8 +1,7 @@
 <?php
     namespace App\Classes\Entities;
 
-    class Category
-    {
+    class Category {
         public	$id_category;
         public	$title;
         public	$slug;
