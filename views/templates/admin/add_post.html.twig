@@ -45,8 +45,10 @@
                   <p>{{ errors.emptyChapo|e }}</p>
                {% endif %}
             </div>
+         </div>
+         <div>
             <label for="contents">Contenu :</label>
-            <textarea id="contents" name="contents" rows="6" required>{{ post.contents|e }}</textarea>
+            <textarea id="contents" name="contents" rows="10" required>{{ post.contents|e }}</textarea>
             {% if errors.emptyContents is defined %}
                <p>{{ errors.emptyContents|e }}</p>
             {% endif %}

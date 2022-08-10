@@ -45,8 +45,10 @@
                   <p>{{ errors.emptyChapo|e }}</p>
                {% endif %}
             </div>
+         </div>
+         <div>
             <label for="contents">Contenu :</label>
-            <textarea id="contents" name="contents" rows="6" required>{{ post.contents|e }}</textarea>
+            <textarea id="contents" name="contents" rows="10" required>{{ post.contents|e }}</textarea>
             {% if errors.emptyContents is defined %}
                <p>{{ errors.emptyContents|e }}</p>
             {% endif %}
@@ -65,7 +67,7 @@
          <input type="submit" class="btn" name="editPost" value="Valider" />
       </form>
       <form class="formReset" method="POST">
-         <button type="button" id="resetPost" class="btnReset">Supprimer l'article</button>
+         <button type="button" id="resetForm" class="btnReset">Supprimer l'article</button>
          <input type="hidden" name="resetPost" value="1" />
       </form>
    </div>

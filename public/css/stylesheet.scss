@@ -144,6 +144,10 @@ body {
 /* MAIN CONTENT */
 .container {
    margin-bottom: 11rem;
+
+   .name {
+      color: indigo;
+   }
 }
 
 section {
@@ -529,10 +533,10 @@ footer {
 }
 
 .button {
-   height: 2.8rem;
+   //height: 2.8rem;
    margin: 2rem auto 2rem;
-   padding: 0 1.5rem;
-   line-height: 2.6rem;
+   padding: 1rem;
+   //line-height: 2.6rem;
 
    font-size: 1.2rem;
    text-transform: uppercase;
@@ -1298,7 +1302,7 @@ footer {
       border: none;
 
       .btnReset {
-         height: 3.2rem;
+         height: 3.4rem;
          margin: 0 auto 1.5rem;
          padding: 1rem;
 
@@ -1336,4 +1340,30 @@ footer {
 
 .containerAdd {
    margin-bottom: 10.5rem;
+}
+
+.comment-box {
+   .shadow-none {
+      box-shadow: none;
+   }
+
+   .cursor {
+      cursor: pointer;
+   }
+
+   .cursor:hover {
+      color: rgb(133, 64, 245);
+   }
+
+   .textarea {
+      resize: none;
+
+      font-size: 1.5rem;
+   }
+
+   input {
+      height: 3rem;
+
+      font-size: 1.5rem;
+   }
 }

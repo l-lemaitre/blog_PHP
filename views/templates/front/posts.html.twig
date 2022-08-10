@@ -15,7 +15,7 @@
          <div class="card mt-5">
             <div class="card-body text-center">
                <h3 class="card-title">{{ post.title|e }}</h3>
-               <p>{{ post.date_updated|date("d/m/Y H:i") }}</p>
+               <p>{{ post.date_updated|date("d/m/Y") }}</p>
                <p class="card-text">{{ post.chapo|e }}</p>
                <div class="subheading"><a href="/blog_php/post/{{ post.slug|e }}-{{ post.id_post|e }}">Lire</a></div>
             </div>

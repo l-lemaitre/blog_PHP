@@ -84,6 +84,8 @@ body {
 /* MAIN CONTENT */
 .container {
   margin-bottom: 11rem; }
+  .container .name {
+    color: indigo; }
 
 section {
   display: flex;
@@ -326,10 +328,8 @@ footer {
     color: red; }
 
 .button {
-  height: 2.8rem;
   margin: 2rem auto 2rem;
-  padding: 0 1.5rem;
-  line-height: 2.6rem;
+  padding: 1rem;
   font-size: 1.2rem;
   text-transform: uppercase;
   color: #ffffff;
@@ -814,7 +814,7 @@ footer {
     padding: 0;
     border: none; }
     .containerAdd .formReset .btnReset, .containerEdit .formReset .btnReset {
-      height: 3.2rem;
+      height: 3.4rem;
       margin: 0 auto 1.5rem;
       padding: 1rem;
       font-size: 1.1rem;
@@ -838,5 +838,18 @@ footer {
 
 .containerAdd {
   margin-bottom: 10.5rem; }
+
+.comment-box .shadow-none {
+  box-shadow: none; }
+.comment-box .cursor {
+  cursor: pointer; }
+.comment-box .cursor:hover {
+  color: #8540f5; }
+.comment-box .textarea {
+  resize: none;
+  font-size: 1.5rem; }
+.comment-box input {
+  height: 3rem;
+  font-size: 1.5rem; }
 
 /*# sourceMappingURL=stylesheet.css.map */

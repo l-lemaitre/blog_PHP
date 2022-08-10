@@ -34,6 +34,8 @@
 
     $router->get('/post/:slug-:id', 'Front#displayPost')->with("slug", "[a-z\-0-9]+")->with("id", "[0-9]+");
 
+    $router->post('/post/:slug-:id', 'Front#renderFormAddComment')->with("slug", "[a-z\-0-9]+")->with("id", "[0-9]+");
+
     $router->get('/backoff/dashboard', function() {
         $adminController = new AdminController();
         $adminController->displayDashboard();
@@ -65,6 +67,24 @@
         $router->post('/backoff/post-:id', 'Admin#renderFormEditPost')->with("id", "[0-9]+");
     } elseif(isset($_POST["resetPost"])) {
         $router->post('/backoff/post-:id', 'Admin#renderFormResetPost')->with("id", "[0-9]+");
+    }
+
+    $router->get('/backoff/comments', function() {
+        $adminController = new AdminController();
+        $adminController->displayComments();
+    });
+
+    $router->post('/backoff/comments', function() {
+        $adminController = new AdminController();
+        $adminController->renderFormResetComment($_POST["resetComment"]);
+    });
+
+    $router->get('/backoff/comment-:id', 'Admin#displayComment')->with("id", "[0-9]+");
+
+    if(isset($_POST["editComment"])) {
+        $router->post('/backoff/comment-:id', 'Admin#renderFormEditComment')->with("id", "[0-9]+");
+    } elseif(isset($_POST["resetComment"])) {
+        $router->post('/backoff/comment-:id', 'Admin#renderFormResetComment')->with("id", "[0-9]+");
     }
 
     $router->get('/backoff/logout', function() {

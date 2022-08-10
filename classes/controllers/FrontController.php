@@ -1,6 +1,7 @@
 <?php
     namespace App\Classes\Controllers;
 
+    use App\Classes\Models\CommentRepository;
     use App\Classes\Models\PostRepository;
     use App\Classes\Models\UserRepository;
     use Symfony\Component\Mailer\Transport;
@@ -29,7 +30,7 @@
                 $lastname = htmlspecialchars(trim($_POST["lastname"])); // We get the lastname
                 $email = htmlspecialchars(strtolower(trim($_POST["email"]))); // We retrieve the email
                 $subject = strip_tags(trim($_POST["subject"])); // We retrieve the subject of the message
-                $content = strip_tags(trim($_POST["content"])); // We retrieve the content of the message
+                $contents = strip_tags(trim($_POST["contents"])); // We retrieve the contents of the message
                 $valid = true;
                 $errors = [];
 
@@ -38,7 +39,6 @@
                     $valid = false;
                     $errors['emptyName'] = "Le \"Prénom\" et/ou le \"Nom\" ne peuvent être vide.";
                 }
-
                 // Check that the first and last name are in the correct format
                 elseif(!preg_match("/^[A-Za-zàäâçéèëêïîöôùüû\s_-]{2,}$/", $firstname) || !preg_match("/^[A-Za-zàäâçéèëêïîöôùüû\s_-]{2,}$/", $lastname)) {
                     $valid = false;
@@ -50,7 +50,6 @@
                     $valid = false;
                     $errors['emptyMail'] = "L'adresse \"E-mail\" ne peut être vide.";
                 }
-
                 // Check that the email address is in the correct format
                 elseif(!preg_match("/^[0-9a-z\-_.]+@[0-9a-z]+\.[a-z]{2,3}$/i", $email)) {
                     $valid = false;
@@ -63,10 +62,10 @@
                     $errors['emptySubject'] = "Le \"Sujet\" du message ne peut être vide.";
                 }
 
-                // Check message content
-                if(empty($content)) {
+                // Check message contents
+                if(empty($contents)) {
                     $valid = false;
-                    $errors['emptyContent'] = "Le champ de saisie \"Votre message\" ne peut être vide.";
+                    $errors['emptyContents'] = "Le champ de saisie \"Votre message\" ne peut être vide.";
                 }
 
                 // If all the conditions are met then we move on to processing
@@ -82,7 +81,7 @@
                            <b>E-mail : </b>" . $email . "
                            <b>Date : </b>" . date("d-m-Y H:i:s") . "
                            <b>Sujet : </b>" . $subject . "
-                           <b>Message : </b>" . $content . "</p>
+                           <b>Message : </b>" . $contents . "</p>
                            </body></html>");
 
                     $transport = Transport::fromDsn('smtp://user:pass@smtp.example.com:port');
@@ -116,14 +115,14 @@
                     'lastname' => $lastname,
                     'email' => $email,
                     'subject' => $subject,
-                    'content' => $content,
+                    'contents' => $contents,
                     'errors' => $errors]
                 );
             }
         }
 
         public function displayPosts($page = null) {
-            $posts = PostRepository::getPostsPusblished();
+            $posts = PostRepository::getPusblishedPosts();
 
             $this->render('views/templates/front',
                 'posts.html.twig',
@@ -134,9 +133,76 @@
         public function displayPost($slug, $id) {
             $post = PostRepository::getPostById($id);
 
+            $comments = CommentRepository::getApprovedCommentsById($id);
+
             $this->render('views/templates/front',
                 'post.html.twig',
-                ['post' => $post]
+                ['post' => $post,
+                'comments' => $comments]
             );
+        }
+
+        public function renderFormAddComment($slug, $id) {
+            if(isset($_POST["addComment"])) {
+                $username = htmlspecialchars(trim($_POST["username"]));
+                $email = htmlspecialchars(strtolower(trim($_POST["email"])));
+                $contents = strip_tags(trim($_POST["contents"]));
+                $valid = true;
+                $errors = [];
+
+                if(empty($username)) {
+                    $valid = false;
+                    $errors['emptyName'] = "Le \"Nom\" ne peut être vide.";
+                }
+                elseif(!preg_match("/^[A-Za-zàäâçéèëêïîöôùüû\s_-]{2,}$/", $username)) {
+                    $valid = false;
+                    $errors['invalidName'] = "Le \"Nom\" doit contenir au moins 2 caractères et ne pas comporter de caractères spéciaux.";
+                }
+
+                if(empty($email)) {
+                    $valid = false;
+                    $errors['emptyMail'] = "L'adresse \"E-mail\" ne peut être vide.";
+                }
+                elseif(!preg_match("/^[0-9a-z\-_.]+@[0-9a-z]+\.[a-z]{2,3}$/i", $email)) {
+                    $valid = false;
+                    $errors['invalidMail'] = "L'adresse \"E-mail\" n'est pas valide.";
+                }
+
+                if ($valid) {
+                    $user = UserRepository::checkUserCredentials($username, $email);
+
+                    if($user) {
+                        if(($user->username <> $username) || ($user->email <> $email)) {
+                            $valid = false;
+                            $errors['mailUsername'] = "Le \"Nom\" ou l'adresse \"E-mail\" sont déjà utilisées.";
+                        }
+                    }
+                    else {
+                        UserRepository::insertCommentAuthor($username, $email);
+                    }
+
+                    $user_Id = UserRepository::getUserByEmail($email);
+                }
+
+                if (empty($contents)) {
+                    $valid = false;
+                    $errors['emptyContents'] = "Le Contenu du \"Commentaire\" ne peut être vide.";
+                }
+
+                if ($valid) {
+                    CommentRepository::insertComment($user_Id->id_user, $id, $contents);
+
+                    header("location:/blog_php/post/".$slug."-".$id."?reply=ok");
+                    exit;
+                }
+
+                $this->render('views/templates/front',
+                    'post.html.twig',
+                    ['username' => $username,
+                    'email' => $email,
+                    'contents' => $contents,
+                    'errors' => $errors]
+                );
+            }
         }
     }

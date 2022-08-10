@@ -179,10 +179,10 @@
                   {% endif %}
                </div>
                <div>
-                  <label for="content"></label>
-                  <textarea id="content" name="content" placeholder="Votre message :" maxlength="400" rows="6" required>{% if content is defined %}{{ content|e }}{% endif %}</textarea>
-                  {% if errors.emptyContent is defined %}
-                     <p>{{ errors.emptyContent|e }}</p>
+                  <label for="contents"></label>
+                  <textarea id="contents" name="contents" placeholder="Votre message :" maxlength="400" rows="6" required>{% if contents is defined %}{{ contents|e }}{% endif %}</textarea>
+                  {% if errors.emptyContents is defined %}
+                     <p>{{ errors.emptyContents|e }}</p>
                   {% endif %}
                </div>
                <button type="submit" class="button" name="message">Envoyer</button>

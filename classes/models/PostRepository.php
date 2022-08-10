@@ -4,10 +4,9 @@
     use \PDO;
     use App\Classes\Entities\Post;
 
-    class PostRepository
-    {
+    class PostRepository {
         // FrontController
-        public static function getPostsPusblished() {
+        public static function getPusblishedPosts() {
             $bdd = DataBaseConnection::getConnect();
 
             $query = "SELECT *
@@ -20,24 +19,8 @@
             return $resultSet->fetchAll();
         }
 
-        // AdminController
-        public static function getPosts() {
-            $bdd = DataBaseConnection::getConnect();
-
-            $query = "SELECT a.*, u.`username` AS user_username, c.`title` AS category_title
-                      FROM `post` a
-                      LEFT JOIN `user` u ON (u.`id_user` = a.`user_id`)
-                      LEFT JOIN `category` c ON (c.`id_category` = a.`category_id`)
-                      WHERE `deleted` = ?
-                      ORDER BY `id_post` DESC";
-            $resultSet = $bdd->query($query, array(Post::NOT_DELETED));
-            $resultSet->setFetchMode(PDO::FETCH_CLASS, Post::class);
-            return $resultSet->fetchAll();
-        }
-
         // Admin/FrontController
-        public static function getPostById($id)
-        {
+        public static function getPostById($id) {
             $bdd = DataBaseConnection::getConnect();
 
             $query = "SELECT a.*, u.`username` AS user_username
@@ -50,8 +33,21 @@
         }
 
         // AdminController
-        public static function insertPost($category, $author, $title, $chapo, $contents, $slug, $published)
-        {
+        public static function getPosts() {
+            $bdd = DataBaseConnection::getConnect();
+
+            $query = "SELECT p.*, u.`username` AS user_username, c.`title` AS category_title
+                      FROM `post` p
+                      LEFT JOIN `user` u ON (u.`id_user` = p.`user_id`)
+                      LEFT JOIN `category` c ON (c.`id_category` = p.`category_id`)
+                      WHERE p.`deleted` = ?
+                      ORDER BY p.`id_post` DESC";
+            $resultSet = $bdd->query($query, array(Post::NOT_DELETED));
+            $resultSet->setFetchMode(PDO::FETCH_CLASS, Post::class);
+            return $resultSet->fetchAll();
+        }
+
+        public static function insertPost($category, $author, $title, $chapo, $contents, $slug, $published) {
             // We set the default time offset of all date/time functions to that of French time
             date_default_timezone_set("Europe/Paris");
 
@@ -62,9 +58,7 @@
             $bdd->insert($query, array($category, $author, $title, $chapo, $contents, $slug, $published, date("Y-m-d H:i:s"), date("Y-m-d H:i:s")));
         }
 
-        // AdminController
-        public static function setPost($category, $title, $chapo, $contents, $slug, $published, $id)
-        {
+        public static function setPost($category, $title, $chapo, $contents, $slug, $published, $id) {
             date_default_timezone_set("Europe/Paris");
 
             $bdd = DataBaseConnection::getConnect();
@@ -75,17 +69,15 @@
             $bdd->insert($query, array($category, $title, $chapo, $contents, $slug, $published, date("Y-m-d H:i:s"), $id));
         }
 
-        // AdminController
-        public static function resetPost($id)
-        {
+        public static function resetPost($id) {
             date_default_timezone_set("Europe/Paris");
 
             $bdd = DataBaseConnection::getConnect();
 
             // We reset the columns containing the information of the post
             $query = "UPDATE `post`
-                      SET `deleted` = 1, `date_updated` = ?
+                      SET `deleted` = ?, `date_updated` = ?
                       WHERE `id_post` = ?";
-            $bdd->insert($query, array(date("Y-m-d H:i:s"), $id));
+            $bdd->insert( $query, array(Post::DELETED, date("Y-m-d H:i:s"), $id));
         }
     }
