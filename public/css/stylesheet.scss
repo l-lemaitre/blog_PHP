@@ -1237,11 +1237,13 @@ footer {
             cursor: pointer;
          }
 
+         textarea + p {
+            color: rgb(255, 0, 0);
+         }
+
          p {
             margin: 0.2rem 0 0.7rem;
             line-height: 2rem;
-
-            color: rgb(255, 0, 0);
          }
 
          select {
@@ -1342,7 +1344,7 @@ footer {
    margin-bottom: 10.5rem;
 }
 
-.comment-box {
+.containerComment {
    .shadow-none {
       box-shadow: none;
    }
@@ -1365,5 +1367,11 @@ footer {
       height: 3rem;
 
       font-size: 1.5rem;
+   }
+
+   .msgValid {
+      white-space: pre-line;
+
+      color: rgb(0, 128, 0);
    }
 }

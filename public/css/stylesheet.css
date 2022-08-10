@@ -771,10 +771,11 @@ footer {
         height: 1.4rem;
         width: 1.4rem;
         cursor: pointer; }
+      .containerAdd form div textarea + p, .containerEdit form div textarea + p {
+        color: red; }
       .containerAdd form div p, .containerEdit form div p {
         margin: 0.2rem 0 0.7rem;
-        line-height: 2rem;
-        color: red; }
+        line-height: 2rem; }
       .containerAdd form div select, .containerEdit form div select {
         height: 3.5rem;
         width: 40rem;
@@ -839,17 +840,20 @@ footer {
 .containerAdd {
   margin-bottom: 10.5rem; }
 
-.comment-box .shadow-none {
+.containerComment .shadow-none {
   box-shadow: none; }
-.comment-box .cursor {
+.containerComment .cursor {
   cursor: pointer; }
-.comment-box .cursor:hover {
+.containerComment .cursor:hover {
   color: #8540f5; }
-.comment-box .textarea {
+.containerComment .textarea {
   resize: none;
   font-size: 1.5rem; }
-.comment-box input {
+.containerComment input {
   height: 3rem;
   font-size: 1.5rem; }
+.containerComment .msgValid {
+  white-space: pre-line;
+  color: green; }
 
 /*# sourceMappingURL=stylesheet.css.map */

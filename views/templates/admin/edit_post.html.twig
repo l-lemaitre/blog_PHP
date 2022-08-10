@@ -2,73 +2,75 @@
 
 {% block title %}Modifier Article {{ post.title|e }}{% endblock %}
 {% block content %}
-   <!-- BREADCRUMB -->
-   <nav class="breadcrumbs breadcrumbs-bo">
-      <ul>
-         <li><a href="/blog_php/backoff/dashboard" class="home">Accueil</a></li>
-         <li><a href="/blog_php/backoff/posts?page=1">Liste des articles</a></li>
-         <li class="threadTitle">Modifier article {{ post.title|e }}</li>
-         <li class="threadTitle300" title="Modifier article {{ post.title|e }}">Modifier ...</li>
-      </ul>
-   </nav>
-   <!-- MAIN CONTENT -->
-   <div class="containerEdit">
-      <h3><i class="fas fa-pencil-alt"></i>Modifier article {{ post.title|e }}</h3>
-      <form method="POST">
-         <div>
-            <label for="category">Catégorie :</label>
-            <select id="category" name="category" required>
-               {% for category in categories %}
-                  <option value="{{ category.id_category|e }}" {% if category.id_category == post.category_id %}selected="selected"{% endif %}>
-                     {{ category.title|e }}
-                  </option>
-               {% endfor %}
-            </select>
-            {% if errors.emptyCategory is defined %}
-               <p>{{ errors.emptyCategory|e }}</p>
-            {% elseif errors.invalidCategory is defined %}
-               <p>{{ errors.invalidCategory|e }}</p>
-            {% endif %}
-         </div>
-         <div>
-            <label for="title">Titre :</label>
-            <input type="text" id="title" name="title" value="{{ post.title|e }}" required />
-            {% if errors.emptyTitle is defined %}
-               <p>{{ errors.emptyTitle|e }}</p>
-            {% endif %}
-         </div>
-         <div>
+   {% if post %}
+      <!-- BREADCRUMB -->
+      <nav class="breadcrumbs breadcrumbs-bo">
+         <ul>
+            <li><a href="/blog_php/backoff/dashboard" class="home">Accueil</a></li>
+            <li><a href="/blog_php/backoff/posts?page=1">Liste des articles</a></li>
+            <li class="threadTitle">Modifier article {{ post.title|e }}</li>
+            <li class="threadTitle300" title="Modifier article {{ post.title|e }}">Modifier ...</li>
+         </ul>
+      </nav>
+      <!-- MAIN CONTENT -->
+      <div class="containerEdit">
+         <h3><i class="fas fa-pencil-alt"></i>Modifier article {{ post.title|e }}</h3>
+         <form method="POST">
             <div>
-               <label for="chapo">Chapô :</label>
-               <input type="text" id="chapo" name="chapo" value="{{ post.chapo|e }}" required />
-               {% if errors.emptyChapo is defined %}
-                  <p>{{ errors.emptyChapo|e }}</p>
+               <label for="category">Catégorie :</label>
+               <select id="category" name="category" required>
+                  {% for category in categories %}
+                     <option value="{{ category.id_category|e }}" {% if category.id_category == post.category_id %}selected="selected"{% endif %}>
+                        {{ category.title|e }}
+                     </option>
+                  {% endfor %}
+               </select>
+               {% if errors.emptyCategory is defined %}
+                  <p>{{ errors.emptyCategory|e }}</p>
+               {% elseif errors.invalidCategory is defined %}
+                  <p>{{ errors.invalidCategory|e }}</p>
                {% endif %}
             </div>
-         </div>
-         <div>
-            <label for="contents">Contenu :</label>
-            <textarea id="contents" name="contents" rows="10" required>{{ post.contents|e }}</textarea>
-            {% if errors.emptyContents is defined %}
-               <p>{{ errors.emptyContents|e }}</p>
-            {% endif %}
-         </div>
-         <div>
-            <label for="slug">Permalien :</label>
-            <input type="text" id="slug" name="slug" value="{{ post.slug|e }}" required />
-            {% if errors.emptySlug is defined %}
-               <p>{{ errors.emptySlug|e }}</p>
-            {% endif %}
-         </div>
-         <div>
-            <label for="published" class="publishedLabel">Publié </label>
-            <input type="checkbox" id="published" class="published" name="published" {% if post.published == 1 or published is defined %}checked="checked"{% endif %} />
-         </div>
-         <input type="submit" class="btn" name="editPost" value="Valider" />
-      </form>
-      <form class="formReset" method="POST">
-         <button type="button" id="resetForm" class="btnReset">Supprimer l'article</button>
-         <input type="hidden" name="resetPost" value="1" />
-      </form>
-   </div>
+            <div>
+               <label for="title">Titre :</label>
+               <input type="text" id="title" name="title" value="{{ post.title|e }}" required />
+               {% if errors.emptyTitle is defined %}
+                  <p>{{ errors.emptyTitle|e }}</p>
+               {% endif %}
+            </div>
+            <div>
+               <div>
+                  <label for="chapo">Chapô :</label>
+                  <input type="text" id="chapo" name="chapo" value="{{ post.chapo|e }}" required />
+                  {% if errors.emptyChapo is defined %}
+                     <p>{{ errors.emptyChapo|e }}</p>
+                  {% endif %}
+               </div>
+            </div>
+            <div>
+               <label for="contents">Contenu :</label>
+               <textarea id="contents" name="contents" rows="10" required>{{ post.contents|e }}</textarea>
+               {% if errors.emptyContents is defined %}
+                  <p>{{ errors.emptyContents|e }}</p>
+               {% endif %}
+            </div>
+            <div>
+               <label for="slug">Permalien :</label>
+               <input type="text" id="slug" name="slug" value="{{ post.slug|e }}" required />
+               {% if errors.emptySlug is defined %}
+                  <p>{{ errors.emptySlug|e }}</p>
+               {% endif %}
+            </div>
+            <div>
+               <label for="published" class="publishedLabel">Publié </label>
+               <input type="checkbox" id="published" class="published" name="published" {% if post.published == 1 or published is defined %}checked="checked"{% endif %} />
+            </div>
+            <input type="submit" class="btn" name="editPost" value="Valider" />
+         </form>
+         <form class="formReset" method="POST">
+            <button type="button" id="resetForm" class="btnReset">Supprimer l'article</button>
+            <input type="hidden" name="resetPost" value="1" />
+         </form>
+      </div>
+   {% endif %}
 {% endblock %}
