@@ -1,26 +1,23 @@
 <?php
-    namespace App\Classes\Controllers;
+    namespace App\Classes\Controllers\Public;
 
-    use App\Classes\Models\CommentRepository;
-    use App\Classes\Models\PostRepository;
-    use App\Classes\Models\UserRepository;
+    use App\Classes\Controllers\Controller;
     use Symfony\Component\Mailer\Transport;
     use Symfony\Component\Mailer\Mailer;
     use Symfony\Component\Mime\Email;
 
-    class FrontController extends Controller {
+    class HomeController extends Controller {
         public function displayHomePage() {
             if(isset($_GET["reply"])) {
                 $reply = htmlspecialchars($_GET["reply"]);
-
-                $this->render('views/templates/front',
-                    'index.html.twig',
-                    ['reply' => $reply]
-                );
             } else {
-                $this->render('views/templates/front',
-                    'index.html.twig');
+                $reply = false;
             }
+
+            $this->render('views/templates/front',
+                'index.html.twig',
+                ['reply' => $reply]
+            );
         }
 
         public function renderContactForm() {
@@ -101,11 +98,11 @@
                     $return = $mailer->send($email);
 
                     if(!$return) {
-                        header("location:index?reply=ok");
+                        header("location:index?reply=ok#containerContact");
                     }
 
                     else{
-                        header("location:index?reply=error");
+                        header("location:index?reply=ok#containerContact");
                     }
                 }
 
@@ -115,91 +112,6 @@
                     'lastname' => $lastname,
                     'email' => $email,
                     'subject' => $subject,
-                    'contents' => $contents,
-                    'errors' => $errors]
-                );
-            }
-        }
-
-        public function displayPosts($page = null) {
-            $posts = PostRepository::getPusblishedPosts();
-
-            $this->render('views/templates/front',
-                'posts.html.twig',
-                ['posts' => $posts]
-            );
-        }
-
-        public function displayPost($slug, $id) {
-            $post = PostRepository::getPostById($id);
-
-            $comments = CommentRepository::getApprovedCommentsById($id);
-
-            $this->render('views/templates/front',
-                'post.html.twig',
-                ['post' => $post,
-                'comments' => $comments]
-            );
-        }
-
-        public function renderFormAddComment($slug, $id) {
-            if(isset($_POST["addComment"])) {
-                $username = htmlspecialchars(trim($_POST["username"]));
-                $email = htmlspecialchars(strtolower(trim($_POST["email"])));
-                $contents = strip_tags(trim($_POST["contents"]));
-                $valid = true;
-                $errors = [];
-
-                if(empty($username)) {
-                    $valid = false;
-                    $errors['emptyName'] = "Le \"Nom\" ne peut être vide.";
-                }
-                elseif(!preg_match("/^[A-Za-zàäâçéèëêïîöôùüû\s_-]{2,}$/", $username)) {
-                    $valid = false;
-                    $errors['invalidName'] = "Le \"Nom\" doit contenir au moins 2 caractères et ne pas comporter de caractères spéciaux.";
-                }
-
-                if(empty($email)) {
-                    $valid = false;
-                    $errors['emptyMail'] = "L'adresse \"E-mail\" ne peut être vide.";
-                }
-                elseif(!preg_match("/^[0-9a-z\-_.]+@[0-9a-z]+\.[a-z]{2,3}$/i", $email)) {
-                    $valid = false;
-                    $errors['invalidMail'] = "L'adresse \"E-mail\" n'est pas valide.";
-                }
-
-                if ($valid) {
-                    $user = UserRepository::checkUserCredentials($username, $email);
-
-                    if($user) {
-                        if(($user->username <> $username) || ($user->email <> $email)) {
-                            $valid = false;
-                            $errors['mailUsername'] = "Le \"Nom\" ou l'adresse \"E-mail\" sont déjà utilisées.";
-                        }
-                    }
-                    else {
-                        UserRepository::insertCommentAuthor($username, $email);
-                    }
-
-                    $user_Id = UserRepository::getUserByEmail($email);
-                }
-
-                if (empty($contents)) {
-                    $valid = false;
-                    $errors['emptyContents'] = "Le Contenu du \"Commentaire\" ne peut être vide.";
-                }
-
-                if ($valid) {
-                    CommentRepository::insertComment($user_Id->id_user, $id, $contents);
-
-                    header("location:/blog_php/post/".$slug."-".$id."?reply=ok");
-                    exit;
-                }
-
-                $this->render('views/templates/front',
-                    'post.html.twig',
-                    ['username' => $username,
-                    'email' => $email,
                     'contents' => $contents,
                     'errors' => $errors]
                 );

@@ -19,19 +19,6 @@
             return $resultSet->fetch();
         }
 
-        // À SUPPRIMER
-        public static function setCommentAuthor($username, $email) {
-            date_default_timezone_set("Europe/Paris");
-
-            $bdd = DataBaseConnection::getConnect();
-
-            $query = "UPDATE `user`
-                      SET `username` = ?, `email` = ?
-                      WHERE `username` = \"".$username."\"
-                      OR `email` = \"".$email."\"";
-            $bdd->insert($query, array($username, $email));
-        }
-
         public static function insertCommentAuthor($username, $email) {
             date_default_timezone_set("Europe/Paris");
 
@@ -66,12 +53,12 @@
             return $resultSet->fetch();
         }
 
-        // À SUPPRIMER
         public static function getUsers() {
             $bdd = DataBaseConnection::getConnect();
 
             $query = "SELECT *
-                      FROM `user`";
+                      FROM `user`
+                      ORDER BY `id_user` DESC";
             $resultSet = $bdd->query($query);
             $resultSet->setFetchMode(PDO::FETCH_CLASS, User::class);
             return $resultSet->fetchAll();

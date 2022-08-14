@@ -28,7 +28,15 @@
                   <th scope="row">{{ comment.id_comment|e }}</th>
                   <td>{{ comment.user_username|e }}</td>
                   <td>{{ comment.post_title|e }}</td>
-                  <td>{{ comment.status|title|e }}</td>
+                  <td>
+                     {% if comment.status == "approved" %}
+                        Approuvé
+                     {% elseif comment.status == "pending" %}
+                        En attente
+                     {% elseif comment.status == "rejected" %}
+                        Rejeté
+                     {% endif %}
+                  </td>
                   <td>{{ comment.date_add|date("d/m/Y H:i") }}</td>
                   <td>{{ comment.date_updated|date("d/m/Y H:i") }}</td>
                   <td>

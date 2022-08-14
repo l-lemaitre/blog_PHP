@@ -1,8 +1,8 @@
 <?php
     namespace App\Classes\Models;
 
-    use App\Classes\Entities\Post;
     use \PDO;
+    use App\Classes\Entities\Post;
     use App\Classes\Entities\Comment;
 
     class CommentRepository {
@@ -14,20 +14,21 @@
                       FROM `comment` c
                       LEFT JOIN `user` u ON (u.`id_user` = c.`user_id`)
                       WHERE c.`post_id` = ?
-                      AND c.`status` = ?";
-            $resultSet = $bdd->query($query, array($id, Comment::APPROVED));
+                      AND c.`status` = ?
+                      AND c.`deleted` = ?";
+            $resultSet = $bdd->query($query, array($id, Comment::APPROVED, Comment::NOT_DELETED));
             $resultSet->setFetchMode(PDO::FETCH_CLASS, Comment::class);
             return $resultSet->fetchAll();
         }
 
-        public static function insertComment($user_Id, $post_id, $contents) {
+        public static function insertComment($user_Id, $post_id, $contents, $status) {
             date_default_timezone_set("Europe/Paris");
 
             $bdd = DataBaseConnection::getConnect();
 
             $query = "INSERT INTO `comment` (`user_id`, `post_id`, `contents`, `status`, `date_add`, `date_updated`)
                       VALUES (?, ?, ?, ?, ?, ?)";
-            $bdd->insert($query, array($user_Id, $post_id, $contents, Comment::PENDING, date("Y-m-d H:i:s"), date("Y-m-d H:i:s")));
+            $bdd->insert($query, array($user_Id, $post_id, $contents, $status, date("Y-m-d H:i:s"), date("Y-m-d H:i:s")));
         }
 
         // AdminController
@@ -50,8 +51,9 @@
 
             $query = "SELECT *
                       FROM `comment`
-                      WHERE `id_comment` = ?";
-            $resultSet = $bdd->query($query, array($id));
+                      WHERE `id_comment` = ?
+                      AND `deleted` = ?";
+            $resultSet = $bdd->query($query, array($id, Comment::NOT_DELETED));
             $resultSet->setFetchMode(PDO::FETCH_CLASS, Comment::class);
             return $resultSet->fetch();
         }

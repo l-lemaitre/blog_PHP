@@ -19,15 +19,16 @@
             return $resultSet->fetchAll();
         }
 
-        // Admin/FrontController
-        public static function getPostById($id) {
+        public static function getPublishedPostById($id) {
             $bdd = DataBaseConnection::getConnect();
 
-            $query = "SELECT a.*, u.`username` AS user_username
-                      FROM `post` a
-                      LEFT JOIN `user` u ON (u.`id_user` = a.`user_id`)
-                      WHERE a.`id_post` = ?";
-            $resultSet = $bdd->query($query, array($id));
+            $query = "SELECT p.*, u.`username` AS user_username
+                      FROM `post` p
+                      LEFT JOIN `user` u ON (u.`id_user` = p.`user_id`)
+                      WHERE p.`id_post` = ?
+                      AND p.`published` = ?
+                      AND p.`deleted` = ?";
+            $resultSet = $bdd->query($query, array($id, Post::PUBLISHED, Post::NOT_DELETED));
             $resultSet->setFetchMode(PDO::FETCH_CLASS, Post::class);
             return $resultSet->fetch();
         }
@@ -45,6 +46,19 @@
             $resultSet = $bdd->query($query, array(Post::NOT_DELETED));
             $resultSet->setFetchMode(PDO::FETCH_CLASS, Post::class);
             return $resultSet->fetchAll();
+        }
+
+        public static function getPostById($id) {
+            $bdd = DataBaseConnection::getConnect();
+
+            $query = "SELECT p.*, u.`username` AS user_username
+                      FROM `post` p
+                      LEFT JOIN `user` u ON (u.`id_user` = p.`user_id`)
+                      WHERE p.`id_post` = ?
+                      AND p.`deleted` = ?";
+            $resultSet = $bdd->query($query, array($id, Post::NOT_DELETED));
+            $resultSet->setFetchMode(PDO::FETCH_CLASS, Post::class);
+            return $resultSet->fetch();
         }
 
         public static function insertPost($category, $author, $title, $chapo, $contents, $slug, $published) {
