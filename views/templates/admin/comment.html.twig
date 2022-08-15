@@ -19,7 +19,7 @@
             {% if admin_id == comment.user_id %}
                <div>
                   <label for="contents">Contenu :</label>
-                  <textarea id="contents" name="contents" rows="10" required>{{ comment.contents|e }}</textarea>
+                  <textarea id="contents" name="contents" rows="10" required>{% if contents is defined %}{{ contents|e }}{% else %}{{ comment.contents|e }}{% endif %}</textarea>
                   {% if errors.emptyContents is defined %}
                      <p>{{ errors.emptyContents|e }}</p>
                   {% endif %}

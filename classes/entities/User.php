@@ -13,4 +13,6 @@
 
         const IS_ADMIN = 1;
         const NOT_ADMIN = 0;
+        const DELETED = 1;
+        const NOT_DELETED = 0;
     }

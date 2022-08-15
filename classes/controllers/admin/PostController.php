@@ -2,13 +2,13 @@
     namespace App\Classes\Controllers\Admin;
 
     use App\Classes\Controllers\Controller;
-    use App\Classes\Controllers\ErrorAdminController;
-    use App\Classes\Middlewares\checkingLogin;
+    use App\Classes\Exceptions\NotFoundException;
+    use App\Classes\Middlewares\CheckingLogin;
     use App\Classes\Models\CategoryRepository;
     use App\Classes\Models\PostRepository;
 
     class PostController extends Controller {
-        protected array $middlewares = [ checkingLogin::class ];
+        protected array $middlewares = [ CheckingLogin::class ];
 
         public function displayPosts() {
             $posts = PostRepository::getPosts();
@@ -24,7 +24,7 @@
             if(isset($_POST["resetPost"])) {
                 PostRepository::resetPost($id);
 
-                header("location:/blog_php/backoff/posts?page=1");
+                header("location:posts?page=1");
                 exit;
             }
         }
@@ -40,7 +40,7 @@
         }
 
         public function renderFormAddPost() {
-            if(isset($_POST["addPost"])) {
+            if (isset($_POST["addPost"])) {
                 $category = htmlspecialchars(trim($_POST["category"]));
                 $title = strip_tags(trim($_POST["title"]));
                 $chapo = strip_tags(trim($_POST["chapo"]));
@@ -80,28 +80,36 @@
                 if (empty($slug)) {
                     $valid = false;
                     $errors['emptySlug'] = "Le \"Permalien\" ne peut être vide.";
+                } else {
+                    $checkSlug = PostRepository::checkSlug($slug);
+
+                    if ($checkSlug) {
+                        $valid = false;
+                        $errors['existingSlug'] = "Ce \"Permalien\" existe déjà.";
+                    }
                 }
 
                 if ($valid) {
                     PostRepository::insertPost($category, $_SESSION["admin_id"], $title, $chapo, $contents, $slug, $published);
 
-                    header("location:/blog_php/backoff/posts?page=1");
+                    header("location:posts?page=1");
                     exit;
+                } else {
+                    $categories = CategoryRepository::getCategories();
+
+                    $this->render('views/templates/admin',
+                        'add_post.html.twig',
+                        ['categories' => $categories,
+                        'category' => $category,
+                        'title' => $title,
+                        'chapo' => $chapo,
+                        'contents' => $contents,
+                        'slug' => $slug,
+                        'published' => $published,
+                        'errors' => $errors,
+                        'admin' => $_SESSION["admin"]]
+                    );
                 }
-
-                $categories = CategoryRepository::getCategories();
-
-                $this->render('views/templates/admin',
-                    'add_post.html.twig',
-                    ['categories' => $categories,
-                    'category' => $category,
-                    'title' => $title,
-                    'chapo' => $chapo,
-                    'contents' => $contents,
-                    'slug' => $slug,
-                    'errors' => $errors,
-                    'admin' => $_SESSION["admin"]]
-                );
             }
         }
 
@@ -109,9 +117,7 @@
             $post = PostRepository::getPostById($id);
 
             if (!$post) {
-                $errorAdminController = new ErrorAdminController();
-                $errorAdminController->displayError();
-                exit;
+                throw new NotFoundException();
             }
 
             $categories = CategoryRepository::getCategories();
@@ -165,31 +171,39 @@
                 if (empty($slug)) {
                     $valid = false;
                     $errors['emptySlug'] = "Le \"Permalien\" ne peut être vide.";
+                } else {
+                    $checkSlug = PostRepository::checkSlug($slug);
+
+                    if ($checkSlug) {
+                        $valid = false;
+                        $errors['existingSlug'] = "Ce \"Permalien\" existe déjà.";
+                    }
                 }
 
                 if ($valid) {
                     PostRepository::setPost($category, $title, $chapo, $contents, $slug, $published, $id);
 
-                    header("location:/blog_php/backoff/posts?page=1");
+                    header("location:posts?page=1");
                     exit;
+                } else {
+                    $post = PostRepository::getPostById($id);
+
+                    $categories = CategoryRepository::getCategories();
+
+                    $this->render('views/templates/admin',
+                        'edit_post.html.twig',
+                        ['post' => $post,
+                        'categories' => $categories,
+                        'category' => $category,
+                        'title' => $title,
+                        'chapo' => $chapo,
+                        'contents' => $contents,
+                        'slug' => $slug,
+                        'published' => $published,
+                        'errors' => $errors,
+                        'admin' => $_SESSION["admin"]]
+                    );
                 }
-
-                $post = PostRepository::getPostById($id);
-
-                $categories = CategoryRepository::getCategories();
-
-                $this->render('views/templates/admin',
-                    'edit_post.html.twig',
-                    ['post' => $post,
-                    'categories' => $categories,
-                    'category' => $category,
-                    'title' => $title,
-                    'chapo' => $chapo,
-                    'contents' => $contents,
-                    'slug' => $slug,
-                    'errors' => $errors,
-                    'admin' => $_SESSION["admin"]]
-                );
             }
         }
     }

@@ -22,14 +22,14 @@
             <div class="topbarContenu">
                 <!-- Logo -->
                 <div class="logo">
-                    <a href="/blog_php/backoff/dashboard" title="Accueil"><h2>Blog llemaitre.com</h2></a>
+                    <a href="dashboard" title="Accueil"><h2>Blog llemaitre.com</h2></a>
                 </div>
                 {% if admin is defined %}
                     <div class="displayAdmin">
                         <ul>
                             <li>{{ admin|e }}</li>
                             <li>|</li>
-                            <li><a href="/blog_php/backoff/logout"><span>Déconnexion</span></a></li>
+                            <li><a href="logout"><span>Déconnexion</span></a></li>
                         </ul>
                     </div>
                 {% endif %}
@@ -45,22 +45,22 @@
                             <div class="sousMenu">
                                 <h2>Articles</h2>
                                 <ul>
-                                    <li><a href="/blog_php/backoff/posts?page=1"><i class="fa fa-cog"></i>Gérer les articles</a></li>
-                                    <li><a href="/blog_php/backoff/add-post"><i class="fa fa-plus"></i>Ajouter un article</a></li>
+                                    <li><a href="posts?page=1"><i class="fa fa-cog"></i>Gérer les articles</a></li>
+                                    <li><a href="add-post"><i class="fa fa-plus"></i>Ajouter un article</a></li>
                                 </ul>
                             </div>
                             <div class="sousMenu">
                                 <h2>Commentaires</h2>
                                 <ul>
-                                    <li><a href="/blog_php/backoff/comments?page=1"><i class="fa fa-cog"></i>Gérer les commentaires</a></li>
-                                    <li><a href="/blog_php/backoff/add-comment"><i class="fa fa-plus"></i>Ajouter un commentaire</a></li>
+                                    <li><a href="comments?page=1"><i class="fa fa-cog"></i>Gérer les commentaires</a></li>
+                                    <li><a href="add-comment"><i class="fa fa-plus"></i>Ajouter un commentaire</a></li>
                                 </ul>
                             </div>
                             <div class="sousMenu">
                                 <h2>Catégories</h2>
                                 <ul>
-                                    <li><a href="/blog_php/backoff/categories?page=1"><i class="fa fa-cog"></i>Gérer les catégories</a></li>
-                                    <li><a href="/blog_php/backoff/add-category"><i class="fa fa-plus"></i>Ajouter une catégorie</a></li>
+                                    <li><a href="categories?page=1"><i class="fa fa-cog"></i>Gérer les catégories</a></li>
+                                    <li><a href="add-category"><i class="fa fa-plus"></i>Ajouter une catégorie</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -70,8 +70,8 @@
                         <div class="menu">
                             <div class="sousMenu singleMenu">
                                 <ul>
-                                    <li><a href="/blog_php/backoff/users?page=1"><i class="fa fa-cog"></i>Gérer les utilisateurs</a></li>
-                                    <li><a href="/blog_php/backoff/add-user"><i class="fa fa-plus"></i>Ajouter un utilisateur</a></li>
+                                    <li><a href="users?page=1"><i class="fa fa-cog"></i>Gérer les utilisateurs</a></li>
+                                    <li><a href="add-admin"><i class="fa fa-plus"></i>Ajouter un utilisateur</a></li>
                                 </ul>
                             </div>
                         </div>

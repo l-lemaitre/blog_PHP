@@ -1,7 +1,9 @@
 <?php
 	namespace App\Classes\Router;
 
-   class Router {
+    use App\Classes\Exceptions\NotFoundException;
+
+    class Router {
        private $url;
        private $routes = [];
        private $namedRoutes = [];
@@ -36,7 +38,7 @@
 
        public function run() {
            if(!isset($this->routes[$_SERVER['REQUEST_METHOD']])) {
-               throw new RouterException('REQUEST_METHOD does not exist');
+               throw new NotFoundException('REQUEST_METHOD does not exist');
            }
 
            foreach($this->routes[$_SERVER['REQUEST_METHOD']] as $route) {
@@ -45,14 +47,14 @@
                }
            }
 
-           throw new RouterException('No matching routes');
+           throw new NotFoundException('No matching routes');
        }
 
        public function url($name, $params = []) {
            if(!isset($this->namedRoutes[$name])) {
-               throw new RouterException('No route matches this name');
+               throw new NotFoundException('No route matches this name');
            }
 
            return $this->namedRoutes[$name]->getUrl($params);
        }
-   }
+    }

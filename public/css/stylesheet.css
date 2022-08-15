@@ -45,6 +45,15 @@ body {
   font-weight: 500;
   text-align: left; }
 
+.msgValid {
+  white-space: pre-line;
+  text-align: center;
+  color: green; }
+
+.msgError {
+  text-align: center;
+  color: red; }
+
 /* Navmenu */
 .navbar {
   font-family: "Russo One", sans-serif;
@@ -271,34 +280,39 @@ footer {
     margin-top: -1rem;
     content: "";
     border-top: 1px solid #dddddd; }
-  .containerContact form input {
-    height: 3rem;
-    width: 30%;
-    margin: 1.5rem 0 1rem;
-    padding-left: 0.5rem;
-    border-radius: 2px;
-    border: 1px solid #d2d2d2; }
-  .containerContact form input::placeholder {
-    font-style: italic; }
-  .containerContact form .email, .containerContact form .subject {
-    width: 60.3%;
-    margin-top: 2rem; }
-  .containerContact form textarea {
-    width: 60.3%;
-    margin: 2rem 0 1rem;
-    padding: 0.5rem;
-    border-radius: 2px;
-    border: 1px solid #d2d2d2; }
-  .containerContact form textarea::placeholder {
-    font-style: italic; }
-  .containerContact form p {
-    margin: 1rem auto 0.5rem;
-    color: red; }
-  .containerContact form .msgError {
-    color: red; }
-  .containerContact form .msgValid {
-    white-space: pre-line;
-    color: green; }
+  .containerContact form {
+      /*.msgError {
+         color: rgb(255, 0, 0);
+      }
+
+      .msgValid {
+         white-space: pre-line;
+
+         color: rgb(0, 128, 0);
+      }*/ }
+    .containerContact form input {
+      height: 3rem;
+      width: 30%;
+      margin: 1.5rem 0 1rem;
+      padding-left: 0.5rem;
+      border-radius: 2px;
+      border: 1px solid #d2d2d2; }
+    .containerContact form input::placeholder {
+      font-style: italic; }
+    .containerContact form .email, .containerContact form .subject {
+      width: 60.3%;
+      margin-top: 2rem; }
+    .containerContact form textarea {
+      width: 60.3%;
+      margin: 2rem 0 1rem;
+      padding: 0.5rem;
+      border-radius: 2px;
+      border: 1px solid #d2d2d2; }
+    .containerContact form textarea::placeholder {
+      font-style: italic; }
+    .containerContact form .msgError {
+      margin: 1rem auto 0.5rem;
+      color: red; }
 
 /* PAGE LOGIN.HTML */
 /* MAIN CONTENT */
@@ -762,10 +776,10 @@ footer {
         font-size: 1.3rem;
         font-style: italic;
         color: red; }
-      .containerAdd form div .publishedLabel, .containerEdit form div .publishedLabel {
+      .containerAdd form div .publishedLabel, .containerAdd form div .isAdminLabel, .containerEdit form div .publishedLabel, .containerEdit form div .isAdminLabel {
         display: initial;
         padding-right: 0.3rem; }
-      .containerAdd form div .published, .containerEdit form div .published {
+      .containerAdd form div .published, .containerAdd form div .isAdmin, .containerEdit form div .published, .containerEdit form div .isAdmin {
         position: relative;
         display: initial;
         height: 1.4rem;
@@ -840,20 +854,23 @@ footer {
 .containerAdd {
   margin-bottom: 10.5rem; }
 
-.containerComment .shadow-none {
-  box-shadow: none; }
-.containerComment .cursor {
-  cursor: pointer; }
-.containerComment .cursor:hover {
-  color: #8540f5; }
-.containerComment .textarea {
-  resize: none;
-  font-size: 1.5rem; }
-.containerComment input {
-  height: 3rem;
-  font-size: 1.5rem; }
-.containerComment .msgValid {
-  white-space: pre-line;
-  color: green; }
+.containerComment {
+   /*.msgValid {
+      white-space: pre-line;
+
+      color: rgb(0, 128, 0);
+   }*/ }
+  .containerComment .shadow-none {
+    box-shadow: none; }
+  .containerComment .cursor {
+    cursor: pointer; }
+  .containerComment .cursor:hover {
+    color: #8540f5; }
+  .containerComment .textarea {
+    resize: none;
+    font-size: 1.5rem; }
+  .containerComment input {
+    height: 3rem;
+    font-size: 1.5rem; }
 
 /*# sourceMappingURL=stylesheet.css.map */

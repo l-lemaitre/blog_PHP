@@ -59,6 +59,8 @@
                                  <p>{{ errors.invalidMail|e }}</p>
                               {% elseif errors.mailUsername is defined %}
                                  <p>{{ errors.mailUsername|e }}</p>
+                              {% elseif errors.userDeleted is defined %}
+                                 <p>{{ errors.userDeleted|e }}</p>
                               {% endif %}
                            </div>
                         {% else %}

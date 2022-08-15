@@ -3,7 +3,9 @@
 
     use App\Classes\Controllers\Controller;
     use App\Classes\Entities\Comment;
+    use App\Classes\Entities\User;
     use App\Classes\Models\CommentRepository;
+    use App\Classes\Models\PostRepository;
     use App\Classes\Models\UserRepository;
 
     class CommentFrontController extends Controller {
@@ -49,8 +51,12 @@
                                 $valid = false;
                                 $errors['mailUsername'] = "Le \"Nom\" ou l'adresse \"E-mail\" sont déjà utilisées.";
                             }
-                        } else {
-                            UserRepository::insertCommentAuthor($username, $email);
+                            elseif ($user->deleted == User::DELETED) {
+                                $valid = false;
+                                $errors['userDeleted'] = "Ce compte a été suspendu.";
+                            } else {
+                                UserRepository::insertCommentAuthor($username, $email);
+                            }
                         }
                     }
 
@@ -67,15 +73,21 @@
 
                     header("location:/blog_php/post/".$slug."-".$id."?reply=ok#containerComment");
                     exit;
-                }
+                } else {
+                    $post = PostRepository::getPublishedPostById($id);
 
-                $this->render('views/templates/front',
-                    'post.html.twig',
-                    ['username' => $username,
-                    'email' => $email,
-                    'contents' => $contents,
-                    'errors' => $errors]
-                );
+                    $comments = CommentRepository::getApprovedCommentsById($id);
+
+                    $this->render('views/templates/front',
+                        'post.html.twig',
+                        ['post' => $post,
+                        'comments' => $comments,
+                        'username' => $username,
+                        'email' => $email,
+                        'contents' => $contents,
+                        'errors' => $errors]
+                    );
+                }
             }
         }
     }

@@ -5,12 +5,19 @@
    <!-- BREADCRUMB -->
    <nav class="breadcrumbs breadcrumbs-bo">
       <ul>
-         <li><a href="/blog_php" class="home">Accueil</a></li>
+         <li><a href="/blog_php/backoff/dashboard" class="home">Accueil</a></li>
          <li>Liste des utilisateurs</li>
       </ul>
    </nav>
    <div class="container-bo">
-      <h3><a href="/blog_php/backoff/add-post"><i class="fa fa-plus"></i>Ajouter un administrateur</a></h3>
+      <h3><a href="/blog_php/backoff/add-admin"><i class="fa fa-plus"></i>Ajouter un administrateur</a></h3>
+      {% if reply is defined %}
+         {% if reply == 'ok' %}
+            <div class="msgValid"><p class="msgValid">Votre message a été envoyé.</p></div>
+         {% elseif reply == 'error' %}
+            <div><p class="msgError">Erreur : Votre message n'a pu être envoyé.</p></div>
+         {% endif %}
+      {% endif %}
       <table class="table table-striped">
          <thead>
             <tr>
