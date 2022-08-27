@@ -11,22 +11,4 @@ if(document.getElementById("resetForm")) {
          this.form.submit();
       }
    });
-
-   /*if(varBack.loopElementId[1]) {
-      for(let i = 0; i < Object.keys(varBack.loopElementId[1]).length; i++) {
-         // Voir fichier administrateurs.phtml ligne 136
-         if(document.getElementById(varBack.loopElementId[1][i])) {
-            const loopElementId = document.getElementById(varBack.loopElementId[1][i]);
-
-            loopElementId.addEventListener("click", function(event) {
-               // Voir fichier administrateurs.php ligne 321
-               let conf = confirm(varBack.loopMsgConfirm);
-
-               if(conf != true) {
-                  event.preventDefault();
-               }
-            });
-         }
-      }
-   }*/
 }

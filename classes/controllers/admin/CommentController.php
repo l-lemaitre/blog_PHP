@@ -2,12 +2,12 @@
     namespace App\Classes\Controllers\Admin;
 
     use App\Classes\Controllers\Controller;
-    use App\Classes\Controllers\ErrorAdminController;
-    use App\Classes\Middlewares\checkingLogin;
+    use App\Classes\Exceptions\NotFoundException;
+    use App\Classes\Middlewares\CheckingLogin;
     use App\Classes\Models\CommentRepository;
 
     class CommentController extends Controller {
-        protected array $middlewares = [ checkingLogin::class ];
+        protected array $middlewares = [ CheckingLogin::class ];
 
         public function displayComments() {
             $comments = CommentRepository::getComments();
@@ -23,17 +23,15 @@
             $comment = CommentRepository::getCommentById($id);
 
             if (!$comment) {
-                $errorAdminController = new ErrorAdminController();
-                $errorAdminController->displayError();
-                exit;
+                throw new NotFoundException();
+            } else {
+                $this->render('views/templates/admin',
+                    'comment.html.twig',
+                    ['comment' => $comment,
+                        'admin' => $_SESSION["admin"],
+                        'admin_id' => $_SESSION["admin_id"]]
+                );
             }
-
-            $this->render('views/templates/admin',
-                'comment.html.twig',
-                ['comment' => $comment,
-                'admin' => $_SESSION["admin"],
-                'admin_id' => $_SESSION["admin_id"]]
-            );
         }
 
         public function renderFormEditComment($id) {
@@ -56,21 +54,21 @@
                 if ($valid) {
                     CommentRepository::setComment($contents, $status, $id);
 
-                    header("location:/blog_php/backoff/comments?page=1");
+                    header("location:comments?page=1");
                     exit;
+                } else {
+                    $comment = CommentRepository::getCommentById($id);
+
+                    $this->render('views/templates/admin',
+                        'comment.html.twig',
+                        ['comment' => $comment,
+                        'contents' => $contents,
+                        'status' => $status,
+                        'errors' => $errors,
+                        'admin' => $_SESSION["admin"],
+                        'admin_id' => $_SESSION["admin_id"]]
+                    );
                 }
-
-                $comment = CommentRepository::getCommentById($id);
-
-                $this->render('views/templates/admin',
-                    'comment.html.twig',
-                    ['comment' => $comment,
-                    'contents' => $contents,
-                    'status' => $status,
-                    'errors' => $errors,
-                    'admin' => $_SESSION["admin"],
-                    'admin_id' => $_SESSION["admin_id"]]
-                );
             }
         }
 
@@ -78,7 +76,7 @@
             if(isset($_POST["resetComment"])) {
                 CommentRepository::resetComment($id);
 
-                header("location:/blog_php/backoff/comments?page=1");
+                header("location:comments?page=1");
                 exit;
             }
         }

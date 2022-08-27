@@ -61,6 +61,17 @@
             return $resultSet->fetch();
         }
 
+        public static function checkSlug($slug) {
+            $bdd = DataBaseConnection::getConnect();
+
+            $query = "SELECT *
+                      FROM `post`
+                      WHERE `slug` = ?";
+            $resultSet = $bdd->query($query, array($slug));
+            $resultSet->setFetchMode(PDO::FETCH_CLASS, Post::class);
+            return $resultSet->fetch();
+        }
+
         public static function insertPost($category, $author, $title, $chapo, $contents, $slug, $published) {
             // We set the default time offset of all date/time functions to that of French time
             date_default_timezone_set("Europe/Paris");

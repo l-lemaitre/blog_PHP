@@ -32,7 +32,7 @@
          </div>
          <div>
             <label for="title">Titre :</label>
-            <input type="text" id="title" name="title" value="{{ post.title|e }}" required />
+            <input type="text" id="title" name="title" value="{% if title is defined %}{{ title|e }}{% endif %}" required />
             {% if errors.emptyTitle is defined %}
                <p>{{ errors.emptyTitle|e }}</p>
             {% endif %}
@@ -40,7 +40,7 @@
          <div>
             <div>
                <label for="chapo">Chapô :</label>
-               <input type="text" id="chapo" name="chapo" value="{{ post.chapo|e }}" required />
+               <input type="text" id="chapo" name="chapo" value="{% if chapo is defined %}{{ chapo|e }}{% endif %}" required />
                {% if errors.emptyChapo is defined %}
                   <p>{{ errors.emptyChapo|e }}</p>
                {% endif %}
@@ -48,21 +48,23 @@
          </div>
          <div>
             <label for="contents">Contenu :</label>
-            <textarea id="contents" name="contents" rows="10" required>{{ post.contents|e }}</textarea>
+            <textarea id="contents" name="contents" rows="10" required>{% if contents is defined %}{{ contents|e }}{% endif %}</textarea>
             {% if errors.emptyContents is defined %}
                <p>{{ errors.emptyContents|e }}</p>
             {% endif %}
          </div>
          <div>
             <label for="slug">Permalien :</label>
-            <input type="text" id="slug" name="slug" value="{{ post.slug|e }}" required />
+            <input type="text" id="slug" name="slug" value="{% if slug is defined %}{{ slug|e }}{% endif %}" required />
             {% if errors.emptySlug is defined %}
                <p>{{ errors.emptySlug|e }}</p>
+            {% elseif errors.existingSlug is defined %}
+               <p>{{ errors.existingSlug|e }}</p>
             {% endif %}
          </div>
          <div>
             <label for="published" class="publishedLabel">Publié </label>
-            <input type="checkbox" id="published" class="published" name="published" {% if post.published == 1 or published is defined %}checked="checked"{% endif %} />
+            <input type="checkbox" id="published" class="published" name="published" {% if published is defined %}{% if published == 1 %}checked="checked"{% endif %}{% endif %} />
          </div>
          <input type="submit" class="btn" name="addPost" value="Valider" />
       </form>

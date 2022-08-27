@@ -78,6 +78,20 @@ body {
    text-align: left;
 }
 
+.msgValid {
+   white-space: pre-line;
+
+   text-align: center;
+
+   color: rgb(0, 128, 0);
+}
+
+.msgError {
+   text-align: center;
+
+   color: rgb(255, 0, 0);
+}
+
 /* Navmenu */
 .navbar {
    font-family: "Russo One", sans-serif;
@@ -469,13 +483,13 @@ footer {
          font-style: italic;
       }
 
-      p {
+      .msgError {
          margin: 1rem auto 0.5rem;
 
          color: rgb(255, 0, 0);
       }
 
-      .msgError {
+      /*.msgError {
          color: rgb(255, 0, 0);
       }
 
@@ -483,7 +497,7 @@ footer {
          white-space: pre-line;
 
          color: rgb(0, 128, 0);
-      }
+      }*/
    }
 }
 
@@ -1221,13 +1235,13 @@ footer {
             color: rgb(255, 0, 0);
          }
 
-         .publishedLabel {
+         .publishedLabel, .isAdminLabel {
             display: initial;
 
             padding-right: 0.3rem;
          }
 
-         .published {
+         .published, .isAdmin {
             position: relative;
 
             display: initial;
@@ -1369,9 +1383,9 @@ footer {
       font-size: 1.5rem;
    }
 
-   .msgValid {
+   /*.msgValid {
       white-space: pre-line;
 
       color: rgb(0, 128, 0);
-   }
+   }*/
 }

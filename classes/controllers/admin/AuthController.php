@@ -2,7 +2,7 @@
     namespace App\Classes\Controllers\Admin;
 
     use App\Classes\Controllers\Controller;
-    use App\Classes\Middlewares\checkingLogin;
+    use App\Classes\Middlewares\CheckingLogin;
     use App\Classes\Models\UserRepository;
 
     class AuthController extends Controller {

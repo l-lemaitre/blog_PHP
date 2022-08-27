@@ -1,7 +1,7 @@
 <?php
     namespace App\Classes\Middlewares;
 
-    class checkingLogin {
+    class CheckingLogin {
         public function process() {
             // If no administrator is logged in then we do not go to this page
             if(!isset($_SESSION["admin_id"])) {

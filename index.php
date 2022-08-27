@@ -6,14 +6,15 @@
     use App\Classes\Controllers\Admin\AuthController;
     use App\Classes\Controllers\Admin\CommentController;
     use App\Classes\Controllers\Admin\DashboardController;
+    use App\Classes\Controllers\Admin\ErrorAdminController;
     use App\Classes\Controllers\Admin\PostController;
     use App\Classes\Controllers\Admin\UserController;
-    use App\Classes\Controllers\ErrorController;
     use App\Classes\Controllers\Public\CommentFrontController;
+    use App\Classes\Controllers\Public\ErrorController;
     use App\Classes\Controllers\Public\HomeController;
     use App\Classes\Controllers\Public\PostFrontController;
+    use App\Classes\Exceptions\NotFoundException;
     use App\Classes\Router\Router;
-    use App\Classes\Router\RouterException;
 
     $pathUrl = htmlspecialchars($_GET['url']);
 
@@ -69,9 +70,9 @@
 
     $router->get('/backoff/post-:id', 'Admin\Post#displayEditPost')->with("id", "[0-9]+");
 
-    if(isset($_POST["editPost"])) {
+    if (isset($_POST["editPost"])) {
         $router->post('/backoff/post-:id', 'Admin\Post#renderFormEditPost')->with("id", "[0-9]+");
-    } elseif(isset($_POST["resetPost"])) {
+    } elseif (isset($_POST["resetPost"])) {
         $router->post('/backoff/post-:id', 'Admin\Post#renderFormResetPost')->with("id", "[0-9]+");
     }
 
@@ -87,9 +88,9 @@
 
     $router->get('/backoff/comment-:id', 'Admin\Comment#displayComment')->with("id", "[0-9]+");
 
-    if(isset($_POST["editComment"])) {
+    if (isset($_POST["editComment"])) {
         $router->post('/backoff/comment-:id', 'Admin\Comment#renderFormEditComment')->with("id", "[0-9]+");
-    } elseif(isset($_POST["resetComment"])) {
+    } elseif (isset($_POST["resetComment"])) {
         $router->post('/backoff/comment-:id', 'Admin\Comment#renderFormResetComment')->with("id", "[0-9]+");
     }
 
@@ -97,6 +98,29 @@
         $userController = new UserController();
         $userController->displayUsers();
     });
+
+    $router->post('/backoff/users', function() {
+        $userController = new UserController();
+        $userController->renderFormResetUser($_POST["resetUser"]);
+    });
+
+    $router->get('/backoff/add-admin', function() {
+        $userController = new UserController();
+        $userController->displayAddAdmin();
+    });
+
+    $router->post('/backoff/add-admin', function() {
+        $userController = new UserController();
+        $userController->renderFormAddAdmin();
+    });
+
+    $router->get('/backoff/user-:id', 'Admin\User#displayEditUser')->with("id", "[0-9]+");
+
+    if (isset($_POST["editUser"])) {
+        $router->post('/backoff/user-:id', 'Admin\User#renderFormEditUser')->with("id", "[0-9]+");
+    } elseif (isset($_POST["resetUser"])) {
+        $router->post('/backoff/user-:id', 'Admin\User#renderFormResetUser')->with("id", "[0-9]+");
+    }
 
     $router->get('/backoff/logout', function() {
         $authController = new AuthController();
@@ -115,8 +139,12 @@
 
     try {
         $router->run();
-    }
-    catch(RouterException $e) {
-        $errorController = new ErrorController();
-        $errorController->displayError();
+    } catch (NotFoundException $e) {
+        if (isset($_SESSION["admin_id"]) && preg_match("/backoff\//", $pathUrl)) {
+            $errorAdminController = new ErrorAdminController();
+            $errorAdminController->displayError();
+        } else {
+            $errorController = new ErrorController();
+            $errorController->displayError();
+        }
     }

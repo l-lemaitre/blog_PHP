@@ -2,10 +2,10 @@
     namespace App\Classes\Controllers\Admin;
 
     use App\Classes\Controllers\Controller;
-    use App\Classes\Middlewares\checkingLogin;
+    use App\Classes\Middlewares\CheckingLogin;
 
     class DashboardController extends Controller {
-        protected array $middlewares = [ checkingLogin::class ];
+        protected array $middlewares = [ CheckingLogin::class ];
 
         public function displayDashboard() {
             $this->render('views/templates/admin',

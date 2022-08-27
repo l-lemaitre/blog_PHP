@@ -8,13 +8,15 @@
          <form class="card px-5 py-5" method="POST">
             <ul class="form-data">
                <li class="forms-inputs mb-4">
-                  <input type="text" name="mailUsername" placeholder="Nom d'utilisateur ou e-mail :" value="{% if mailUsername is defined %}{{ mailUsername|e }}{% endif %}" required />
+                  <label for="mailUsername"></label>
+                  <input type="text" id="mailUsername" name="mailUsername" placeholder="Nom d'utilisateur ou e-mail :" value="{% if mailUsername is defined %}{{ mailUsername|e }}{% endif %}" required />
                   {% if errors.emptyIdentifier is defined %}
                      <div><p>{{ errors.emptyIdentifier|e }}</p></div>
                   {% endif %}
                </li>
                <li class="forms-inputs mb-4">
-                  <input type="password" class="password" name="password" placeholder="Mot de passe :" value="{% if password is defined %}{{ password|e }}{% endif %}" required />
+                  <label for="password"></label>
+                  <input type="password" id="password" name="password" placeholder="Mot de passe :" value="{% if password is defined %}{{ password|e }}{% endif %}" required />
                   {% if errors.emptyPass is defined %}
                      <div><p>{{ errors.emptyPass|e }}</p></div>
                   {% endif %}

@@ -3,6 +3,7 @@
 
     use App\Classes\Controllers\Controller;
     use App\Classes\Controllers\ErrorController;
+    use App\Classes\Exceptions\NotFoundException;
     use App\Classes\Models\CommentRepository;
     use App\Classes\Models\PostRepository;
 
@@ -20,9 +21,7 @@
             $post = PostRepository::getPublishedPostById($id);
 
             if (!$post) {
-                $errorController = new ErrorController();
-                $errorController->displayError();
-                exit;
+                throw new NotFoundException();
             }
 
             $comments = CommentRepository::getApprovedCommentsById($id);
