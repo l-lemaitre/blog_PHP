@@ -72,7 +72,6 @@
                     CommentRepository::insertComment($user_Id->id_user, $id, $contents, $status);
 
                     header("location:/blog_php/post/".$slug."-".$id."?reply=ok#containerComment");
-                    exit;
                 } else {
                     $post = PostRepository::getPublishedPostById($id);
 

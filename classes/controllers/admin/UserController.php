@@ -34,11 +34,9 @@
 
                 if ($_SESSION["admin_id"] == $id) {
                     header("location:logout");
-                    exit;
+                } else {
+                    header("location:users?page=1");
                 }
-
-                header("location:users?page=1");
-                exit;
             }
         }
 
@@ -153,11 +151,9 @@
                         $sendMail;
                     } catch (TransportExceptionInterface $e) {
                         header("location:users?page=1&reply=error");
-                        exit;
                     }
 
                     header("location:users?page=1&reply=ok");
-                    exit;
                 } else {
                     $this->render('views/templates/admin',
                         'add_admin.html.twig',
@@ -302,15 +298,12 @@
                             $sendMail;
                         } catch (TransportExceptionInterface $e) {
                             header("location:users?page=1&reply=error");
-                            exit;
                         }
 
                         header("location:users?page=1&reply=ok");
-                        exit;
+                    } else {
+                        header("location:users?page=1");
                     }
-
-                    header("location:users?page=1");
-                    exit;
                 } else {
                     $this->render('views/templates/admin',
                         'edit_user.html.twig',
