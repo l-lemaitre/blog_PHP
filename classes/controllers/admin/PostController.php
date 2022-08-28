@@ -25,7 +25,6 @@
                 PostRepository::resetPost($id);
 
                 header("location:posts?page=1");
-                exit;
             }
         }
 
@@ -40,77 +39,54 @@
         }
 
         public function renderFormAddPost() {
-            if (isset($_POST["addPost"])) {
+            if (isset($_POST["addPost"])):
                 $category = htmlspecialchars(trim($_POST["category"]));
                 $title = strip_tags(trim($_POST["title"]));
                 $chapo = strip_tags(trim($_POST["chapo"]));
                 $contents = strip_tags(trim($_POST["contents"]));
                 $slug = strip_tags(trim($_POST["slug"]));
-                if (isset($_POST["published"])) {
-                    $published = 1;
-                } else {
-                    $published = 0;
-                }
+                isset($_POST["published"]) ? $published = 1 : $published = 0;
                 $valid = true;
                 $errors = [];
 
-                if (empty($category)) {
+                if (empty($category)):
                     $valid = false;
                     $errors['emptyCategory'] = "La \"Catégorie\" ne peut être vide.";
-                } elseif (!preg_match("/^[0-9]+$/", $category)) {
+                elseif (!preg_match("/^[0-9]+$/", $category)):
                     $valid = false;
                     $errors['invalidCategory'] = "La \"Catégorie\" n'est pas valide.";
-                }
+                endif;
 
-                if (empty($title)) {
-                    $valid = false;
+                if (empty($title)) $valid = false;
                     $errors['emptyTitle'] = "Le \"Titre\" ne peut être vide.";
-                }
 
-                if (empty($chapo)) {
-                    $valid = false;
+                if (empty($chapo)) $valid = false;
                     $errors['emptyChapo'] = "Le \"Chapô\" ne peut être vide.";
-                }
 
-                if (empty($contents)) {
-                    $valid = false;
+                if (empty($contents)) $valid = false;
                     $errors['emptyContents'] = "Le \"Contenu\" de l'article ne peut être vide.";
-                }
 
-                if (empty($slug)) {
+                if (empty($slug)):
                     $valid = false;
                     $errors['emptySlug'] = "Le \"Permalien\" ne peut être vide.";
-                } else {
+                else:
                     $checkSlug = PostRepository::checkSlug($slug);
-
-                    if ($checkSlug) {
+                    if ($checkSlug)
                         $valid = false;
                         $errors['existingSlug'] = "Ce \"Permalien\" existe déjà.";
-                    }
-                }
+                endif;
 
-                if ($valid) {
+                if ($valid):
                     PostRepository::insertPost($category, $_SESSION["admin_id"], $title, $chapo, $contents, $slug, $published);
-
                     header("location:posts?page=1");
-                    exit;
-                } else {
+                else:
                     $categories = CategoryRepository::getCategories();
-
                     $this->render('views/templates/admin',
                         'add_post.html.twig',
-                        ['categories' => $categories,
-                        'category' => $category,
-                        'title' => $title,
-                        'chapo' => $chapo,
-                        'contents' => $contents,
-                        'slug' => $slug,
-                        'published' => $published,
-                        'errors' => $errors,
-                        'admin' => $_SESSION["admin"]]
+                        ['categories' => $categories, 'category' => $category, 'title' => $title, 'chapo' => $chapo, 'contents' => $contents, 'slug' => $slug, 'published' => $published, 'errors' => $errors, 'admin' => $_SESSION["admin"]]
                     );
-                }
-            }
+                endif;
+            endif;
         }
 
         public function displayEditPost($id) {
@@ -131,79 +107,54 @@
         }
 
         public function renderFormEditPost($id) {
-            if(isset($_POST["editPost"])) {
+            if(isset($_POST["editPost"])):
                 $category = htmlspecialchars(trim($_POST["category"]));
                 $title = strip_tags(trim($_POST["title"]));
                 $chapo = strip_tags(trim($_POST["chapo"]));
                 $contents = strip_tags(trim($_POST["contents"]));
                 $slug = strip_tags(trim($_POST["slug"]));
-                if (isset($_POST["published"])) {
-                    $published = 1;
-                } else {
-                    $published = 0;
-                }
+                isset($_POST["published"]) ? $published = 1 : $published = 0;
                 $valid = true;
                 $errors = [];
-
                 $post = PostRepository::getPostById($id);
 
-                if (empty($category)) {
+                if (empty($category)):
                     $valid = false;
                     $errors['emptyCategory'] = "La \"Catégorie\" ne peut être vide.";
-                } elseif (!preg_match("/^[0-9]+$/", $category)) {
+                elseif (!preg_match("/^[0-9]+$/", $category)):
                     $valid = false;
                     $errors['invalidCategory'] = "La \"Catégorie\" n'est pas valide.";
-                }
+                endif;
 
-                if (empty($title)) {
-                    $valid = false;
-                    $errors['emptyTitle'] = "Le \"Titre\" ne peut être vide.";
-                }
+                if (empty($title)) $valid = false;
+                $errors['emptyTitle'] = "Le \"Titre\" ne peut être vide.";
 
-                if (empty($chapo)) {
-                    $valid = false;
+                if (empty($chapo)) $valid = false;
                     $errors['emptyChapo'] = "Le \"Chapô\" ne peut être vide.";
-                }
 
-                if (empty($contents)) {
-                    $valid = false;
+                if (empty($contents))$valid = false;
                     $errors['emptyContents'] = "Le \"Contenu\" de l'article ne peut être vide.";
-                }
 
-                if (empty($slug)) {
+                if (empty($slug)):
                     $valid = false;
                     $errors['emptySlug'] = "Le \"Permalien\" ne peut être vide.";
-                } else {
+                else:
                     $checkSlug = PostRepository::checkSlug($slug);
-
-                    if ($checkSlug && $checkSlug->slug <> $post->slug) {
+                    if ($checkSlug && $checkSlug->slug <> $post->slug)
                         $valid = false;
                         $errors['existingSlug'] = "Ce \"Permalien\" existe déjà.";
-                    }
-                }
+                endif;
 
-                if ($valid) {
+                if ($valid):
                     PostRepository::setPost($category, $title, $chapo, $contents, $slug, $published, $id);
-
                     header("location:posts?page=1");
-                    exit;
-                } else {
+                else:
                     $categories = CategoryRepository::getCategories();
-
                     $this->render('views/templates/admin',
                         'edit_post.html.twig',
-                        ['post' => $post,
-                        'categories' => $categories,
-                        'category' => $category,
-                        'title' => $title,
-                        'chapo' => $chapo,
-                        'contents' => $contents,
-                        'slug' => $slug,
-                        'published' => $published,
-                        'errors' => $errors,
-                        'admin' => $_SESSION["admin"]]
+                        ['post' => $post, 'categories' => $categories, 'category' => $category, 'title' => $title, 'chapo' => $chapo, 'contents' => $contents, 'slug' => $slug, 'published' => $published, 'errors' => $errors, 'admin' => $_SESSION["admin"]]
                     );
-                }
-            }
+                endif;
+            endif;
         }
     }

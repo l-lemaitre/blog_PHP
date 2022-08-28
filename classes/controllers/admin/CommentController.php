@@ -55,7 +55,6 @@
                     CommentRepository::setComment($contents, $status, $id);
 
                     header("location:comments?page=1");
-                    exit;
                 } else {
                     $comment = CommentRepository::getCommentById($id);
 
@@ -77,7 +76,6 @@
                 CommentRepository::resetComment($id);
 
                 header("location:comments?page=1");
-                exit;
             }
         }
     }

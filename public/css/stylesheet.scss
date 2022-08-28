@@ -160,6 +160,10 @@ body {
 .container {
    margin-bottom: 11rem;
 
+   .card:last-child {
+      margin-bottom: 3.5rem;
+   }
+
    .name {
       color: indigo;
    }

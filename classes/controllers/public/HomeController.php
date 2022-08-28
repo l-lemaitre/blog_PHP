@@ -33,7 +33,6 @@
                     header('Pragma: public');
                     header('Content-Length: ' . filesize($cv));
                     readfile($cv);
-                    exit;
                 }
             }
         }
@@ -107,11 +106,9 @@
                         $sendMail;
                     } catch (TransportExceptionInterface $e) {
                         header("location:index?reply=error#containerContact");
-                        exit;
                     }
 
                     header("location:index?reply=ok#containerContact");
-                    exit;
                 } else {
                     $this->render('views/templates/front',
                         'index.html.twig',

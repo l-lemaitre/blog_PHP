@@ -93,6 +93,8 @@ body {
 /* MAIN CONTENT */
 .container {
   margin-bottom: 11rem; }
+  .container .card:last-child {
+    margin-bottom: 3.5rem; }
   .container .name {
     color: indigo; }
 

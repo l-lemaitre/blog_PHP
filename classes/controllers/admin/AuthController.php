@@ -6,16 +6,15 @@
     use App\Classes\Models\UserRepository;
 
     class AuthController extends Controller {
-        public function IsLogged() {
+        public function isLogged() {
             // If an administrator is logged in then we no longer return to this page
             if(isset($_SESSION["admin_id"])) {
                 header("location:/blog_php/backoff/dashboard");
-                exit;
             }
         }
 
         public function displayLoginBackOffice() {
-            $this->IsLogged();
+            $this->isLogged();
 
             $this->render('views/templates/front',
                 'login.html.twig');

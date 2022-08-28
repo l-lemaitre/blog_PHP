@@ -2,6 +2,7 @@
     namespace App\Classes\Models;
 
     use \PDO;
+    use \PDOException;
 
     class DataBaseConnection {
         // We declare our attributes and we initialize them (except _connexion) by assigning them the following values
@@ -30,7 +31,6 @@
 
             catch(PDOException $error) {
                 echo "Erreur : Impossible de se connecter à la base de données.";
-                die();
             }
         }
 

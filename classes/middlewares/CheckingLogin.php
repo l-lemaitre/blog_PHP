@@ -7,7 +7,6 @@
             if(!isset($_SESSION["admin_id"])) {
                 // The user is sent to the login page
                 header("location:/blog_php/backoff/login");
-                exit;
             }
         }
     }
