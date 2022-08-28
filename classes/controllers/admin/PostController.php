@@ -145,6 +145,8 @@
                 $valid = true;
                 $errors = [];
 
+                $post = PostRepository::getPostById($id);
+
                 if (empty($category)) {
                     $valid = false;
                     $errors['emptyCategory'] = "La \"Catégorie\" ne peut être vide.";
@@ -174,7 +176,7 @@
                 } else {
                     $checkSlug = PostRepository::checkSlug($slug);
 
-                    if ($checkSlug) {
+                    if ($checkSlug && $checkSlug->slug <> $post->slug) {
                         $valid = false;
                         $errors['existingSlug'] = "Ce \"Permalien\" existe déjà.";
                     }
@@ -186,8 +188,6 @@
                     header("location:posts?page=1");
                     exit;
                 } else {
-                    $post = PostRepository::getPostById($id);
-
                     $categories = CategoryRepository::getCategories();
 
                     $this->render('views/templates/admin',

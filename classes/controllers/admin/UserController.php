@@ -82,7 +82,7 @@
                     $valid = false;
                     $errors['emptyUsername'] = "Le \"Nom d'utilisateur\" ne peut être vide.";
                 }
-                elseif (!preg_match("/^[A-Za-zàäâçéèëêïîöôùüû\s_-]{2,}$/", $username)) {
+                elseif (!preg_match("/^[0-9A-Za-zàäâçéèëêïîöôùüû\s_-]{2,}$/", $username)) {
                     $valid = false;
                     $errors['invalidUsername'] = "Le \"Nom d'utilisateur\" doit contenir au moins 2 caractères et ne pas comporter de caractères spéciaux.";
                 }
@@ -227,7 +227,7 @@
                     $valid = false;
                     $errors['emptyUsername'] = "Le \"Nom d'utilisateur\" ne peut être vide.";
                 }
-                elseif (!preg_match("/^[A-Za-zàäâçéèëêïîöôùüû\s_-]{2,}$/", $username)) {
+                elseif (!preg_match("/^[0-9A-Za-zàäâçéèëêïîöôùüû\s_-]{2,}$/", $username)) {
                     $valid = false;
                     $errors['invalidUsername'] = "Le \"Nom d'utilisateur\" doit contenir au moins 2 caractères et ne pas comporter de caractères spéciaux.";
                 }
