@@ -17,7 +17,7 @@
         public function displayLoginBackOffice() {
             $this->IsLogged();
 
-            $this->render('views/templates/admin',
+            $this->render('views/templates/front',
                 'login.html.twig');
         }
 
@@ -66,7 +66,7 @@
                 }
             }
 
-            $this->render('views/templates/admin',
+            $this->render('views/templates/front',
                 'login.html.twig',
                 ['mailUsername' => $mailUsername,
                 'password' => $password,

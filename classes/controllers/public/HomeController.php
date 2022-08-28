@@ -20,6 +20,24 @@
             );
         }
 
+        public function renderFormDownloadCV() {
+            if (isset($_POST["cv_download_link"])) {
+                $cv = __DIR__.'/../../../public/files/CV_Ludovic_LEMAITRE_2022.pdf';
+
+                if (file_exists($cv)) {
+                    header('Content-Description: File Transfer');
+                    header('Content-Type: application/octet-stream');
+                    header('Content-Disposition: attachment; filename="'.basename($cv).'"');
+                    header('Expires: 0');
+                    header('Cache-Control: must-revalidate');
+                    header('Pragma: public');
+                    header('Content-Length: ' . filesize($cv));
+                    readfile($cv);
+                    exit;
+                }
+            }
+        }
+
         public function renderContactForm() {
             // If the "message" POST variable is declared and different from NULL
             if (isset($_POST["message"])) {

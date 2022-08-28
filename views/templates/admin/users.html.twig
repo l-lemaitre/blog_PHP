@@ -18,38 +18,40 @@
             <div><p class="msgError">Erreur : Votre message n'a pu être envoyé.</p></div>
          {% endif %}
       {% endif %}
-      <table class="table table-striped">
-         <thead>
-            <tr>
-               <th scope="col">ID</th>
-               <th scope="col">Nom d'utilisateur</th>
-               <th scope="col">E-mail</th>
-               <th scope="col">Nom</th>
-               <th scope="col">Prénom</th>
-               <th scope="col">Administrateur</th>
-               <th scope="col">Date d'inscription</th>
-               <th scope="col">Options</th>
-            </tr>
-         </thead>
-         <tbody>
-            {% for user in users %}
+      <div class="overflow-auto">
+         <table class="table table-striped">
+            <thead>
                <tr>
-                  <th scope="row">{{ user.id_user|e }}</th>
-                  <td>{{ user.username|e }}</td>
-                  <td>{{ user.email|e }}</td>
-                  <td>{% if user.lastname %}{{ user.lastname|e }}{% else %}-{% endif %}</td>
-                  <td>{% if user.firstname %}{{ user.firstname|e }}{% else %}-{% endif %}</td>
-                  <td>{% if user.is_admin == 0 %}Non{% else %}Oui{% endif %}</td>
-                  <td>{{ user.registration_date|date("d/m/Y H:i") }}</td>
-                  <td>
-                     <a href="/blog_php/backoff/user-{{ user.id_user|e }}" class="btn btn-secondary">Modifier</a>
-                     <form class="formReset" method="POST">
-                        <button class="btn btn-danger" type="submit" name="resetUser" value="{{ user.id_user|e }}">Supprimer</button>
-                     </form>
-                  </td>
+                  <th scope="col">ID</th>
+                  <th scope="col">Nom d'utilisateur</th>
+                  <th scope="col">E-mail</th>
+                  <th scope="col">Nom</th>
+                  <th scope="col">Prénom</th>
+                  <th scope="col">Administrateur</th>
+                  <th scope="col">Date d'inscription</th>
+                  <th scope="col">Options</th>
                </tr>
-            {% endfor %}
-         </tbody>
-      </table>
+            </thead>
+            <tbody>
+               {% for user in users %}
+                  <tr>
+                     <th scope="row">{{ user.id_user|e }}</th>
+                     <td>{{ user.username|e }}</td>
+                     <td>{{ user.email|e }}</td>
+                     <td>{% if user.lastname %}{{ user.lastname|e }}{% else %}-{% endif %}</td>
+                     <td>{% if user.firstname %}{{ user.firstname|e }}{% else %}-{% endif %}</td>
+                     <td>{% if user.is_admin == 0 %}Non{% else %}Oui{% endif %}</td>
+                     <td>{{ user.registration_date|date("d/m/Y H:i") }}</td>
+                     <td>
+                        <a href="/blog_php/backoff/user-{{ user.id_user|e }}" class="btn btn-secondary">Modifier</a>
+                        <form class="formReset" method="POST">
+                           <button class="btn btn-danger" type="submit" name="resetUser" value="{{ user.id_user|e }}">Supprimer</button>
+                        </form>
+                     </td>
+                  </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+      </div>
    </div>
 {% endblock %}

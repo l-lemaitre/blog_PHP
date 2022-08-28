@@ -18,10 +18,10 @@
 	</head>
 	<body>
         <!-- TOPBAR -->
-        <nav class="topBar noPrint">
+        <nav class="topBarBo noPrint">
             <div class="topbarContenu">
                 <!-- Logo -->
-                <div class="logo">
+                <div class="title">
                     <a href="dashboard" title="Accueil"><h2>Blog llemaitre.com</h2></a>
                 </div>
                 {% if admin is defined %}
@@ -53,14 +53,6 @@
                                 <h2>Commentaires</h2>
                                 <ul>
                                     <li><a href="comments?page=1"><i class="fa fa-cog"></i>Gérer les commentaires</a></li>
-                                    <li><a href="add-comment"><i class="fa fa-plus"></i>Ajouter un commentaire</a></li>
-                                </ul>
-                            </div>
-                            <div class="sousMenu">
-                                <h2>Catégories</h2>
-                                <ul>
-                                    <li><a href="categories?page=1"><i class="fa fa-cog"></i>Gérer les catégories</a></li>
-                                    <li><a href="add-category"><i class="fa fa-plus"></i>Ajouter une catégorie</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -71,7 +63,7 @@
                             <div class="sousMenu singleMenu">
                                 <ul>
                                     <li><a href="users?page=1"><i class="fa fa-cog"></i>Gérer les utilisateurs</a></li>
-                                    <li><a href="add-admin"><i class="fa fa-plus"></i>Ajouter un utilisateur</a></li>
+                                    <li><a href="add-admin"><i class="fa fa-plus"></i>Ajouter un administrateur</a></li>
                                 </ul>
                             </div>
                         </div>

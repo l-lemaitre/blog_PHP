@@ -31,7 +31,11 @@
 
     $router->post('/', function() {
         $homeController = new HomeController();
-        $homeController->renderContactForm();
+        if (isset($_POST["cv_download_link"])) {
+            $homeController->renderFormDownloadCV();
+        } elseif (isset($_POST["message"])) {
+            $homeController->renderContactForm();
+        }
     });
 
     $router->get('/posts', function() {
@@ -44,8 +48,7 @@
     $router->post('/post/:slug-:id', 'Public\CommentFront#renderFormAddComment')->with("slug", "[a-z\-0-9]+")->with("id", "[0-9]+");
 
     $router->get('/backoff/dashboard', function() {
-        $dashboardController = new DashboardController();
-        $dashboardController->displayDashboard();
+        header('location:/blog_php/backoff/posts?page=1');
     });
 
     $router->get('/backoff/posts', function() {
