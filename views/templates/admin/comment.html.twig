@@ -16,6 +16,14 @@
    <div class="containerEdit">
       <h3><i class="fas fa-pencil-alt"></i>Modifier commentaire #{{ comment.id_comment|e }}</h3>
       <form method="POST">
+         <div class="notEditable">
+            <p>Auteur :</p>
+            <p class="fw-bold name"><a href="/blog_php/backoff/user-{{ comment.user_id|e }}">{{ comment.user_username|e }}</a></p>
+         </div>
+         <div class="notEditable">
+            <p>Article :</p>
+            <p class="fw-bold name"><a href="/blog_php/backoff/post-{{ comment.post_id|e }}">{{ comment.post_title|e }}</a></p>
+         </div>
          {% if admin_id == comment.user_id %}
             <div>
                <label for="contents">Contenu :</label>
@@ -25,7 +33,7 @@
                {% endif %}
             </div>
          {% else %}
-            <div class="text-start">
+            <div class="notEditable">
                <p>Contenu :</p>
                <p>{{ comment.contents|e }}</p>
             </div>

@@ -54,9 +54,9 @@
                             elseif ($user->deleted == User::DELETED) {
                                 $valid = false;
                                 $errors['userDeleted'] = "Ce compte a été suspendu.";
-                            } else {
-                                UserRepository::insertCommentAuthor($username, $email);
                             }
+                        } else {
+                            UserRepository::insertCommentAuthor($username, $email);
                         }
                     }
 
