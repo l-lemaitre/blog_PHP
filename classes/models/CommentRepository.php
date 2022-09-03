@@ -49,10 +49,12 @@
         public static function getCommentById($id) {
             $bdd = DataBaseConnection::getConnect();
 
-            $query = "SELECT *
-                      FROM `comment`
-                      WHERE `id_comment` = ?
-                      AND `deleted` = ?";
+            $query = "SELECT c.*, u.`username` AS user_username, p.`title` AS post_title
+                      FROM `comment` c
+                      LEFT JOIN `user` u ON (u.`id_user` = c.`user_id`)
+                      LEFT JOIN `post` p ON (p.`id_post` = c.`post_id`)
+                      WHERE c.`id_comment` = ?
+                      AND c.`deleted` = ?";
             $resultSet = $bdd->query($query, array($id, Comment::NOT_DELETED));
             $resultSet->setFetchMode(PDO::FETCH_CLASS, Comment::class);
             return $resultSet->fetch();

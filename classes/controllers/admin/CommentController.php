@@ -28,15 +28,21 @@
                 $this->render('views/templates/admin',
                     'comment.html.twig',
                     ['comment' => $comment,
-                        'admin' => $_SESSION["admin"],
-                        'admin_id' => $_SESSION["admin_id"]]
+                    'admin' => $_SESSION["admin"],
+                    'admin_id' => $_SESSION["admin_id"]]
                 );
             }
         }
 
         public function renderFormEditComment($id) {
             if(isset($_POST["editComment"])) {
-                $contents = strip_tags(trim($_POST["contents"]));
+                if (isset($contents)) {
+                    $contents = strip_tags(trim($_POST["contents"]));
+                } else {
+                    $comment = CommentRepository::getCommentById($id);
+
+                    $contents = $comment->contents;
+                }
                 $status = htmlspecialchars(trim($_POST["status"]));
                 $valid = true;
                 $errors = [];
@@ -56,8 +62,6 @@
 
                     header("location:comments?page=1");
                 } else {
-                    $comment = CommentRepository::getCommentById($id);
-
                     $this->render('views/templates/admin',
                         'comment.html.twig',
                         ['comment' => $comment,
