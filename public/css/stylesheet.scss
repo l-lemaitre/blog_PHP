@@ -158,10 +158,10 @@ body {
 /* INDEX.HTML */
 /* MAIN CONTENT */
 .container {
-   margin-bottom: 11rem;
+   margin-bottom: 3rem;
 
    .card:last-child {
-      margin-bottom: 3.5rem;
+      margin-bottom: 11.5rem;
    }
 
    .name {
@@ -495,9 +495,15 @@ footer {
 	}
 }
 
+.breadcrumbs-bo + .containerError404 div {
+   padding-top: 3.5rem;
+}
+
 /* PAGE POST.HTML.TWIG */
 /* MAIN CONTENT */
 .containerComment {
+   margin-bottom: 11rem;
+
    .shadow-none {
       box-shadow: none;
    }
@@ -1073,6 +1079,8 @@ footer {
 
             a:hover {
                text-decoration: none;
+
+               color: rgb(133, 64, 245);
             }
          }
       }
@@ -1162,10 +1170,15 @@ footer {
 	/* PAGE ERROR.HTML.TWIG */
 	/* MAIN CONTENT */
 	.containerError404 div {
-      height: 23.8rem;
-      margin-top: -3rem;
-		padding-top: initial;
+       height: 23.8rem;
+       margin-top: -3rem;
+       margin-bottom: 1.5rem;
+       padding-top: initial;
 	}
+
+   .breadcrumbs-bo + .containerError404 div {
+      padding-top: 1rem;
+   }
 
    .container-bo {
       padding: 0 2rem;
@@ -1343,13 +1356,17 @@ footer {
 	/* MAIN CONTENT */
 	.containerError404 {
 		div {
-			padding-top: 11rem;
+			padding-top: 14.5rem;
 
 			h2 {
 				font-size: 2.5rem;
 			}
 		}
 	}
+
+   .breadcrumbs-bo + .containerError404 div {
+      padding-top: 13.5rem;
+   }
 
    /* PAGE POST.HTML.TWIG */
    /* MAIN CONTENT */
@@ -1470,21 +1487,4 @@ footer {
          }
       }
    }
-}
-
-@media (min-height: 1024px) {
-	/* PAGE ERROR.HTML.TWIG */
-	/* MAIN CONTENT */
-	.containerError404 div {
-		padding-top: 11rem;
-		//padding-bottom: 7.5rem;
-	}
-}
-
-@media (min-width: 1200px) {
-	/* PAGE ERROR.HTML.TWIG */
-	/* MAIN CONTENT */
-	.containerError404 div {
-		padding-top: 14.5rem;
-	}
 }

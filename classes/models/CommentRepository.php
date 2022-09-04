@@ -2,7 +2,6 @@
     namespace App\Classes\Models;
 
     use \PDO;
-    use App\Classes\Entities\Post;
     use App\Classes\Entities\Comment;
 
     class CommentRepository {
