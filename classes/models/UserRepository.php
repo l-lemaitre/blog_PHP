@@ -1,7 +1,6 @@
 <?php
     namespace App\Classes\Models;
 
-    use App\Classes\Entities\Post;
     use \PDO;
     use App\Classes\Entities\User;
 
@@ -75,7 +74,7 @@
                       WHERE `id_user` = ?
                       AND `deleted` = ?";
             $resultSet = $bdd->query($query, array($id, User::NOT_DELETED));
-            $resultSet->setFetchMode(PDO::FETCH_CLASS, Post::class);
+            $resultSet->setFetchMode(PDO::FETCH_CLASS, User::class);
             return $resultSet->fetch();
         }
 

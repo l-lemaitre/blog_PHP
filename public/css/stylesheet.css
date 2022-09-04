@@ -92,9 +92,9 @@ body {
 /* INDEX.HTML */
 /* MAIN CONTENT */
 .container {
-  margin-bottom: 11rem; }
+  margin-bottom: 3rem; }
   .container .card:last-child {
-    margin-bottom: 3.5rem; }
+    margin-bottom: 11.5rem; }
   .container .name {
     color: indigo; }
 
@@ -304,24 +304,29 @@ footer {
       font-size: 2rem;
       font-weight: 400; }
 
+.breadcrumbs-bo + .containerError404 div {
+  padding-top: 3.5rem; }
+
 /* PAGE POST.HTML.TWIG */
 /* MAIN CONTENT */
-.containerComment .shadow-none {
-  box-shadow: none; }
-.containerComment .cursor {
-  cursor: pointer; }
-.containerComment .cursor:hover {
-  color: #8540f5; }
-.containerComment .textarea {
-  resize: none;
-  margin: 1.5rem 0 2rem;
-  font-size: 1.5rem; }
-.containerComment input {
-  height: 3rem;
-  margin: 1.5rem 0 2rem;
-  font-size: 1.5rem; }
-.containerComment .addComment {
-  text-align: center; }
+.containerComment {
+  margin-bottom: 11rem; }
+  .containerComment .shadow-none {
+    box-shadow: none; }
+  .containerComment .cursor {
+    cursor: pointer; }
+  .containerComment .cursor:hover {
+    color: #8540f5; }
+  .containerComment .textarea {
+    resize: none;
+    margin: 1.5rem 0 2rem;
+    font-size: 1.5rem; }
+  .containerComment input {
+    height: 3rem;
+    margin: 1.5rem 0 2rem;
+    font-size: 1.5rem; }
+  .containerComment .addComment {
+    text-align: center; }
 
 /* PAGE LOGIN.HTML.TWIG */
 /* MAIN CONTENT */
@@ -653,7 +658,8 @@ footer {
       text-underline-offset: 0.2rem;
       color: indigo; }
     .containerAdd form .notEditable .name a:hover, .containerEdit form .notEditable .name a:hover {
-      text-decoration: none; }
+      text-decoration: none;
+      color: #8540f5; }
     .containerAdd form .btn, .containerEdit form .btn {
       display: block;
       height: 3.2rem;
@@ -713,7 +719,11 @@ footer {
   .containerError404 div {
     height: 23.8rem;
     margin-top: -3rem;
+    margin-bottom: 1.5rem;
     padding-top: initial; }
+
+  .breadcrumbs-bo + .containerError404 div {
+    padding-top: 1rem; }
 
   .container-bo {
     padding: 0 2rem; } }
@@ -823,9 +833,12 @@ footer {
 
   /* MAIN CONTENT */
   .containerError404 div {
-    padding-top: 11rem; }
+    padding-top: 14.5rem; }
     .containerError404 div h2 {
       font-size: 2.5rem; }
+
+  .breadcrumbs-bo + .containerError404 div {
+    padding-top: 13.5rem; }
 
   /* PAGE POST.HTML.TWIG */
   /* MAIN CONTENT */
@@ -891,15 +904,5 @@ footer {
       width: 40rem; }
     .containerAdd form div input, .containerEdit form div input {
       width: 40rem; } }
-@media (min-height: 1024px) {
-  /* PAGE ERROR.HTML.TWIG */
-  /* MAIN CONTENT */
-  .containerError404 div {
-    padding-top: 11rem; } }
-@media (min-width: 1200px) {
-  /* PAGE ERROR.HTML.TWIG */
-  /* MAIN CONTENT */
-  .containerError404 div {
-    padding-top: 14.5rem; } }
 
 /*# sourceMappingURL=stylesheet.css.map */
