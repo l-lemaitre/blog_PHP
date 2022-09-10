@@ -5,7 +5,7 @@
 
     class ErrorController extends Controller {
         public function displayError() {
-            $this->render('views/templates/front',
+            $this->render('../views/templates/front',
                 'error.html.twig');
         }
     }

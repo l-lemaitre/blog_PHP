@@ -11,7 +11,7 @@
         public function displayPosts($page = null) {
             $posts = PostRepository::getPusblishedPosts();
 
-            $this->render('views/templates/front',
+            $this->render('../views/templates/front',
                 'posts.html.twig',
                 ['posts' => $posts]
             );
@@ -33,12 +33,14 @@
             }
 
             if (isset($_GET["reply"])) {
-                $reply = htmlspecialchars($_GET["reply"]);
+                $reply = filter_input(INPUT_GET, 'reply', FILTER_SANITIZE_URL);
+
+                $reply = htmlspecialchars($reply);
             } else {
                 $reply = false;
             }
 
-            $this->render('views/templates/front',
+            $this->render('../views/templates/front',
                 'post.html.twig',
                 ['post' => $post,
                 'comments' => $comments,

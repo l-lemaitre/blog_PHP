@@ -36,17 +36,17 @@
             <tbody>
                {% for user in users %}
                   <tr>
-                     <th scope="row">{{ user.id_user|e }}</th>
-                     <td>{{ user.username|e }}</td>
-                     <td>{{ user.email|e }}</td>
-                     <td>{% if user.lastname %}{{ user.lastname|e }}{% else %}-{% endif %}</td>
-                     <td>{% if user.firstname %}{{ user.firstname|e }}{% else %}-{% endif %}</td>
-                     <td>{% if user.is_admin == 0 %}Non{% else %}Oui{% endif %}</td>
-                     <td>{{ user.registration_date|date("d/m/Y H:i") }}</td>
+                     <th scope="row">{{ user.getIdUser|e }}</th>
+                     <td>{{ user.getUsername|e }}</td>
+                     <td>{{ user.getEmail|e }}</td>
+                     <td>{% if user.getLastname %}{{ user.getLastname|e }}{% else %}-{% endif %}</td>
+                     <td>{% if user.getFirstname %}{{ user.getFirstname|e }}{% else %}-{% endif %}</td>
+                     <td>{% if user.getIsAdmin == 0 %}Non{% else %}Oui{% endif %}</td>
+                     <td>{{ user.getRegistrationDate|date("d/m/Y H:i") }}</td>
                      <td>
-                        <a href="/blog_php/backoff/user-{{ user.id_user|e }}" class="btn btn-secondary">Modifier</a>
+                        <a href="/blog_php/backoff/user-{{ user.getIdUser|e }}" class="btn btn-secondary">Modifier</a>
                         <form class="formReset" method="POST">
-                           <button class="btn btn-danger" type="submit" name="resetUser" value="{{ user.id_user|e }}">Supprimer</button>
+                           <button class="btn btn-danger" type="submit" name="resetUser" value="{{ user.getIdUser|e }}">Supprimer</button>
                         </form>
                      </td>
                   </tr>

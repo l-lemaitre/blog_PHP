@@ -15,12 +15,14 @@
             $users = UserRepository::getUsers();
 
             if(isset($_GET["reply"])) {
-                $reply = htmlspecialchars($_GET["reply"]);
+                $reply = filter_input(INPUT_GET, 'reply', FILTER_SANITIZE_URL);
+
+                $reply = htmlspecialchars($reply);
             } else {
                 $reply = false;
             }
 
-            $this->render('views/templates/admin',
+            $this->render('../views/templates/admin',
                 'users.html.twig',
                 ['users' => $users,
                 'admin' => $_SESSION["admin"],
@@ -28,11 +30,15 @@
             );
         }
 
-        public function renderFormResetUser($id) {
+        public function renderFormResetUser() {
             if (isset($_POST["resetUser"])) {
-                UserRepository::resetUser($id);
+                $idUser = filter_input(INPUT_POST, 'resetUser', FILTER_VALIDATE_INT);
 
-                if ($_SESSION["admin_id"] == $id) {
+                $idUser = htmlspecialchars($idUser);
+
+                UserRepository::resetUser($idUser);
+
+                if ($_SESSION["admin_id"] == $idUser) {
                     header("location:logout");
                 } else {
                     header("location:users?page=1");
@@ -41,7 +47,7 @@
         }
 
         public function displayAddAdmin() {
-            $this->render('views/templates/admin',
+            $this->render('../views/templates/admin',
                 'add_admin.html.twig',
                 ['admin' => $_SESSION["admin"]]
             );
@@ -49,12 +55,23 @@
 
         public function renderFormAddAdmin() {
             if (isset($_POST["addAdmin"])) {
-                $lastname = htmlspecialchars(trim($_POST["lastname"]));
-                $firstname = htmlspecialchars(trim($_POST["firstname"]));
-                $username = htmlspecialchars(trim($_POST["username"]));
-                $email = htmlspecialchars(strtolower(trim($_POST["email"])));
-                $password = trim($_POST["password"]);
-                $passwordConfirmation = trim($_POST["passwordConfirmation"]);
+                $args = [
+                    'lastname' => FILTER_SANITIZE_STRING,
+                    'firstname' => FILTER_SANITIZE_STRING,
+                    'username' => FILTER_SANITIZE_STRING,
+                    'email' => FILTER_SANITIZE_STRING,
+                    'password' => FILTER_SANITIZE_STRING,
+                    'passwordConfirmation' => FILTER_SANITIZE_STRING
+                ];
+
+                $formInputs = filter_input_array(INPUT_POST, $args);
+
+                $lastname = htmlspecialchars(trim($formInputs["lastname"]));
+                $firstname = htmlspecialchars(trim($formInputs["firstname"]));
+                $username = htmlspecialchars(trim($formInputs["username"]));
+                $email = htmlspecialchars(strtolower(trim($formInputs["email"])));
+                $password = trim($formInputs["password"]);
+                $passwordConfirmation = trim($formInputs["passwordConfirmation"]);
                 $valid = true;
                 $errors = [];
 
@@ -155,7 +172,7 @@
 
                     header("location:users?page=1&reply=ok");
                 } else {
-                    $this->render('views/templates/admin',
+                    $this->render('../views/templates/admin',
                         'add_admin.html.twig',
                         ['lastname' => $lastname,
                         'firstname' => $firstname,
@@ -176,7 +193,7 @@
                 throw new NotFoundException();
             }
 
-            $this->render('views/templates/admin',
+            $this->render('../views/templates/admin',
                 'edit_user.html.twig',
                 ['user' => $user,
                 'admin' => $_SESSION["admin"]]
@@ -184,18 +201,26 @@
         }
 
         public function renderFormEditUser($id) {
-            if(isset($_POST["editUser"])) {
-                $lastname = htmlspecialchars(trim($_POST["lastname"]));
-                $firstname = htmlspecialchars(trim($_POST["firstname"]));
-                $username = htmlspecialchars(trim($_POST["username"]));
-                $email = htmlspecialchars(strtolower(trim($_POST["email"])));
-                $password = trim($_POST["password"]);
-                $passwordConfirmation = trim($_POST["passwordConfirmation"]);
-                if (isset($_POST["isAdmin"])) {
-                    $isAdmin = 1;
-                } else {
-                    $isAdmin = 0;
-                }
+            if (isset($_POST["editUser"])) {
+                $args = [
+                    'lastname' => FILTER_SANITIZE_STRING,
+                    'firstname' => FILTER_SANITIZE_STRING,
+                    'username' => FILTER_SANITIZE_STRING,
+                    'email' => FILTER_SANITIZE_STRING,
+                    'password' => FILTER_SANITIZE_STRING,
+                    'passwordConfirmation' => FILTER_SANITIZE_STRING,
+                    'isAdmin' => FILTER_SANITIZE_STRING
+                ];
+
+                $formInputs = filter_input_array(INPUT_POST, $args);
+
+                $lastname = htmlspecialchars(trim($formInputs["lastname"]));
+                $firstname = htmlspecialchars(trim($formInputs["firstname"]));
+                $username = htmlspecialchars(trim($formInputs["username"]));
+                $email = htmlspecialchars(strtolower(trim($formInputs["email"])));
+                $password = trim($formInputs["password"]);
+                $passwordConfirmation = trim($formInputs["passwordConfirmation"]);
+                $formInputs["isAdmin"] ? $isAdmin = 1 : $isAdmin = 0;
                 $valid = true;
                 $errors = [];
 
@@ -230,7 +255,7 @@
                 else {
                     $checkUsername = UserRepository::checkUsername($username);
 
-                    if($checkUsername && $checkUsername->username <> $user->username) {
+                    if($checkUsername && $checkUsername->getUsername() <> $user->getUsername()) {
                         $valid = false;
                         $errors['usedUsername'] = "Ce \"Nom d'utilisateur\" n'est pas disponible.";
                     }
@@ -247,14 +272,14 @@
                 else {
                     $checkEmail = UserRepository::checkEmail($email);
 
-                    if($checkEmail && $checkEmail->email <> $user->email) {
+                    if($checkEmail && $checkEmail->getEmail() <> $user->getEmail()) {
                         $valid = false;
                         $errors['usedMail'] = "Cette adresse \"E-mail\" est déjà utilisée.";
                     }
                 }
 
                 if(empty($password)) {
-                    $hash = $user->password;
+                    $hash = $user->getPassword();
                 }
                 elseif(!preg_match("/^[0-9A-Za-z]{8,}$/", $password)) {
                     $valid = false;
@@ -271,7 +296,7 @@
                 if ($valid) {
                     UserRepository::setUser($username, $email, $hash, $lastname, $firstname, $isAdmin, $id);
 
-                    if ($isAdmin && $hash && ($isAdmin <> $user->is_admin || $username <> $user->username || $email <> $user->email || $hash <> $user->password)) {
+                    if ($isAdmin && $hash && ($isAdmin <> $user->getIsAdmin() || $username <> $user->getUsername() || $email <> $user->getEmail() || $hash <> $user->getPassword())) {
                         $emailSender = "no-reply@blog.llemaitre.com";
                         $emailRecipient = $email;
                         $subject = "Activation de votre compte Administrateur de Blog LLemaitre.com";
@@ -305,7 +330,7 @@
                         header("location:users?page=1");
                     }
                 } else {
-                    $this->render('views/templates/admin',
+                    $this->render('../views/templates/admin',
                         'edit_user.html.twig',
                         ['user' => $user,
                         'lastname' => $lastname,

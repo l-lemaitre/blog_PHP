@@ -1,6 +1,6 @@
 {% extends "layout_bo.html.twig" %}
 
-{% block title %}Modifier Commentaire #{{ comment.id_comment|e }}{% endblock %}
+{% block title %}Modifier Commentaire #{{ comment.getIdComment|e }}{% endblock %}
 {% block content %}
    <!-- BREADCRUMB -->
    <nav class="breadcrumbs breadcrumbs-bo">
@@ -8,26 +8,26 @@
          <li><a href="/blog_php/backoff/dashboard" class="home">Accueil</a></li>
          <li class="threadTitle"><a href="/blog_php/backoff/comments?page=1">Liste des commentaires</a></li>
          <li class="threadTitle300" title="Liste des commentaires"><a href="/blog_php/backoff/comments?page=1">Liste des commentair...</a></li>
-         <li class="threadTitle">Modifier commentaire #{{ comment.id_comment|e }}</li>
-         <li class="threadTitle300" title="Modifier commentaire #{{ comment.id_comment|e }}">...</li>
+         <li class="threadTitle">Modifier commentaire #{{ comment.getIdComment|e }}</li>
+         <li class="threadTitle300" title="Modifier commentaire #{{ comment.getIdComment|e }}">...</li>
       </ul>
    </nav>
    <!-- MAIN CONTENT -->
    <div class="containerEdit">
-      <h3><i class="fas fa-pencil-alt"></i>Modifier commentaire #{{ comment.id_comment|e }}</h3>
+      <h3><i class="fas fa-pencil-alt"></i>Modifier commentaire #{{ comment.getIdComment|e }}</h3>
       <form method="POST">
          <div class="notEditable">
             <p>Auteur :</p>
-            <p class="fw-bold name"><a href="/blog_php/backoff/user-{{ comment.user_id|e }}">{{ comment.user_username|e }}</a></p>
+            <p class="fw-bold name"><a href="/blog_php/backoff/user-{{ comment.getUserId|e }}">{{ comment.user_username|e }}</a></p>
          </div>
          <div class="notEditable">
             <p>Article :</p>
-            <p class="fw-bold name"><a href="/blog_php/backoff/post-{{ comment.post_id|e }}">{{ comment.post_title|e }}</a></p>
+            <p class="fw-bold name"><a href="/blog_php/backoff/post-{{ comment.getPostId|e }}">{{ comment.post_title|e }}</a></p>
          </div>
-         {% if admin_id == comment.user_id %}
+         {% if admin_id == comment.getUserId %}
             <div>
                <label for="contents">Contenu :</label>
-               <textarea id="contents" name="contents" rows="10" required>{% if contents is defined %}{{ contents|e }}{% else %}{{ comment.contents|e }}{% endif %}</textarea>
+               <textarea id="contents" name="contents" rows="10" required>{% if contents is defined %}{{ contents|e }}{% else %}{{ comment.getContents|e }}{% endif %}</textarea>
                {% if errors.emptyContents is defined %}
                   <p>{{ errors.emptyContents|e }}</p>
                {% endif %}
@@ -35,15 +35,15 @@
          {% else %}
             <div class="notEditable">
                <p>Contenu :</p>
-               <p>{{ comment.contents|e }}</p>
+               <p>{{ comment.getContents|e }}</p>
             </div>
          {% endif %}
          <div>
             <label for="status">Statut :</label>
             <select id="status" name="status" required>
-               <option value="approved" {% if comment.status == "approved" %}selected="selected"{% endif %}>Approuvé</option>
-               <option value="pending" {% if comment.status == "pending" %}selected="selected"{% endif %}>En attente</option>
-               <option value="rejected" {% if comment.status == "rejected" %}selected="selected"{% endif %}>Rejeté</option>
+               <option value="approved" {% if comment.getStatus == "approved" %}selected="selected"{% endif %}>Approuvé</option>
+               <option value="pending" {% if comment.getStatus == "pending" %}selected="selected"{% endif %}>En attente</option>
+               <option value="rejected" {% if comment.getStatus == "rejected" %}selected="selected"{% endif %}>Rejeté</option>
             </select>
             {% if errors.emptyStatus is defined %}
                <p>{{ errors.emptyStatus|e }}</p>
@@ -53,7 +53,7 @@
       </form>
       <form class="formReset" method="POST">
          <button type="button" id="resetForm" class="btnReset">Supprimer le commentaire</button>
-         <input type="hidden" name="resetComment" value="1" />
+         <input type="hidden" name="resetComment" value="{{ comment.getIdComment|e }}" />
       </form>
    </div>
 {% endblock %}

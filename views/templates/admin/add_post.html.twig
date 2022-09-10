@@ -19,8 +19,8 @@
             <label for="category">Catégorie :</label>
             <select id="category" name="category" required>
                {% for category in categories %}
-                  <option value="{{ category.id_category|e }}" {% if category.id_category == post.category_id %}selected="selected"{% endif %}>
-                     {{ category.title|e }}
+                  <option value="{{ category.getIdCategory|e }}" {% if postedCategory is defined %}{% if postedCategory == category.getIdCategory %}selected="selected"{% endif %}{% endif %}>
+                     {{ category.getTitle|e }}
                   </option>
                {% endfor %}
             </select>

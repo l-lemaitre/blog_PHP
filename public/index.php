@@ -1,22 +1,22 @@
 <?php
-    require "vendor/autoload.php";
+    require "../vendor/autoload.php";
 
     session_start();
 
     use App\Classes\Controllers\Admin\AuthController;
     use App\Classes\Controllers\Admin\CommentController;
-    use App\Classes\Controllers\Admin\DashboardController;
     use App\Classes\Controllers\Admin\ErrorAdminController;
     use App\Classes\Controllers\Admin\PostController;
     use App\Classes\Controllers\Admin\UserController;
-    use App\Classes\Controllers\Public\CommentFrontController;
     use App\Classes\Controllers\Public\ErrorController;
     use App\Classes\Controllers\Public\HomeController;
     use App\Classes\Controllers\Public\PostFrontController;
     use App\Classes\Exceptions\NotFoundException;
     use App\Classes\Router\Router;
 
-    $pathUrl = htmlspecialchars($_GET['url']);
+    $pathUrl = filter_input(INPUT_GET, 'url', FILTER_SANITIZE_URL);
+
+    $pathUrl = htmlspecialchars($pathUrl);
 
     $pathUrl = $pathUrl == 'index' ? $pathUrl = '/' : $pathUrl;
 
@@ -58,7 +58,7 @@
 
     $router->post('/backoff/posts', function() {
         $postController = new PostController();
-        $postController->renderFormResetPost($_POST["resetPost"]);
+        $postController->renderFormResetPost();
     });
 
     $router->get('/backoff/add-post', function() {
@@ -86,7 +86,7 @@
 
     $router->post('/backoff/comments', function() {
         $commentController = new CommentController();
-        $commentController->renderFormResetComment($_POST["resetComment"]);
+        $commentController->renderFormResetComment();
     });
 
     $router->get('/backoff/comment-:id', 'Admin\Comment#displayComment')->with("id", "[0-9]+");
@@ -104,7 +104,7 @@
 
     $router->post('/backoff/users', function() {
         $userController = new UserController();
-        $userController->renderFormResetUser($_POST["resetUser"]);
+        $userController->renderFormResetUser();
     });
 
     $router->get('/backoff/add-admin', function() {

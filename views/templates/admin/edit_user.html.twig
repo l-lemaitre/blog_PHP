@@ -1,23 +1,23 @@
 {% extends "layout_bo.html.twig" %}
 
-{% block title %}Modifier Utilisateur {{ user.username|e }}{% endblock %}
+{% block title %}Modifier Utilisateur {{ user.getUsername|e }}{% endblock %}
 {% block content %}
    <!-- BREADCRUMB -->
    <nav class="breadcrumbs breadcrumbs-bo">
       <ul>
          <li><a href="/blog_php/backoff/dashboard" class="home">Accueil</a></li>
          <li><a href="/blog_php/backoff/users?page=1">Liste des utilisateurs</a></li>
-         <li class="threadTitle">Modifier utilisateur {{ user.username|e }}</li>
-         <li class="threadTitle300" title="Modifier utilisateur {{ user.username|e }}">...</li>
+         <li class="threadTitle">Modifier utilisateur {{ user.getUsername|e }}</li>
+         <li class="threadTitle300" title="Modifier utilisateur {{ user.getUsername|e }}">...</li>
       </ul>
    </nav>
    <!-- MAIN CONTENT -->
    <div class="containerEdit">
-      <h3><i class="fas fa-pencil-alt"></i>Modifier utilisateur {{ user.username|e }}</h3>
+      <h3><i class="fas fa-pencil-alt"></i>Modifier utilisateur {{ user.getUsername|e }}</h3>
       <form method="POST">
          <div>
             <label for="lastname">Nom :</label>
-            <input type="text" id="lastname" name="lastname" value="{% if lastname is defined %}{{ lastname|e }}{% else %}{{ user.lastname|e }}{% endif %}" maxlength="100" required />
+            <input type="text" id="lastname" name="lastname" value="{% if lastname is defined %}{{ lastname|e }}{% else %}{{ user.getLastname|e }}{% endif %}" maxlength="100" required />
             {% if errors.emptyLastname is defined %}
                <p>{{ errors.emptyLastname|e }}</p>
             {% elseif errors.invalidLastname is defined %}
@@ -26,7 +26,7 @@
          </div>
          <div>
             <label for="firstname">Prénom :</label>
-            <input type="text" id="firstname" name="firstname" value="{% if firstname is defined %}{{ firstname|e }}{% else %}{{ user.firstname|e }}{% endif %}" maxlength="100" required />
+            <input type="text" id="firstname" name="firstname" value="{% if firstname is defined %}{{ firstname|e }}{% else %}{{ user.getFirstname|e }}{% endif %}" maxlength="100" required />
             {% if errors.emptyFirstname is defined %}
                <p>{{ errors.emptyFirstname|e }}</p>
             {% elseif errors.invalidFirstname is defined %}
@@ -35,7 +35,7 @@
          </div>
          <div>
             <label for="username">Nom d'utilisateur :</label>
-            <input type="text" id="username" name="username" value="{% if username is defined %}{{ username|e }}{% else %}{{ user.username|e }}{% endif %}" required />
+            <input type="text" id="username" name="username" value="{% if username is defined %}{{ username|e }}{% else %}{{ user.getUsername|e }}{% endif %}" required />
             {% if errors.emptyUsername is defined %}
                <p>{{ errors.emptyUsername|e }}</p>
             {% elseif errors.invalidUsername is defined %}
@@ -47,7 +47,7 @@
          <div>
             <div>
                <label for="email">E-mail :</label>
-               <input type="email" id="email" name="email" value="{% if email is defined %}{{ email|e }}{% else %}{{ user.email|e }}{% endif %}" maxlength="100" required />
+               <input type="email" id="email" name="email" value="{% if email is defined %}{{ email|e }}{% else %}{{ user.getEmail|e }}{% endif %}" maxlength="100" required />
                {% if errors.emptyMail is defined %}
                   <p>{{ errors.emptyMail|e }}</p>
                {% elseif errors.invalidMail is defined %}
@@ -73,13 +73,13 @@
          </div>
          <div>
             <label for="isAdmin" class="isAdminLabel">Administrateur </label>
-            <input type="checkbox" id="isAdmin" class="isAdmin" name="isAdmin" {% if isAdmin is defined %}{% if isAdmin == 1 %}checked="checked"{% endif %} {% elseif user.is_admin == 1 %}checked="checked"{% endif %} />
+         <input type="checkbox" id="isAdmin" class="isAdmin" name="isAdmin" {% if isAdmin is defined %}{% if isAdmin == 1 %}checked="checked"{% endif %} {% elseif user.getIsAdmin == 1 %}checked="checked"{% endif %} />
          </div>
          <input type="submit" class="btn" name="editUser" value="Valider" />
       </form>
       <form class="formReset" method="POST">
          <button type="button" id="resetForm" class="btnReset">Supprimer l'utilisateur</button>
-         <input type="hidden" name="resetUser" value="1" />
+         <input type="hidden" name="resetUser" value="{{ user.getIdUser|e }}" />
       </form>
    </div>
 {% endblock %}

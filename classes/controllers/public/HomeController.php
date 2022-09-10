@@ -9,12 +9,14 @@
     class HomeController extends Controller {
         public function displayHomePage() {
             if(isset($_GET["reply"])) {
-                $reply = htmlspecialchars($_GET["reply"]);
+                $reply = filter_input(INPUT_GET, 'reply', FILTER_SANITIZE_URL);
+
+                $reply = htmlspecialchars($reply);
             } else {
                 $reply = false;
             }
 
-            $this->render('views/templates/front',
+            $this->render('../views/templates/front',
                 'index.html.twig',
                 ['reply' => $reply]
             );
@@ -40,11 +42,21 @@
         public function renderContactForm() {
             // If the "message" POST variable is declared and different from NULL
             if (isset($_POST["message"])) {
-                $firstname = htmlspecialchars(trim($_POST["firstname"])); // We get the firstname
-                $lastname = htmlspecialchars(trim($_POST["lastname"])); // We get the lastname
-                $email = htmlspecialchars(strtolower(trim($_POST["email"]))); // We retrieve the email
-                $subject = strip_tags(trim($_POST["subject"])); // We retrieve the subject of the message
-                $contents = strip_tags(trim($_POST["contents"])); // We retrieve the contents of the message
+                $args = [
+                    'firstname' => FILTER_SANITIZE_STRING,
+                    'lastname' => FILTER_SANITIZE_STRING,
+                    'email' => FILTER_SANITIZE_STRING,
+                    'subject' => FILTER_SANITIZE_STRING,
+                    'contents' => FILTER_SANITIZE_STRING
+                ];
+
+                $formInputs = filter_input_array(INPUT_POST, $args);
+
+                $firstname = htmlspecialchars(trim($formInputs["firstname"])); // We get the firstname
+                $lastname = htmlspecialchars(trim($formInputs["lastname"])); // We get the lastname
+                $email = htmlspecialchars(strtolower(trim($formInputs["email"]))); // We retrieve the email
+                $subject = strip_tags(trim($formInputs["subject"])); // We retrieve the subject of the message
+                $contents = strip_tags(trim($formInputs["contents"])); // We retrieve the contents of the message
                 $valid = true;
                 $errors = [];
 
@@ -110,7 +122,7 @@
 
                     header("location:index?reply=ok#containerContact");
                 } else {
-                    $this->render('views/templates/front',
+                    $this->render('../views/templates/front',
                         'index.html.twig',
                         ['firstname' => $firstname,
                         'lastname' => $lastname,

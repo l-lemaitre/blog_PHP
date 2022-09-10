@@ -12,7 +12,7 @@
         public function displayComments() {
             $comments = CommentRepository::getComments();
 
-            $this->render('views/templates/admin',
+            $this->render('../views/templates/admin',
                 'comments.html.twig',
                 ['comments' => $comments,
                 'admin' => $_SESSION["admin"]]
@@ -25,7 +25,7 @@
             if (!$comment) {
                 throw new NotFoundException();
             } else {
-                $this->render('views/templates/admin',
+                $this->render('../views/templates/admin',
                     'comment.html.twig',
                     ['comment' => $comment,
                     'admin' => $_SESSION["admin"],
@@ -35,15 +35,18 @@
         }
 
         public function renderFormEditComment($id) {
-            if(isset($_POST["editComment"])) {
-                if (isset($contents)) {
-                    $contents = strip_tags(trim($_POST["contents"]));
-                } else {
-                    $comment = CommentRepository::getCommentById($id);
+            if (isset($_POST["editComment"])) {
+                $args = [
+                    'contents' => FILTER_SANITIZE_STRING,
+                    'status' => FILTER_SANITIZE_STRING
+                ];
 
-                    $contents = $comment->contents;
-                }
-                $status = htmlspecialchars(trim($_POST["status"]));
+                $formInputs = filter_input_array(INPUT_POST, $args);
+
+                $comment = CommentRepository::getCommentById($id);
+
+                $formInputs["contents"] ? $contents = strip_tags(trim($formInputs["contents"])) : $contents = $comment->getContents();
+                $status = htmlspecialchars(trim($formInputs["status"]));
                 $valid = true;
                 $errors = [];
 
@@ -62,7 +65,7 @@
 
                     header("location:comments?page=1");
                 } else {
-                    $this->render('views/templates/admin',
+                    $this->render('../views/templates/admin',
                         'comment.html.twig',
                         ['comment' => $comment,
                         'contents' => $contents,
@@ -75,9 +78,13 @@
             }
         }
 
-        public function renderFormResetComment($id) {
-            if(isset($_POST["resetComment"])) {
-                CommentRepository::resetComment($id);
+        public function renderFormResetComment() {
+            if (isset($_POST["resetComment"])) {
+                $idComment = filter_input(INPUT_POST, 'resetComment', FILTER_VALIDATE_INT);
+
+                $idComment = htmlspecialchars($idComment);
+
+                CommentRepository::resetComment($idComment);
 
                 header("location:comments?page=1");
             }

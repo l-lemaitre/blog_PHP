@@ -16,15 +16,22 @@
         public function displayLoginBackOffice() {
             $this->isLogged();
 
-            $this->render('views/templates/front',
+            $this->render('../views/templates/front',
                 'login.html.twig');
         }
 
         public function renderFormLoginBackOffice() {
             // If the post login variable is declared and different from NULL
-            if(isset($_POST["login"])) {
-                $mailUsername  = htmlspecialchars(trim($_POST["mailUsername"])); // Retrieve the content of the "mailUsername" input field
-                $password = trim($_POST["password"]); // We recover the password
+            if (isset($_POST["login"])) {
+                $args = [
+                    'mailUsername' => FILTER_SANITIZE_STRING,
+                    'password' => FILTER_SANITIZE_STRING
+                ];
+
+                $formInputs = filter_input_array(INPUT_POST, $args);
+
+                $mailUsername  = htmlspecialchars(trim($formInputs["mailUsername"])); // Retrieve the content of the "mailUsername" input field
+                $password = trim($formInputs["password"]); // We recover the password
                 $valid = true;
                 $errors = [];
 
@@ -44,7 +51,7 @@
 
                 if($user) {
                     // We check if the password used corresponds to this hash using password_verify
-                    $correctPassword = password_verify($password, $user->password);
+                    $correctPassword = password_verify($password, $user->getPassword());
                 }
                 else {
                     $correctPassword = false;
@@ -52,9 +59,9 @@
 
                 // If there is a result then we load the admin session using the session variables
                 if($correctPassword && $valid) {
-                    $_SESSION["admin_id"] = htmlspecialchars($user->id_user);
-                    $_SESSION["admin"] = htmlspecialchars($user->username);
-                    $_SESSION["admin_email"] = htmlspecialchars($user->email);
+                    $_SESSION["admin_id"] = htmlspecialchars($user->getIdUser());
+                    $_SESSION["admin"] = htmlspecialchars($user->getUsername());
+                    $_SESSION["admin_email"] = htmlspecialchars($user->getEmail());
 
                     // Send to the back office homepage
                     header("location:/blog_php/backoff/dashboard");
@@ -65,7 +72,7 @@
                 }
             }
 
-            $this->render('views/templates/front',
+            $this->render('../views/templates/front',
                 'login.html.twig',
                 ['mailUsername' => $mailUsername,
                 'password' => $password,
