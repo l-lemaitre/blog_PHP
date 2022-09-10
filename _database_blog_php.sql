@@ -5,9 +5,9 @@
 # https://www.sequelpro.com/
 # https://github.com/sequelpro/sequelpro
 #
-# Host: 127.0.0.1 (MySQL 5.7.38-0ubuntu0.18.04.1-log)
+# Host: 127.0.0.1 (MySQL 5.7.39-0ubuntu0.18.04.2-log)
 # Database: blog_php
-# Generation Time: 2022-08-28 18:27:29 +0000
+# Generation Time: 2022-09-09 20:39:16 +0000
 # ************************************************************
 
 
@@ -79,7 +79,9 @@ VALUES
 	(4,2,2,'Test3.','approved',0,'2022-07-27 14:32:38','2022-07-27 14:32:38'),
 	(5,3,1,'Test 4.','pending',0,'2022-08-01 22:19:51','2022-08-01 22:19:51'),
 	(6,1,1,'Test 5.','approved',0,'2022-08-07 15:36:44','2022-08-07 15:36:44'),
-	(7,1,5,'Test edit.','approved',0,'2022-08-28 17:53:50','2022-08-28 20:27:10');
+	(7,1,5,'Test edit.','approved',0,'2022-08-28 17:53:50','2022-08-28 20:27:10'),
+	(8,3,1,'Test soutenance.','approved',1,'2022-09-09 09:26:22','2022-09-09 09:34:35'),
+	(9,1,6,'Test soutenance 2.','approved',0,'2022-09-09 09:32:19','2022-09-09 09:32:19');
 
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -119,7 +121,8 @@ VALUES
 	(2,2,1,'Suspendisse potenti','Integer sed placerat dui.','Suspendisse potenti. Integer sed placerat dui. Nullam sed pellentesque quam. Morbi egestas fermentum lacus, a ornare orci iaculis porttitor. Mauris interdum justo leo, ut porta ante malesuada vel. Praesent non vestibulum ipsum, vitae sollicitudin nulla. Vivamus aliquam, arcu sit amet tempus mollis, sapien elit sodales purus, a suscipit augue dolor eu ipsum. Etiam sit amet enim mollis, placerat risus sit amet, accumsan justo. Integer placerat luctus velit, et accumsan lacus gravida vel. Aenean posuere vitae libero et dapibus.\r\n\r\nPraesent pharetra consectetur eros a pharetra. Aenean in placerat mauris, quis dictum lectus. Nunc et molestie turpis, non gravida nunc. Donec non varius ligula. Aenean tincidunt turpis ac arcu faucibus, viverra mattis turpis commodo. Sed eleifend orci ac diam gravida, ac posuere tortor pharetra. Nullam non congue erat. Nulla at molestie metus. Donec est leo, hendrerit quis urna nec, mattis tempor dui.\r\n\r\nNunc tempus dignissim rutrum. Sed ornare mauris in gravida dapibus. Nulla in facilisis ante. Integer ac velit purus. Nunc molestie erat vehicula ullamcorper pharetra. Ut rutrum, nulla vel egestas viverra, massa leo pharetra odio, a suscipit tellus mauris in nibh. Vivamus quis suscipit est, ac molestie ante. Cras cursus purus sit amet viverra blandit. Nullam gravida ultrices felis, eget eleifend turpis gravida sed. Nulla et aliquam nisi. Praesent vel justo ante. Maecenas eu mattis urna. Duis et tellus sed ligula facilisis volutpat. Proin accumsan nisl et purus porta, in fermentum purus semper. Aenean nec sem vitae ligula fringilla vulputate.','suspendisse-potenti',1,0,'2022-06-05 15:19:13','2022-07-15 19:28:49'),
 	(3,1,1,'Test','Test.','Test.','test',0,0,'2022-07-15 19:56:52','2022-08-28 20:25:18'),
 	(4,1,1,'Test2','Test 2.','Test 2.','test2',1,1,'2022-07-20 18:38:43','2022-07-20 18:50:56'),
-	(5,1,1,'Test3','Test 3.','Donec nec urna gravida, auctor lorem a, aliquam orci. Morbi ut arcu et tortor fringilla tristique. Sed eget laoreet ipsum. Cras quis sapien eros. Sed eget lobortis lacus. Vivamus aliquet purus vitae sodales placerat. Donec mattis ultricies ligula sed venenatis. Nullam pulvinar nisl sit amet nulla sodales, vitae interdum dolor vehicula. Vestibulum et neque risus. Nullam luctus vulputate pharetra. Pellentesque consequat augue a ipsum varius placerat. Aliquam ullamcorper blandit porta. Integer semper gravida venenatis. Lorem ipsum dolor sit amet, consectetur adipiscing elit.','test3',1,0,'2022-08-28 17:32:32','2022-08-28 17:47:11');
+	(5,1,1,'Test3','Test 3.','Donec nec urna gravida, auctor lorem a, aliquam orci. Morbi ut arcu et tortor fringilla tristique. Sed eget laoreet ipsum. Cras quis sapien eros. Sed eget lobortis lacus. Vivamus aliquet purus vitae sodales placerat. Donec mattis ultricies ligula sed venenatis. Nullam pulvinar nisl sit amet nulla sodales, vitae interdum dolor vehicula. Vestibulum et neque risus. Nullam luctus vulputate pharetra. Pellentesque consequat augue a ipsum varius placerat. Aliquam ullamcorper blandit porta. Integer semper gravida venenatis. Lorem ipsum dolor sit amet, consectetur adipiscing elit.','test3',1,0,'2022-08-28 17:32:32','2022-08-28 17:47:11'),
+	(6,1,1,'Aliquam lobortis','Aliquam lobortis.','Aliquam lobortis ex eu nisl rutrum blandit. Nullam maximus ante ac ipsum imperdiet sollicitudin. Vestibulum lorem nisi, pulvinar in consequat nec, faucibus in turpis. Integer dignissim ullamcorper magna at posuere. Fusce in leo vehicula, hendrerit lacus dignissim, scelerisque nisl. Donec et interdum ante. Duis nec mi a purus mollis faucibus vel vel dui. Integer id dui a orci auctor blandit. Aliquam tempor erat vel mauris elementum, quis egestas metus imperdiet. Proin vel nisi ligula. Nullam blandit, ante quis tincidunt mattis, justo nunc vestibulum arcu, a maximus sem urna sed odio. Suspendisse scelerisque sollicitudin vulputate. Mauris egestas turpis a accumsan elementum. Nam eu rutrum enim, a mattis odio. Pellentesque convallis consectetur mi, non scelerisque dui tristique id. Cras sit amet mi quis velit congue ullamcorper.','aliquam-lobortis',1,0,'2022-09-09 09:31:00','2022-09-09 09:31:31');
 
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -132,9 +135,9 @@ DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `user` (
   `id_user` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '',
+  `username` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT '',
+  `password` varchar(255) DEFAULT '',
   `lastname` varchar(255) DEFAULT '',
   `firstname` varchar(255) DEFAULT '',
   `is_admin` tinyint(1) NOT NULL,
@@ -151,9 +154,10 @@ LOCK TABLES `user` WRITE;
 
 INSERT INTO `user` (`id_user`, `username`, `email`, `password`, `lastname`, `firstname`, `is_admin`, `deleted`, `registration_date`, `unsubscribe_date`)
 VALUES
-	(1,X'4C75646F','contact@llemaitre.com',X'246172676F6E326924763D3139246D3D313032342C743D322C703D3224516B3172626E63785556567A556B744B516D356B5951246C6A554A6E614B79637434394542664731553835582B74566F397257655A38435437727A55706966313551','Lemaître','Ludovic',1,0,'2022-06-05 13:43:06','2022-08-28 14:27:24'),
-	(2,X'4E65726F6661757374','ludoviclemaitre@orange.fr',X'','','',0,0,'2022-07-27 10:15:35','2022-08-28 14:27:22'),
-	(3,X'536174C3B4','ludovic@23prod.com',X'','','',0,0,'2022-07-27 14:31:38',NULL);
+	(1,'Ludo','contact@llemaitre.com','$argon2i$v=19$m=1024,t=2,p=2$Qk1rbncxUVVzUktKQm5kYQ$ljUJnaKyct49EBfG1U85X+tVo9rWeZ8CT7rzUpif15Q','Lemaître','Ludovic',1,0,'2022-06-05 13:43:06','2022-08-28 14:27:24'),
+	(2,'Nerofaust','shooting.star@orange.fr','','','',0,0,'2022-07-27 10:15:35','2022-08-28 14:27:22'),
+	(3,'Satô','ludovic@23prod.com','','','',0,0,'2022-07-27 14:31:38',NULL),
+	(4,'Christophe','ludoviclemaitre@orange.fr','$argon2i$v=19$m=65536,t=4,p=1$T2FKbVRyMmViL3VBUUpnVA$KA9ktg2L0AebJnjbMLUVeDigDMvZoB52sbJ8E5jAAQU','Christophe','Gilles',1,0,'2022-09-09 09:37:06',NULL);
 
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;

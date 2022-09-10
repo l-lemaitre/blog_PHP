@@ -14,10 +14,10 @@
       {% for post in posts %}
          <div class="card mt-5">
             <div class="card-body text-center">
-               <h3 class="card-title">{{ post.title|e }}</h3>
-               <p>{{ post.date_updated|date("d/m/Y") }}</p>
-               <p class="card-text">{{ post.chapo|e }}</p>
-               <div class="subheading"><a href="/blog_php/post/{{ post.slug|e }}-{{ post.id_post|e }}">Lire</a></div>
+               <h3 class="card-title">{{ post.getTitle|e }}</h3>
+               <p>{{ post.getDateUpdated|date("d/m/Y") }}</p>
+               <p class="card-text">{{ post.getChapo|e }}</p>
+               <div class="subheading"><a href="/blog_php/post/{{ post.getSlug|e }}-{{ post.getIdPost|e }}">Lire</a></div>
             </div>
          </div>
       {% endfor %}

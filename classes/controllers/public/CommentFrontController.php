@@ -10,17 +10,25 @@
 
     class CommentFrontController extends Controller {
         public function renderFormAddComment($slug, $id) {
-            if(isset($_POST["addComment"])) {
+            if (isset($_POST["addComment"])) {
+                $args = [
+                    'username'   => FILTER_SANITIZE_STRING,
+                    'email'   => FILTER_SANITIZE_STRING,
+                    'contents' => FILTER_SANITIZE_STRING
+                ];
+
+                $formInputs = filter_input_array(INPUT_POST, $args);
+
                 if (isset($_SESSION["admin_id"])) {
                     $username = htmlspecialchars(trim($_SESSION["admin"]));
                     $email = htmlspecialchars(strtolower(trim($_SESSION["admin_email"])));
                     $status = Comment::APPROVED;
                 } else {
-                    $username = htmlspecialchars(trim($_POST["username"]));
-                    $email = htmlspecialchars(strtolower(trim($_POST["email"])));
+                    $username = htmlspecialchars(trim($formInputs["username"]));
+                    $email = htmlspecialchars(strtolower(trim($formInputs["email"])));
                     $status = Comment::PENDING;
                 }
-                $contents = strip_tags(trim($_POST["contents"]));
+                $contents = strip_tags(trim($formInputs["contents"]));
                 $valid = true;
                 $errors = [];
 
@@ -47,11 +55,11 @@
 
                     if (!isset($_SESSION["admin_id"])) {
                         if ($user) {
-                            if (($user->username <> $username) || ($user->email <> $email)) {
+                            if (($user->getUsername() <> $username) || ($user->getEmail() <> $email)) {
                                 $valid = false;
                                 $errors['mailUsername'] = "Le \"Nom\" ou l'adresse \"E-mail\" sont déjà utilisées.";
                             }
-                            elseif ($user->deleted == User::DELETED) {
+                            elseif ($user->getDeleted() == User::DELETED) {
                                 $valid = false;
                                 $errors['userDeleted'] = "Ce compte a été suspendu.";
                             }
@@ -69,7 +77,7 @@
                 }
 
                 if ($valid) {
-                    CommentRepository::insertComment($user_Id->id_user, $id, $contents, $status);
+                    CommentRepository::insertComment($user_Id->getIdUser(), $id, $contents, $status);
 
                     header("location:/blog_php/post/".$slug."-".$id."?reply=ok#containerComment");
                 } else {
@@ -77,7 +85,7 @@
 
                     $comments = CommentRepository::getApprovedCommentsById($id);
 
-                    $this->render('views/templates/front',
+                    $this->render('../views/templates/front',
                         'post.html.twig',
                         ['post' => $post,
                         'comments' => $comments,

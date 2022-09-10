@@ -30,18 +30,18 @@
             <tbody>
                {% for post in posts %}
                   <tr>
-                     <th scope="row">{{ post.id_post|e }}</th>
+                     <th scope="row">{{ post.getIdPost|e }}</th>
                      <td>{{ post.category_title|e }}</td>
                      <td>{{ post.user_username|e }}</td>
-                     <td>{{ post.title|e }}</td>
-                     <td title="{{ post.chapo|e }}">{% if post.chapo|length > 20 %}{{ post.chapo|slice(0, 20) }}...{% else %}{{ post.chapo|e }}{% endif %}</td>
-                     <td>{% if post.published == 0 %}Non{% else %}Oui{% endif %}</td>
-                     <td>{{ post.date_add|date("d/m/Y H:i") }}</td>
-                     <td>{{ post.date_updated|date("d/m/Y H:i") }}</td>
+                     <td>{{ post.getTitle|e }}</td>
+                     <td title="{{ post.getChapo|e }}">{% if post.getChapo|length > 20 %}{{ post.getChapo|slice(0, 20) }}...{% else %}{{ post.getChapo|e }}{% endif %}</td>
+                     <td>{% if post.getPublished == 0 %}Non{% else %}Oui{% endif %}</td>
+                     <td>{{ post.getDateAdd|date("d/m/Y H:i") }}</td>
+                     <td>{{ post.getDateUpdated|date("d/m/Y H:i") }}</td>
                      <td>
-                        <a href="/blog_php/backoff/post-{{ post.id_post|e }}" class="btn btn-secondary">Modifier</a>
+                        <a href="/blog_php/backoff/post-{{ post.getIdPost|e }}" class="btn btn-secondary">Modifier</a>
                         <form class="formReset" method="POST">
-                           <button class="btn btn-danger" type="submit" name="resetPost" value="{{ post.id_post|e }}">Supprimer</button>
+                           <button class="btn btn-danger" type="submit" name="resetPost" value="{{ post.getIdPost|e }}">Supprimer</button>
                         </form>
                      </td>
                   </tr>

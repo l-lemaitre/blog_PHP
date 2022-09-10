@@ -27,24 +27,24 @@
             <tbody>
                {% for comment in comments %}
                   <tr>
-                     <th scope="row">{{ comment.id_comment|e }}</th>
+                     <th scope="row">{{ comment.getIdComment|e }}</th>
                      <td>{{ comment.user_username|e }}</td>
                      <td>{{ comment.post_title|e }}</td>
                      <td>
-                        {% if comment.status == "approved" %}
+                        {% if comment.getStatus == "approved" %}
                            Approuvé
-                        {% elseif comment.status == "pending" %}
+                        {% elseif comment.getStatus == "pending" %}
                            En attente
-                        {% elseif comment.status == "rejected" %}
+                        {% elseif comment.getStatus == "rejected" %}
                            Rejeté
                         {% endif %}
                      </td>
-                     <td>{{ comment.date_add|date("d/m/Y H:i") }}</td>
-                     <td>{{ comment.date_updated|date("d/m/Y H:i") }}</td>
+                     <td>{{ comment.getDateAdd|date("d/m/Y H:i") }}</td>
+                     <td>{{ comment.getDateUpdated|date("d/m/Y H:i") }}</td>
                      <td>
-                        <a href="/blog_php/backoff/comment-{{ comment.id_comment|e }}" class="btn btn-secondary">Modifier</a>
+                        <a href="/blog_php/backoff/comment-{{ comment.getIdComment|e }}" class="btn btn-secondary">Modifier</a>
                         <form class="formReset" method="POST">
-                           <button class="btn btn-danger" type="submit" name="resetComment" value="{{ comment.id_comment|e }}">Supprimer</button>
+                           <button class="btn btn-danger" type="submit" name="resetComment" value="{{ comment.getIdComment|e }}">Supprimer</button>
                         </form>
                      </td>
                   </tr>
